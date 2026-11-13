@@ -111,7 +111,7 @@
         {
           "rot": "Terminal · contar testes antes e depois de um item",
           "icone": "terminal",
-          "conteudo": "cd ~/intelecto-v2\npython3 -m pytest -q"
+          "conteudo": "sudo apt install -y python3-pytest   # o programa de testes (uma vez só)\ncd ~/intelecto-v2\npython3 -m pytest -q"
         },
         {
           "rot": "Prática opcional · pedido para UM item ➕",
@@ -144,7 +144,7 @@
           "id": "2",
           "titulo": "Opcional: implemente só um ➕",
           "min": 12,
-          "texto": "Copie meu-assistente.md para ~/intelecto-v2, rode python3 -m pytest -q e anote quantos testes passam. Entregue ao agente apenas UM item ➕, seguindo as regras do arquivo. O agente faz o código; confira o patch ou as mudanças e rode os testes de novo. Usa a sua assinatura ou créditos do agente.",
+          "texto": "Instale o programa de testes uma vez (sudo apt install -y python3-pytest). Copie meu-assistente.md para ~/intelecto-v2, rode python3 -m pytest -q e anote quantos testes passam. Entregue ao agente apenas UM item ➕, seguindo as regras do arquivo. O agente faz o código; confira o patch ou as mudanças e rode os testes de novo. Usa a sua assinatura ou créditos do agente.",
           "pronto": "python3 -m pytest -q passa depois da mudança e mostra mais testes passando do que antes. Você conferiu o código que o agente produziu."
         }
       ]

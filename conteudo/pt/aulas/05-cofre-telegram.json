@@ -102,12 +102,12 @@
         {
           "rot": "Terminal · guardar e descobrir id",
           "icone": "terminal",
-          "conteudo": "python3 -m intelecto cofre guardar telegram\npython3 -m intelecto telegram"
+          "conteudo": "cd ~/intelecto-v2\npython3 -m intelecto cofre guardar telegram\npython3 -m intelecto telegram"
         },
         {
           "rot": "Terminal · cadastrar e ligar",
           "icone": "terminal",
-          "conteudo": "python3 -m intelecto configurar\npython3 -m intelecto verificar\npython3 -m intelecto telegram"
+          "conteudo": "cd ~/intelecto-v2\npython3 -m intelecto configurar\npython3 -m intelecto verificar\npython3 -m intelecto telegram"
         },
         {
           "rot": "No chat com o bot · mensagens",

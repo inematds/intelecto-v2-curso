@@ -182,7 +182,7 @@
         {
           "rot": "Linux (Ubuntu) · pré-requisitos",
           "icone": "terminal",
-          "conteudo": "sudo apt install -y git python3\npython3 --version && git --version"
+          "conteudo": "sudo apt install -y git python3 curl\npython3 --version && git --version"
         },
         {
           "rot": "macOS · instalar ferramentas do terminal e git",

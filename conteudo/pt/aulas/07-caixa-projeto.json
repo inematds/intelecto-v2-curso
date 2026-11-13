@@ -115,7 +115,7 @@
         {
           "rot": "Ubuntu · conferir ferramentas da caixa e do patch",
           "icone": "terminal",
-          "conteudo": "rsync --version\npatch --version"
+          "conteudo": "rsync --version\npatch --version\n# se algum faltar:\nsudo apt install -y rsync patch"
         },
         {
           "rot": "Terminal · criar nota na cópia, sem chave",
