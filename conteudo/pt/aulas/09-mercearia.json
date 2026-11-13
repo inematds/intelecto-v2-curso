@@ -1,0 +1,241 @@
+{
+  "slug": "mercearia",
+  "num": 9,
+  "menu": "Mercearia",
+  "titulo": "Monte o seu: a mercearia e o meu-assistente.md",
+  "titulo_curto": "Monte o seu",
+  "minutos": 18,
+  "lead": "O INTELECTO v2 já funciona. A mercearia ajuda a escolher o que acrescentar: ela monta um arquivo .md com os ingredientes, o estado de cada um no projeto e regras para um agente de programação. Você pode só ler um exemplo pronto, sem usar agente ou gastar créditos.",
+  "objetivo": "Escolher um exemplo, interpretar os marcadores do .md e dizer o que já existe e o que ainda precisa ser implementado.",
+  "competencias": [
+    "mercearia-interpretar",
+    "mercearia-praticar"
+  ],
+  "aprende": [
+    {
+      "t": "Escolher ingredientes ou carregar um exemplo pronto",
+      "icone": "check"
+    },
+    {
+      "t": "Ler o total, os marcadores e os arquivos citados no .md",
+      "icone": "check"
+    },
+    {
+      "t": "Entregar um item por vez ao agente e conferir testes",
+      "icone": "check"
+    }
+  ],
+  "hero_alt": "Humanoide ao lado de carrinho de mercearia com cartões em branco que apontam para um documento em branco.",
+  "secoes": [
+    {
+      "tipo": "diagrama",
+      "titulo": "Da escolha ao plano de trabalho",
+      "sub": "Clique nos três passos. Os símbolos dizem o que já existe e o que falta.",
+      "legenda": "✅ já existe no INTELECTO v2, com o arquivo · 🟡 existe em parte · ➕ precisa ser acrescentado, com a peça indicada.",
+      "nos": [
+        {
+          "titulo": "Escolher",
+          "sub": "ingredientes",
+          "icone": "lista",
+          "detalhe": "Na mercearia, escolha nos oito corredores ou carregue um dos cinco exemplos prontos. São 144 ingredientes de 12 projetos de agentes."
+        },
+        {
+          "titulo": "Baixar .md",
+          "sub": "Exportar",
+          "icone": "arquivo",
+          "detalhe": "Abra o carrinho e clique em Exportar. O arquivo meu-assistente.md classifica cada item: ✅ com arquivo, 🟡 parcial, ➕ com a peça onde encaixa."
+        },
+        {
+          "titulo": "Entregar",
+          "sub": "um por vez",
+          "icone": "robo",
+          "detalhe": "Copie o .md para o INTELECTO e peça ao Claude Code ou Codex para implementar um item parcial ou a acrescentar por vez. Confira o código e os testes antes de seguir."
+        }
+      ]
+    },
+    {
+      "tipo": "passos",
+      "titulo": "O que há no arquivo",
+      "sub": "A página monta uma lista de trabalho; ela não instala funcionalidades.",
+      "passos": [
+        {
+          "titulo": "Cinco pontos de partida",
+          "sub": "exemplos prontos",
+          "texto": [
+            "Jarvis pessoal no Telegram: 12 itens (✅ 5, 🟡 3, ➕ 4). Atendente do pequeno negócio: 12 (✅ 2, 🟡 2, ➕ 8). Programador seguro: 12 (✅ 4, 🟡 0, ➕ 8)."
+          ]
+        },
+        {
+          "titulo": "Mais dois exemplos",
+          "sub": "local e voz",
+          "texto": [
+            "100% local e privado: 10 itens (✅ 5, 🟡 1, ➕ 4). Casa inteligente com voz: 12 (✅ 2, 🟡 0, ➕ 10). Os cinco arquivos estão na pasta exemplos/ do repositório."
+          ]
+        },
+        {
+          "titulo": "Legenda",
+          "sub": "✅ 🟡 ➕",
+          "texto": [
+            "✅ já existe e cita o arquivo real, como intelecto/canais/telegram.py; 🟡 existe em parte e diz o que falta; ➕ não existe ainda e aponta a peça em que o agente pode acrescentar código."
+          ]
+        },
+        {
+          "titulo": "Regras no fim",
+          "sub": "para o agente",
+          "texto": [
+            "O .md manda fazer um ingrediente por vez, escrever teste em tests/ e rodar python3 -m pytest -q. Também manda preservar a trava, guardar segredos só no cofre, testar sem API real, atualizar a tabela do processo no README quando o uso mudar e dizer “pronto” só com a saída dos testes."
+          ]
+        }
+      ]
+    },
+    {
+      "tipo": "codigo",
+      "titulo": "Abra um exemplo e entregue o plano",
+      "sub": "A primeira prova só lê o arquivo e não usa agente. A segunda é opcional e usa sua assinatura ou créditos do agente.",
+      "blocos": [
+        {
+          "rot": "Terminal · ler o exemplo sem custo",
+          "icone": "terminal",
+          "conteudo": "cd ~/intelecto-v2\nless exemplos/01-jarvis-telegram.md\n# Aperte q para sair do less."
+        },
+        {
+          "rot": "Terminal · copiar o exemplo para o projeto",
+          "icone": "terminal",
+          "conteudo": "cd ~/intelecto-v2 && cp exemplos/01-jarvis-telegram.md meu-assistente.md"
+        },
+        {
+          "rot": "No Claude Code ou Codex aberto na pasta",
+          "icone": "terminal",
+          "conteudo": "Leia meu-assistente.md e implemente os itens a acrescentar e parciais, um de cada vez, seguindo as Regras para o agente."
+        },
+        {
+          "rot": "Terminal · contar testes antes e depois de um item",
+          "icone": "terminal",
+          "conteudo": "cd ~/intelecto-v2\npython3 -m pytest -q"
+        },
+        {
+          "rot": "Prática opcional · pedido para UM item ➕",
+          "icone": "terminal",
+          "conteudo": "Leia meu-assistente.md. Escolha somente UM item marcado ➕, implemente esse item, escreva o teste em tests/ e rode python3 -m pytest -q. Mostre o código alterado e a saída dos testes."
+        }
+      ]
+    },
+    {
+      "tipo": "texto",
+      "titulo": "Quem faz o quê",
+      "paragrafos": [
+        "A mercearia cria o plano em Markdown. O agente de programação faz o código dos itens 🟡 e ➕; você precisa conferir o que ele fez. Isso usa a sua assinatura ou créditos do agente. Mais seguro: rode o agente na caixa-do-agente e aplique ao original só o patch revisado.",
+        "Para um arquivo baixado da mercearia, copie <code>~/Downloads/meu-assistente.md</code> para <code>~/intelecto-v2/</code>. Se você usar o exemplo do repositório, o bloco acima faz a cópia sem download."
+      ]
+    },
+    {
+      "tipo": "pratica",
+      "titulo": "Faça em dois níveis",
+      "sub": "A primeira prática não precisa de agente, Docker ou pagamento.",
+      "exercicios": [
+        {
+          "id": "1",
+          "titulo": "Leia a lista pronta",
+          "min": 5,
+          "texto": "Abra exemplos/01-jarvis-telegram.md no repositório ou baixe um exemplo na mercearia. Ache a linha “Total: …” e um item ✅ com o caminho do arquivo. No Jarvis, use o bot do Telegram como exemplo.",
+          "pronto": "Você consegue dizer: 12 itens; ✅ 5, 🟡 3 e ➕ 4; e citar o arquivo de um ✅, por exemplo intelecto/canais/telegram.py."
+        },
+        {
+          "id": "2",
+          "titulo": "Opcional: implemente só um ➕",
+          "min": 12,
+          "texto": "Copie meu-assistente.md para ~/intelecto-v2, rode python3 -m pytest -q e anote quantos testes passam. Entregue ao agente apenas UM item ➕, seguindo as regras do arquivo. O agente faz o código; confira o patch ou as mudanças e rode os testes de novo. Usa a sua assinatura ou créditos do agente.",
+          "pronto": "python3 -m pytest -q passa depois da mudança e mostra mais testes passando do que antes. Você conferiu o código que o agente produziu."
+        }
+      ]
+    },
+    {
+      "tipo": "quiz",
+      "titulo": "Confira se entendeu",
+      "sub": "Responda a partir do diagrama e do arquivo de exemplo.",
+      "perguntas": [
+        {
+          "p": "O que ➕ significa num item do meu-assistente.md?",
+          "opcoes": [
+            "Já existe e aponta o arquivo",
+            "Existe só em parte no projeto",
+            "Ainda precisa ser acrescentado"
+          ],
+          "certa": 2,
+          "explica": "➕ marca algo a acrescentar; o arquivo indica a peça em que encaixa. ✅ cita código já existente, e 🟡 mostra o que existe em parte.",
+          "ref": "diagrama"
+        },
+        {
+          "p": "Por que entregar um item por vez e testar antes do próximo?",
+          "opcoes": [
+            "Para saber qual mudança passou e corrigir falhas antes de seguir",
+            "Para que o agente não precise ler as regras do arquivo",
+            "Para trocar os testes por uma resposta bem escrita"
+          ],
+          "certa": 0,
+          "explica": "As regras do .md pedem um ingrediente por vez, teste em tests/ e python3 -m pytest -q verde antes de seguir.",
+          "ref": "passos"
+        },
+        {
+          "p": "Onde encontrar o código de um item ✅?",
+          "opcoes": [
+            "No caminho de arquivo citado pelo próprio item",
+            "Somente na imagem do exemplo pronto",
+            "Dentro do carrinho do navegador, após exportar"
+          ],
+          "certa": 0,
+          "explica": "O item ✅ cita o arquivo do INTELECTO que já implementa a função, como intelecto/canais/telegram.py.",
+          "ref": "passos"
+        }
+      ]
+    },
+    {
+      "tipo": "resumo",
+      "titulo": "Leve desta aula",
+      "itens": [
+        {
+          "t": "Plano, não instalação",
+          "texto": "A mercearia exporta meu-assistente.md com escolhas e marcadores; o arquivo não instala nada."
+        },
+        {
+          "t": "Um item por vez",
+          "texto": "O agente implementa 🟡 e ➕; você confere as mudanças e exige testes passando antes de continuar."
+        }
+      ]
+    },
+    {
+      "tipo": "links",
+      "titulo": "Fontes e próximos passos",
+      "links": [
+        {
+          "t": "Abrir a mercearia",
+          "href": "https://inematds.github.io/intelecto-v2/guia/mercearia/"
+        },
+        {
+          "t": "Exemplo Jarvis em Markdown",
+          "href": "https://github.com/inematds/intelecto-v2/blob/main/exemplos/01-jarvis-telegram.md"
+        },
+        {
+          "t": "Exemplo Atendente em Markdown",
+          "href": "https://github.com/inematds/intelecto-v2/blob/main/exemplos/02-atendente-negocio.md"
+        },
+        {
+          "t": "Exemplo Programador em Markdown",
+          "href": "https://github.com/inematds/intelecto-v2/blob/main/exemplos/03-programador-seguro.md"
+        },
+        {
+          "t": "Exemplo Local e privado em Markdown",
+          "href": "https://github.com/inematds/intelecto-v2/blob/main/exemplos/04-local-privado.md"
+        },
+        {
+          "t": "Exemplo Casa com voz em Markdown",
+          "href": "https://github.com/inematds/intelecto-v2/blob/main/exemplos/05-casa-voz.md"
+        },
+        {
+          "t": "Guia da caixa-do-agente",
+          "href": "https://inematds.github.io/caixa-do-agente/guia/"
+        }
+      ]
+    }
+  ]
+}

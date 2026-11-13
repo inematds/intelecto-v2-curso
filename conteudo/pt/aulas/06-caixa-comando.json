@@ -5,7 +5,7 @@
   "titulo": "Cada comando numa caixa sem internet",
   "titulo_curto": "Caixa por comando",
   "minutos": 14,
-  "lead": "A aprovação decide se o comando começa; o executor (programa que o roda) caixa decide onde. Docker cria um container, uma caixa isolada: o INTELECTO monta só a pasta de trabalho em /trabalho, sem rede e sem as variáveis do terminal. Saída 0 significa que deu certo.",
+  "lead": "A aprovação decide se um comando começa; o executor caixa decide onde ele roda. Docker usa uma imagem, o molde da caixa, para criar um container isolado. Só a área de trabalho entra em /trabalho, sem rede nem variáveis do terminal (valores com nome, como chaves guardadas nessa sessão). Saída 0 significa que o comando terminou sem erro.",
   "objetivo": "Rodar uma leitura pelo executor caixa e encontrar “[na caixa, saída 0]” na resposta.",
   "competencias": [
     "caixa-comando-compreender",
@@ -75,7 +75,7 @@
           "titulo": "Rede",
           "sub": "fechada",
           "texto": [
-            "O comando Docker usa --network none. Uma tarefa que depende da internet não funciona nesse executor. No Linux, siga o <a href=\"https://docs.docker.com/engine/install/\">manual oficial de instalação</a>, rode sudo usermod -aG docker $USER, saia da sessão e entre de novo. Depois teste docker run --rm hello-world."
+            "O comando Docker usa --network none: uma tarefa que depende da internet não funciona nesse executor. No Ubuntu, instale o pacote docker.io, dê acesso ao usuário e saia da sessão para entrar novamente. No macOS, instale Docker Desktop em docker.com. Confira com hello-world antes da conversa."
           ]
         },
         {
@@ -97,12 +97,17 @@
     {
       "tipo": "codigo",
       "titulo": "Ative e prove",
-      "sub": "Copie os comandos e rode no terminal a partir da pasta indicada.",
+      "sub": "Ubuntu: instale o pacote docker.io, entre novamente na sessão e prove com hello-world. No macOS, instale Docker Desktop em docker.com; depois rode o mesmo hello-world. O manual oficial do Docker está nos links extras.",
       "blocos": [
         {
-          "rot": "Linux · liberar seu usuário para Docker",
+          "rot": "Ubuntu · instalar Docker",
           "icone": "terminal",
-          "conteudo": "sudo usermod -aG docker $USER"
+          "conteudo": "sudo apt install -y docker.io\nsudo usermod -aG docker $USER\n# Saia da sessão e entre novamente antes do teste."
+        },
+        {
+          "rot": "macOS · instalar Docker Desktop",
+          "icone": "terminal",
+          "conteudo": "https://www.docker.com/products/docker-desktop/"
         },
         {
           "rot": "Terminal · provar Docker após entrar de novo",
@@ -110,17 +115,22 @@
           "conteudo": "docker run --rm hello-world"
         },
         {
-          "rot": "Terminal · preparar a imagem",
+          "rot": "Terminal · preparar a imagem (molde da caixa)",
           "icone": "terminal",
           "conteudo": "docker pull python:3.12-slim"
         },
         {
-          "rot": "Terminal · conversar com executor caixa",
+          "rot": "Terminal · criar arquivo de prova na área",
           "icone": "terminal",
-          "conteudo": "python3 -m intelecto conversar --executor caixa"
+          "conteudo": "echo oi > ~/.intelecto2/area/teste.txt"
         },
         {
-          "rot": "Na conversa · pedido de leitura",
+          "rot": "Terminal · conversar com executor caixa",
+          "icone": "terminal",
+          "conteudo": "cd ~/intelecto-v2\npython3 -m intelecto conversar --provedor mock --executor caixa"
+        },
+        {
+          "rot": "Na conversa · conferir a área e a caixa",
           "icone": "terminal",
           "conteudo": "rode: ls /trabalho\nrode: pwd"
         },
@@ -131,11 +141,11 @@
         }
       ],
       "saida": {
-        "selo": "simulacao",
+        "selo": "real",
         "abas": [
           {
-            "rot": "Exemplo esperado · Docker não executou aqui",
-            "html": "<pre>[na caixa, saída 0]\n/trabalho</pre><p>É o trecho a procurar após <code>rode: pwd</code>. No pedido <code>rode: ls /trabalho</code>, os nomes dependem dos arquivos da sua área.</p>"
+            "rot": "Saída real da caixa por comando · 13/11/2026",
+            "html": "<pre>intelecto&gt; Feito. Resultado de rodar_comando: [na caixa, saída 0] /trabalho</pre><p>Capturada com <code>--executor caixa</code> e cérebro mock. Com um modelo de verdade, o texto em volta muda; procure <code>[na caixa, saída 0] /trabalho</code>.</p>"
           }
         ]
       }
@@ -149,15 +159,15 @@
           "id": "1",
           "titulo": "Veja a etiqueta da saída",
           "min": 6,
-          "texto": "Com Docker disponível e o modelo local ligado, peça “rode: ls /trabalho” e depois “rode: pwd” na conversa aberta com --executor caixa. Se o modelo não chamar a ferramenta, a prova ainda não aconteceu.",
-          "pronto": "A resposta do comando começa com “[na caixa, saída 0]” (deu certo); ls /trabalho lista só a área de trabalho e pwd mostra /trabalho."
+          "texto": "Com Docker ligado, abra a conversa com --provedor mock --executor caixa e peça “rode: pwd”. O mock chama rodar_comando. Se usar um modelo real, só conte como prova se ele chamar a ferramenta.",
+          "pronto": "A saída contém “[na caixa, saída 0] /trabalho” numa linha; isso prova que o comando rodou dentro da caixa."
         },
         {
           "id": "2",
           "titulo": "Confira o alcance",
           "min": 5,
-          "texto": "Compare os nomes de ls /trabalho com ~/.intelecto2/area. Leia em auditoria se os comandos rodaram. Não copie senhas para a área.",
-          "pronto": "Você sabe qual pasta foi montada e que a rede do container está fechada."
+          "texto": "Antes de comparar, rode no terminal echo oi > ~/.intelecto2/area/teste.txt. Na conversa com executor caixa, peça “rode: ls /trabalho”. Confira também a auditoria. Não copie senhas para a área.",
+          "pronto": "A resposta de ls /trabalho mostra teste.txt, o arquivo criado na sua área; a auditoria registra o comando."
         }
       ]
     },

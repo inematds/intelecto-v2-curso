@@ -25,7 +25,7 @@
       "icone": "check"
     }
   ],
-  "hero_alt": "Dona confere uma folha de registros antes de acionar o interruptor que liga o assistente humanoide.",
+  "hero_alt": "Dona de loja confere uma lista simples ao lado do assistente humanoide realista antes de ligá-lo.",
   "secoes": [
     {
       "tipo": "diagrama",
@@ -95,7 +95,7 @@
           "titulo": "Reconheça limites",
           "sub": "evidência",
           "texto": [
-            "Ollama local e Linux têm testes reais. OpenRouter, Telegram ao vivo e macOS não foram testados ao vivo pelo INEMA."
+            "Ollama local, Linux e a caixa por comando com Docker foram testados ao vivo. OpenRouter, Telegram ao vivo e macOS não foram testados ao vivo pelo INEMA. Windows só pelo WSL com Ubuntu, também sem teste ao vivo."
           ]
         }
       ]
@@ -103,22 +103,22 @@
     {
       "tipo": "codigo",
       "titulo": "Sua revisão final",
-      "sub": "No serviço, confira WorkingDirectory e ExecStart antes de copiar; os caminhos do exemplo presumem o clone em ~/intelecto-v2.",
+      "sub": "WorkingDirectory e ExecStart são a pasta e o comando que o serviço roda. Confira esses caminhos no arquivo antes de copiar; o exemplo presume o clone em ~/intelecto-v2.",
       "blocos": [
         {
           "rot": "Terminal · estado, memória e histórico",
           "icone": "terminal",
-          "conteudo": "python3 -m intelecto verificar\npython3 -m intelecto memoria\npython3 -m intelecto auditoria -n 20"
+          "conteudo": "cd ~/intelecto-v2\npython3 -m intelecto verificar\npython3 -m intelecto memoria\npython3 -m intelecto auditoria -n 20"
         },
         {
           "rot": "Linux · serviço Telegram opcional",
           "icone": "terminal",
-          "conteudo": "mkdir -p ~/.config/systemd/user\ncp servico/intelecto-telegram.service ~/.config/systemd/user/\nsystemctl --user daemon-reload && systemctl --user enable --now intelecto-telegram"
+          "conteudo": "cd ~/intelecto-v2\ncat servico/intelecto-telegram.service\n# Confira WorkingDirectory e ExecStart; ajuste se necessário.\nmkdir -p ~/.config/systemd/user\ncp servico/intelecto-telegram.service ~/.config/systemd/user/\nsystemctl --user daemon-reload && systemctl --user enable --now intelecto-telegram"
         },
         {
           "rot": "Linux · acompanhar o serviço",
           "icone": "terminal",
-          "conteudo": "journalctl --user -u intelecto-telegram -f"
+          "conteudo": "cd ~/intelecto-v2\njournalctl --user -u intelecto-telegram -f"
         }
       ],
       "saida": {

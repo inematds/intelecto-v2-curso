@@ -76,22 +76,23 @@
           "sub": "Ollama local",
           "texto": [
             "No Linux, instale o Ollama com o comando oficial abaixo; no macOS, baixe o aplicativo em ollama.com. Depois use ollama pull para baixar o modelo escolhido.",
-            "Teste documentado no README: llama3.2 conversa, mas quase não usa as ferramentas. Isso pode impedir a memória de ser gravada pela conversa. qwen3.6:35b-a3b usou as ferramentas no teste ao vivo, mas seu arquivo local é muito maior."
+            "Teste ao vivo em 13/11/2026: com llama3.2, “lembre que meu nome é Nei e moro em Porto Alegre” foi guardado diretamente pelo assistente e lembrado numa conversa nova. Isso funciona mesmo quando o modelo pequeno não chama a ferramenta de memória. Ele continua usando pouco as outras ferramentas, como arquivos e comandos. qwen3.6:35b-a3b chamou ferramentas no teste, mas seu arquivo local é muito maior."
           ]
         },
         {
           "titulo": "Escolher opções",
           "sub": "configurar",
           "texto": [
-            "As sete respostas: nome e personalidade em frases livres; cérebro ollama; modelo um dos listados pelo configurar; onde rodar comandos local; aprovação perigosos; ids do Telegram vazios por enquanto. Enter mantém o valor entre colchetes.",
-            "Executor é o programa que roda o comando; escolha local agora e veja a caixa Docker na aula 6. OpenRouter é um serviço pago na nuvem e não faz parte desta prática."
+            "As sete respostas: nome e personalidade em frases livres; cérebro ollama; modelo um dos listados pelo configurar; onde rodar comandos local; aprovação perigosos; ids do Telegram vazios por enquanto. Enter mantém o valor entre colchetes. Telegram é um canal de conversa, não o provedor do modelo.",
+            "Executor é o programa que roda o comando; escolha local agora e veja a caixa Docker na aula 6. OpenRouter é um serviço pago na nuvem e não faz parte desta prática.",
+            "A política de aprovação tem três escolhas: perigosos (padrão) deixa a leitura conhecida rodar e pergunta para as outras ações; sempre pergunta antes de qualquer comando, inclusive ls e cat; nunca deixa a leitura conhecida rodar, mas recusa o que pediria aprovação. Comandos bloqueados pela trava não rodam em nenhuma delas."
           ]
         },
         {
           "titulo": "Conferir e conversar",
           "sub": "verificar → conversar",
           "texto": [
-            "verificar confere o que a configuração atual exige. “tudo certo” não prova que o modelo usará ferramentas; faça uma conversa real para conferir. SQLite com FTS5 significa memória local com busca de texto. Fernet é o modo de cifrar o cofre quando a biblioteca cryptography está instalada."
+            "verificar confere o que a configuração atual exige. “tudo certo” não prova que o modelo usará ferramentas; faça uma conversa real para conferir. SQLite com FTS5 significa memória local com busca de texto. Fernet é o modo de cifrar o cofre quando a biblioteca cryptography está instalada. No Ubuntu, se você quiser o cofre com Fernet, instale python3-cryptography pelo gerenciador de pacotes; pip install cryptography pode falhar com externally-managed-environment no Ubuntu 24.04."
           ]
         }
       ]
@@ -99,10 +100,10 @@
     {
       "tipo": "texto",
       "titulo": "Qual modelo cabe na sua máquina?",
-      "sub": "Tamanhos dos arquivos locais lidos dos manifestos instalados nesta máquina em 13/11/2026; o download pode variar. Não são medidas de RAM.",
+      "sub": "Tamanhos somados dos arquivos indicados pelos registros de modelos instalados nesta máquina em 13/11/2026; o download pode variar. Não são medidas de RAM.",
       "paragrafos": [
-        "<table style=\"width:100%;border-collapse:collapse;table-layout:fixed;overflow-wrap:anywhere\"><thead><tr><th style=\"text-align:left;padding:8px;border-bottom:1px solid\">Sua máquina</th><th style=\"text-align:left;padding:8px;border-bottom:1px solid\">Modelo</th><th style=\"text-align:left;padding:8px;border-bottom:1px solid\">Arquivo local medido</th></tr></thead><tbody><tr><td style=\"padding:8px\">Computador comum</td><td style=\"padding:8px\"><code>llama3.2</code></td><td style=\"padding:8px\">2,02 GB (2.019.392.628 bytes)</td></tr><tr><td style=\"padding:8px\">Placa de vídeo grande</td><td style=\"padding:8px\"><code>qwen3.6:35b-a3b</code></td><td style=\"padding:8px\">23,94 GB (23.938.333.115 bytes)</td></tr></tbody></table>",
-        "Comece pelo modelo que sua máquina consegue baixar e executar. O tamanho do arquivo não garante que ele caiba na memória. Se usar llama3.2, saiba que o teste do projeto mostrou conversa, mas quase nenhum uso das ferramentas."
+        "<table style=\"width:100%;border-collapse:collapse;table-layout:fixed;overflow-wrap:anywhere\"><thead><tr><th style=\"text-align:left;padding:8px;border-bottom:1px solid\">Sua máquina</th><th style=\"text-align:left;padding:8px;border-bottom:1px solid\">Modelo</th><th style=\"text-align:left;padding:8px;border-bottom:1px solid\">Arquivo local medido</th></tr></thead><tbody><tr><td style=\"padding:8px\">Computador comum</td><td style=\"padding:8px\"><code>llama3.2</code></td><td style=\"padding:8px\">2,02 GB (2.019.392.628 bytes). Lembra com “lembre que…”; usa pouco as outras ferramentas.</td></tr><tr><td style=\"padding:8px\">Placa de vídeo grande</td><td style=\"padding:8px\"><code>qwen3.6:35b-a3b</code></td><td style=\"padding:8px\">23,94 GB (23.938.333.115 bytes). Chamou ferramentas no teste ao vivo.</td></tr></tbody></table>",
+        "Comece pelo modelo que sua máquina consegue baixar e executar. O tamanho do arquivo não garante que ele caiba na memória. O llama3.2 lembra fatos pedidos com “lembre que…”, mesmo em computador comum; para usar outras ferramentas, confira se o modelo realmente as chamou."
       ]
     },
     {
@@ -114,6 +115,11 @@
           "rot": "Terminal · entrar na pasta da aula 1",
           "icone": "terminal",
           "conteudo": "cd ~/intelecto-v2"
+        },
+        {
+          "rot": "Ubuntu · Fernet no cofre (opcional)",
+          "icone": "terminal",
+          "conteudo": "sudo apt install -y python3-cryptography"
         },
         {
           "rot": "Linux · instalar Ollama",
@@ -189,26 +195,26 @@
           "ref": "passos"
         },
         {
-          "p": "Qual provedor foi testado ao vivo com memória?",
+          "p": "Qual provedor local foi testado ao vivo com memória, inclusive com llama3.2?",
           "opcoes": [
-            "OpenRouter na nuvem",
-            "Telegram",
-            "Ollama local"
+            "OpenRouter com conta na nuvem",
+            "Ollama instalado no computador",
+            "O provedor mock da demonstração"
           ],
-          "certa": 2,
-          "explica": "Ollama local foi testado com qwen3.6:35b-a3b. OpenRouter e Telegram só contra servidor falso.",
-          "ref": "diagrama"
+          "certa": 1,
+          "explica": "Ollama é o provedor local usado no teste ao vivo. OpenRouter usa a nuvem; mock simula respostas e não é um modelo local real.",
+          "ref": "s3"
         },
         {
-          "p": "O que fazer se um modelo menor conversa, mas não usa ferramentas?",
+          "p": "Com llama3.2, o que acontece ao dizer “lembre que minha cidade é Porto Alegre”?",
           "opcoes": [
-            "Tentar um modelo mais capaz",
-            "Desligar toda aprovação do assistente",
-            "Pôr a senha no config.json"
+            "O assistente guarda o fato diretamente",
+            "A memória só funciona com qwen3.6",
+            "O Telegram precisa estar ligado"
           ],
           "certa": 0,
-          "explica": "O teste documentado com llama3.2 mostrou conversa, mas quase nenhum uso de ferramentas. Um modelo mais capaz pode ajudar; nunca desligue a aprovação para compensar.",
-          "ref": "passos"
+          "explica": "Desde a v2.0.1, o assistente guarda diretamente pedidos “lembre que…”. O llama3.2 ainda usa pouco as outras ferramentas.",
+          "ref": "s3"
         }
       ]
     },
@@ -222,7 +228,7 @@
         },
         {
           "t": "Modelo importa",
-          "texto": "O teste com llama3.2 quase não usou ferramentas; o teste de memória ao vivo usou qwen3.6:35b-a3b."
+          "texto": "O llama3.2 lembra pedidos “lembre que…”, mas chama pouco as outras ferramentas. Para arquivos e comandos, confira o que aconteceu de fato."
         }
       ]
     },

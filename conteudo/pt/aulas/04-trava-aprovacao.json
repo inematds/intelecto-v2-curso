@@ -5,7 +5,7 @@
   "titulo": "A trava: roda, pergunta ou recusa",
   "titulo_curto": "A trava",
   "minutos": 16,
-  "lead": "Um comando de leitura não precisa da mesma decisão que um comando que grava arquivo. A trava classifica antes de executar; a auditoria mostra o que rodou e o que foi recusado.",
+  "lead": "Um comando de leitura não precisa da mesma decisão que um comando que grava arquivo. A trava classifica antes de executar; a auditoria mostra o que rodou e o que foi recusado. A política escolhida muda quando o assistente pergunta: perigosos, sempre ou nunca.",
   "objetivo": "Identificar as três classes de comando e conferir um pedido recusado e um pedido de aprovação na auditoria.",
   "competencias": [
     "trava-aprovacao-compreender",
@@ -87,7 +87,8 @@
           "titulo": "Perguntar",
           "sub": "terminal ou celular",
           "texto": [
-            "Com “perigosos”, a ação aprovar pergunta ao dono. No terminal, a pergunta só funciona com entrada de terminal de verdade; se a conversa recebe texto por pipe, ela recusa: “entrada não é um terminal → recusado”. “sempre” pergunta até sobre leitura; “nunca” permite só leitura."
+            "Na política perigosos (padrão), leitura conhecida como ls ou cat roda sem perguntar; o que tenta gravar pede “rodar …? [s/N]”. Digite n ou Enter para recusar; s aprova. Na política sempre, ele pergunta antes de QUALQUER comando, até ls e cat. Na política nunca, a leitura conhecida roda, mas o que precisaria de aprovação é recusado sem perguntar. Comando bloqueado pela trava não roda em nenhuma política.",
+            "Pipe é quando você manda texto pronto para o programa em vez de digitar no terminal. Nesse caso, o pedido de aprovação é recusado, pois ninguém pode responder à pergunta interativa."
           ]
         },
         {
@@ -102,25 +103,38 @@
     {
       "tipo": "codigo",
       "titulo": "Comandos para observar, sem risco",
-      "sub": "Copie os comandos e rode no terminal a partir da pasta indicada.",
+      "sub": "Use o cérebro mock para garantir que a ferramenta seja chamada. No terminal interativo, responda n ou Enter. Com llama3.2, pedir um comando pode não chamar a ferramenta.",
       "blocos": [
         {
-          "rot": "Terminal · demonstração",
+          "rot": "Terminal · conversa com cérebro mock e aprovação",
           "icone": "terminal",
-          "conteudo": "python3 -m intelecto demo"
+          "conteudo": "cd ~/intelecto-v2\npython3 -m intelecto conversar --provedor mock --aprovacao perigosos"
         },
         {
-          "rot": "Terminal · auditoria da sua instalação",
+          "rot": "Na conversa · peça uma gravação",
           "icone": "terminal",
-          "conteudo": "python3 -m intelecto auditoria -n 20"
+          "conteudo": "rode: echo teste > nota.txt"
+        },
+        {
+          "rot": "Terminal · confira a auditoria",
+          "icone": "terminal",
+          "conteudo": "cd ~/intelecto-v2\npython3 -m intelecto auditoria -n 20"
         }
       ],
       "saida": {
         "selo": "real",
         "abas": [
           {
-            "rot": "Auditoria JSON real · ensaio isolado, 13/11/2026",
-            "html": "<pre>{&quot;ts&quot;: &quot;2026-11-13T03:37:49+00:00&quot;, &quot;tipo&quot;: &quot;comando&quot;, &quot;comando&quot;: &quot;echo x &gt; y.txt&quot;, &quot;classe&quot;: &quot;aprovar&quot;, &quot;rodou&quot;: false, &quot;decisao&quot;: &quot;o dono não aprovou&quot;}</pre><p>A entrada foi por pipe, então não havia terminal para aprovar; nenhum arquivo foi gravado.</p>"
+            "rot": "Pergunta interativa real · política perigosos, 13/11/2026",
+            "html": "<pre>  [aprovação] rodar &#x27;echo teste &gt; nota.txt&#x27;? (substituição de comando ou redirecionamento para arquivo) [s/N]</pre><p><code>n</code> ou Enter recusa; <code>s</code> aprova. A auditoria registra <code>\"classe\": \"aprovar\"</code>, <code>\"rodou\": false</code> e <code>\"decisao\": \"o dono não aprovou\"</code>.</p>"
+          },
+          {
+            "rot": "Recusa real com política nunca · 13/11/2026",
+            "html": "<pre>recusado: precisa de aprovação (substituição de comando ou redirecionamento para arquivo) e a política é &#x27;nunca&#x27;</pre>"
+          },
+          {
+            "rot": "Auditoria real do ensaio anterior por pipe · 13/11/2026",
+            "html": "<pre>{&quot;ts&quot;: &quot;2026-11-13T03:37:49+00:00&quot;, &quot;tipo&quot;: &quot;comando&quot;, &quot;comando&quot;: &quot;echo x &gt; y.txt&quot;, &quot;classe&quot;: &quot;aprovar&quot;, &quot;rodou&quot;: false, &quot;decisao&quot;: &quot;o dono não aprovou&quot;}</pre><p>Este registro é de outro pedido recusado, enviado por pipe. Na prática interativa, procure o comando <code>echo teste &gt; nota.txt</code>.</p>"
           }
         ]
       }
@@ -132,17 +146,17 @@
       "exercicios": [
         {
           "id": "1",
-          "titulo": "Marque as três classes",
-          "min": 5,
-          "texto": "Rode demo e identifique na auditoria o comando e o valor rodou de cada classe.",
-          "pronto": "Você aponta um livre que rodou, um aprovar que não rodou e um bloqueado que não rodou."
+          "titulo": "Recuse uma gravação no terminal",
+          "min": 6,
+          "texto": "Abra a conversa com --provedor mock --aprovacao perigosos. Peça “rode: echo teste > nota.txt”. Quando aparecer [s/N], responda n (ou Enter). Rode auditoria -n 20 e localize esse pedido.",
+          "pronto": "A linha JSON do pedido contém \"classe\": \"aprovar\", \"rodou\": false e \"decisao\": \"o dono não aprovou\"; nota.txt não foi criado por esse pedido."
         },
         {
           "id": "2",
-          "titulo": "Veja sua auditoria",
+          "titulo": "Compare com a demonstração",
           "min": 4,
-          "texto": "Depois de uma conversa real, rode auditoria -n 20. A demo apaga sua pasta temporária, por isso não aparece no histórico da sua instalação.",
-          "pronto": "Você distingue o histórico da sua instalação do bloco de auditoria impresso pela demo."
+          "texto": "Rode python3 -m intelecto demo e identifique as classes no bloco final. A demo usa pasta temporária e não entra na auditoria da sua instalação.",
+          "pronto": "Você aponta livre que rodou, aprovar que não rodou e bloqueado que não rodou."
         }
       ]
     },
@@ -167,10 +181,10 @@
           "opcoes": [
             "Roda sem pedir",
             "Pergunta uma vez e executa por padrão",
-            "Recusa por falta de dono disponível"
+            "Recusa o que precisaria de aprovação"
           ],
           "certa": 2,
-          "explica": "Ela permite leitura livre e recusa o que precisaria de aprovação.",
+          "explica": "“nunca” significa que ninguém aprova nada além do que só lê: ações de escrita são recusadas, mesmo com o dono presente.",
           "ref": "passos"
         },
         {
@@ -192,7 +206,7 @@
       "itens": [
         {
           "t": "Regra principal",
-          "texto": "Só leitura conhecida passa direto; o restante pede decisão."
+          "texto": "Perigosos é o padrão: leitura conhecida passa; escrita pergunta. Sempre pergunta por todo comando. Nunca recusa o que precisaria de aprovação."
         },
         {
           "t": "Prova",

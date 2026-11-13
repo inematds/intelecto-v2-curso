@@ -1,123 +1,63 @@
-# Correção do curso INTELECTO v2 — 13/11/2026
+# Correção do curso INTELECTO v2 — rodada 4 — 13/11/2026
 
-Escopo: apenas `/home/nmaldaner/projetos/intelecto-v2-curso`. Li a skill v7.2, `ESQUEMA.md`, `LICOES.md`, `CLAUDE.md`, o código e os guias do INTELECTO v2 e da caixa-do-agente antes das edições. Não fiz commit, push, publicação, tradução ou chamada de API paga. O HTML foi regenerado dos JSON.
+Escopo: somente `/home/nmaldaner/projetos/intelecto-v2-curso`. Reli a skill v7.2 (`SKILL.md`, `references/ESQUEMA.md`, `references/LICOES.md`), o `CLAUDE.md` e o relatório anterior. Consultei o README, as seções `#funciona` e `#mercearia` do guia, a página da mercearia, os cinco `exemplos/*.md` e seus JPGs no INTELECTO v2, além do README e do funcionamento descrito da caixa-do-agente. Editei os JSON em `conteudo/pt/`, gerei a foto em `assets/img/hero/mercearia.jpg` e regenerei o HTML. Não fiz Git, publicação, Telegram, tradução nem chamada de API paga. Docker não foi executado neste sandbox.
 
-## Defeitos do parecer
+## Novo conteúdo pedido pelo dono
 
-| # | O que mudou ou limite | Onde |
+| Pedido | O que mudou | Onde |
 |---|---|---|
-| 1 | A abertura fala com “você” sobre o medo de apagar arquivos e expor senhas, depois apresenta INTELECTO e caixa. Retirei a promessa de agente sempre sem rede/senhas e troquei 68/18 por resultados compreensíveis. Mantive os nomes no título. | `conteudo/pt/curso.json` |
-| 2 | A prática principal agora usa o `~/intelecto-v2` da aula 1, monta `intelecto-v2-testes` com `docker build -t intelecto-v2-testes caixa/` e executa `./caixa.sh ~/intelecto-v2 --imagem intelecto-v2-testes -- python3 -m pytest -q -p no:cacheprovider`. `~/meu-projeto` ficou opcional. | aula 7 |
-| 3 | O bloco de aplicação usa `patch -p1` com o caminho absoluto do patch revisado. A aula explica que `--aplicar` inicia outra rodada e pergunta antes de copiar o resultado novo. | aula 7 |
-| 4 | Acrescentei o comando de Claude Code na caixa com `--rede --env ANTHROPIC_API_KEY`. A aula explica que `.env`, `.pem` e `~/.ssh` ficam fora, o original não muda sem aplicação, há tetos de recursos e, com rede, o agente pode enviar o conteúdo da cópia. O comando é identificado como exemplo, não foi executado. | aula 7 |
-| 5 | A aula 2 traz o instalador Linux oficial do Ollama, o aplicativo de macOS em ollama.com, tabela máquina→modelo e a ressalva sobre llama3.2 no corpo antes do quiz. Os tamanhos vieram dos manifestos locais: 2.019.392.628 bytes e 23.938.333.115 bytes; não estimei RAM. **Limite:** `ollama list` e `ollama show` foram tentados, mas o sandbox bloqueou a conexão local, então os números não são apresentados como saída desses comandos. | aula 2 |
-| 6 | A aula 1 usa `cd ~ && git clone ... && cd intelecto-v2`, com `git` nos pré-requisitos Linux/macOS. A aula 2 só entra com `cd ~/intelecto-v2` e remete à aula 1 se faltar o clone. | aulas 1 e 2 |
-| 7 | As sete respostas do `configurar` estão descritas uma a uma; a aula informa que ele lista modelos já instalados e sugere um. | aula 2 |
-| 8 | O painel traz a saída **completa** obtida de `verificar` no ensaio isolado. Somente o caminho temporário foi normalizado para `~/.intelecto2`, com aviso explícito; o provedor do ensaio foi `mock`. | aula 2 |
-| 9 | `MEMORY.md` é apresentado como importação única da primeira execução; fatos posteriores entram por “lembre que…” na conversa. Incluí Ctrl+O, Enter, Ctrl+X para salvar no nano. | aula 3 |
-| 10 | As aulas 4 e 8 mostram linhas JSON reais de `auditoria -n 20` e explicam `comando`, `classe`, `rodou` e `decisao`. | aulas 4 e 8 |
-| 11 | A prática usa `[na caixa, saída 0]`, `rode: ls /trabalho` e `rode: pwd` → `/trabalho` como prova conferível. Incluí link oficial de instalação do Docker, `sudo usermod -aG docker $USER`, novo login e `docker run --rm hello-world`. A saída da caixa está **rotulada como exemplo esperado**, pois o Docker não pôde ser executado aqui. | aula 6 |
-| 12 | `mkdir -p ~/.config/systemd/user` vem antes do `cp` do serviço. | aula 8 |
-| 13 | A aula diz que `auditar.py` lê Claude Code, Codex e DeepSeek Harness instalados e que uma nota baixa sem eles é normal. Explica harness e sandbox. | aula 7 |
-| 14 | Há passo a passo de `@BotFather`, `/newbot`, nome, token secreto, `/id`, campo `telegram_donos` e a mensagem real que cita `config.json`. A prática pede `rode: echo teste > nota.txt`, que exige aprovação. | aula 5 |
-| 15 | Expliquei os termos na primeira ocorrência útil: container Docker, patch, memória SQLite/FTS5, Fernet, OpenRouter, executor, systemd, journalctl, sandbox, harness, pytest, @BotFather, token, id e “saída 0”. | aulas 1–8 |
-| 16 | Conferi os quizzes contra o texto anterior. Corrigi especialmente a pergunta da aula 7 que dependia da nota 7,5 sem mostrá-la antes. O validador passou com 3 perguntas por aula. | aulas 1–8 |
-| 17 | Substituí as fotos das aulas 1, 2 e 8 por imagens `image_gen` da assinatura: dono impede o acesso do assistente, mão encaixa o modelo local, dona lê o registro antes de ligar o assistente. Luz neutra, sem texto/logos; figuras 2 e 8 foram refeitas para humanoide realista. | `assets/img/hero/{jarvis-seguro,instalar-conversar,seu-jarvis}.jpg` |
+| Aula 9, mercearia | Criei “Monte o seu: a mercearia e o meu-assistente.md” com diagrama escolher → baixar .md → entregar ao agente; legenda ✅/🟡/➕; 144 ingredientes de 12 projetos em 8 corredores; cinco exemplos e seus totais conferidos nos arquivos `.md`. | `conteudo/pt/aulas/09-mercearia.json` |
+| Conteúdo do arquivo | Expliquei que ✅ cita o arquivo existente, 🟡 mostra o que falta e ➕ indica a peça em que acrescentar. As regras finais cobrem um item por vez, teste em `tests/`, `python3 -m pytest -q`, trava preservada, segredos no cofre, testes sem API real, tabela do README atualizada e “pronto” só com saída dos testes. | Aula 9, diagrama e passos |
+| Entrega e práticas | Incluí a cópia do exemplo do README, o pedido para Claude Code/Codex, uma prática de leitura sem agente nem custo e uma prática opcional para **um** item ➕. A segunda exige testes passando em número maior que antes e conferência do código feito pelo agente; informa uso da assinatura ou créditos. A caixa com patch revisado aparece como caminho mais seguro. | Aula 9, código, texto e práticas |
+| Quiz e fontes | Três perguntas sobre ➕, um item por vez com teste e arquivo de um ✅; links para a mercearia, os cinco exemplos `.md` e a caixa-do-agente. | Aula 9, quiz e links |
+| Imagem | Criei fotografia editorial 1536×1024 de carrinho com cartões em branco apontando para uma folha, com humanoide genérico ao lado, luz neutra e sem texto. Usei `image_gen` pela assinatura e salvei como JPG. | `assets/img/hero/mercearia.jpg` |
+| Funcionamento interno | Acrescentei seis passos curtos: canal → “lembre que” direto para a memória → contexto → cérebro → ferramenta pela trava → resposta e auditoria. | `conteudo/pt/aulas/01-jarvis-seguro.json`, seção “O caminho de uma mensagem” |
+| Contagem | Atualizei o topo para 9 aulas, o número visível e a descrição da sequência; o gerador inclui a aula 9 pela ordem dos arquivos JSON. | `conteudo/pt/curso.json` e HTML gerado |
 
-Para a tabela da aula 2, `gerar.py` passou a emitir uma tabela HTML como bloco, sem envolvê-la em `<p>`. Os arquivos gerados estão em `index.html` e `aulas/*/index.html`. Registrei em `CLAUDE.md` e `FALHAS.md` a falha do meu script de edição: inseri uma seção e depois acessei o quiz por índice antigo; corrigi localizando a seção pelo tipo.
+Os totais lidos nos exemplos foram: Jarvis 12 (✅5, 🟡3, ➕4); Atendente 12 (✅2, 🟡2, ➕8); Programador 12 (✅4, 🟡0, ➕8); Local e privado 10 (✅5, 🟡1, ➕4); Casa com voz 12 (✅2, 🟡0, ➕10). No Jarvis, o item ✅ Telegram cita `intelecto/canais/telegram.py`.
+
+## Sete defeitos do terceiro revisor
+
+| # | Correção | Onde |
+|---|---|---|
+| 1 | Ubuntu tem bloco copiável com `sudo apt install -y docker.io`, `sudo usermod -aG docker $USER`, instrução para sair e entrar de novo e `docker run --rm hello-world`; o manual oficial ficou nos links extras. macOS aponta para Docker Desktop. | Aula 6, código e links |
+| 2 | Separei “Ubuntu · instalar Docker” de “macOS · instalar Docker Desktop”, sem rótulo misto. | Aula 6, código |
+| 3 | A abertura da aula 7 diz que precisa do Docker da aula 6 e que só as aulas 6–7 o pedem. | Aula 7, lead e código |
+| 4 | Adicionei bloco opcional com o comando do README da caixa para Claude Code; está rotulado “não executado neste curso”, informa a chave e o envio da cópia pela rede e explica `--rede`, `--env`, `npx`, `-p` e `--dangerously-skip-permissions`. A promessa do topo agora diz “aprende como deixar agentes trabalharem numa cópia”. | Aula 7, código e seção “O que faz o exemplo opcional”; `curso.json` |
+| 5 | Mostrei o diff real **completo**, inclusive a linha `diff -ruN`, os cabeçalhos datados e `+teste`; expliquei que 1969 em `antes/nota.txt` é normal para arquivo novo. | Aula 7, aba do patch e passo “Patch” |
+| 6 | O comando copiável começa em `cd ~ && ~/caixa-do-agente/caixa.sh ...`; a saída real começa em `▶ 1/3 CRIAR`, sem `./caixa.sh` na aba. O texto explica que o patch é salvo em `~`, de onde o comando rodou. | Aula 7, código e aba de saída |
+| 7 | Expliquei as três políticas em ambas as aulas: `perigosos` é padrão; `sempre` pergunta antes de **qualquer** comando, inclusive `ls` e `cat`; `nunca` deixa leitura conhecida rodar e recusa o que precisaria de aprovação. Bloqueados não rodam em nenhuma. Conferi a semântica em `intelecto/seguranca/aprovacao.py`. | Aulas 2 e 4, passos; aula 4, resumo |
+
+## Sugestões incorporadas
+
+| Sugestão | O que mudou | Onde |
+|---|---|---|
+| Abertura | Completei o risco: erro ou texto malicioso escondido num site pode levar a IA a apagar uma pasta ou enviar senha para fora. O topo usa “caixa”; notas sobre macOS e Windows ficaram em “Para quem é”. | `curso.json`, `inicio` |
+| Aula 1 | A demo diz o texto “meu nome é Ana e moro em Curitiba”. Se Python for anterior a 3.10, o aluno recebe a orientação “use Ubuntu 22.04 ou mais novo”. | Aula 1, passos |
+| Aula 2 | Acrescentei `sudo apt install -y python3-cryptography` como opção Ubuntu para Fernet e expliquei a falha `externally-managed-environment` do pip no Ubuntu 24.04. Tornei os distratores do quiz 2 plausíveis. | Aula 2, passos, código e quiz |
+| Aula 5 | Instrução para abrir o bot pelo link `t.me/nome_bot` enviado por @BotFather; `/sim` e `/nao` expiram após 120 segundos, conforme `intelecto/canais/telegram.py`. | Aula 5, passos e prática |
+| Aula 7 | Bloco copiável `rsync --version` e `patch --version`, ferramentas esperadas no Ubuntu. | Aula 7, código |
+| Aula 8 | `cat servico/intelecto-telegram.service` vem antes do `cp`, para conferir `WorkingDirectory` e `ExecStart`. | Aula 8, código |
 
 ## Comandos executados e saídas observadas
 
-### Ollama e tamanhos
+Conferência dos cinco exemplos: li as linhas `**Total: …**` e as entradas `**No INTELECTO v2**` dos arquivos `exemplos/*.md`. Também conferi os cinco JPGs locais: todos são JPEG 1400×788. Para a nova imagem, a conversão do PNG gerado para JPG informou `(1536, 1024)`; `file assets/img/hero/mercearia.jpg` confirmou `1536x1024`.
 
-Executei `ollama list; ollama show llama3.2; ollama show qwen3.6:35b-a3b`. Os três comandos devolveram a mesma falha de conexão; trecho literal:
-
-```text
-Error: Head "http://127.0.0.1:11434/": dial tcp 127.0.0.1:11434: socket: operation not permitted
-```
-
-Li os manifestos instalados em `~/.ollama/models/manifests/registry.ollama.ai/library/` por script Python local. A soma dos tamanhos de camadas impressa foi:
-
-```text
-llama3.2/latest: total 2019392628
-qwen3.6/35b-a3b: total 23938333115
-```
-
-São tamanhos dos arquivos descritos nos manifestos locais, não medições de RAM nem a saída de `ollama show`.
-
-### INTELECTO em estado isolado
-
-Usei `INTELECTO_HOME=/tmp/intelecto-curso-demo.dqwv9S`, `PYTHONDONTWRITEBYTECODE=1` e executei `python3 -m intelecto configurar --nao-interativo --provedor mock --modelo mock --nome Teste`; em seguida, uma conversa por pipe com pedidos de memória e comando, `python3 -m intelecto auditoria -n 20`, `python3 -m intelecto verificar` e `python3 -m intelecto demo`. A aprovação por pipe foi recusada literalmente:
-
-```text
-[aprovação] 'echo x > y.txt' precisa de OK (substituição de comando ou redirecionamento para arquivo); entrada não é um terminal → recusado
-```
-
-O `verificar` imprimiu, por inteiro:
-
-```text
-[OK] Python 3.12.3 (precisa 3.10+)
-[OK] SQLite com FTS5 (memória)
-[OK] config em /tmp/intelecto-curso-demo.dqwv9S/config.json
-[INFO] cofre: fernet (Fernet)
-tudo certo
-```
-
-As linhas de auditoria copiadas nas aulas 4 e 8 vieram dessa execução:
-
-```json
-{"ts": "2026-11-13T03:37:49+00:00", "tipo": "comando", "comando": "echo x > y.txt", "classe": "aprovar", "rodou": false, "decisao": "o dono não aprovou"}
-{"ts": "2026-11-13T03:38:00+00:00", "tipo": "comando", "comando": "ls", "classe": "livre", "rodou": true, "decisao": "livre (só leitura)"}
-```
-
-`python3 -m intelecto demo` terminou com este bloco real, usado na aula 1:
-
-```text
-Auditoria desta demonstração:
-  livre     rodou=True  ls  (livre (só leitura))
-  aprovar   rodou=False echo teste > nota.txt  (o dono não aprovou)
-  bloqueado rodou=False rm -rf /  (bloqueado: apagar pasta do sistema ou a pasta pessoal)
-```
-
-### Docker, auditor e patch
-
-`docker version` imprimiu o cliente `Version: 28.5.1` e falhou ao acessar o daemon:
-
-```text
-permission denied while trying to connect to the Docker daemon socket at unix:///var/run/docker.sock: Get "http://%2Fvar%2Frun%2Fdocker.sock/v1.51/version": dial unix /var/run/docker.sock: connect: operation not permitted
-```
-
-Por esse limite, não executei `docker run --rm hello-world`, `docker build`, `caixa.sh` nem `bash testes/teste.sh`. Os resumos `67 passed, 1 skipped` e `TUDO OK (18/18)` presentes na aula 7 são resultados **documentados nas fontes**, não saídas obtidas nesta sessão. O comando de agente de nuvem também é exemplo; não carreguei chave nem usei API.
-
-Executei `python3 /home/nmaldaner/projetos/caixa-do-agente/auditar.py /home/nmaldaner/projetos/intelecto-v2` em leitura. Trecho da saída real:
-
-```text
-Harness encontrados: Claude Code, Codex
-[FALTA] Caixa (sandbox): Claude Code sandbox=desligado; Codex sandbox_mode=danger-full-access
-NOTA DO HARNESS: 7.5/10  (o modelo não entra na conta)
-```
-
-Testei `patch -p1` somente em um projeto descartável em `/tmp`, com um patch criado ali:
-
-```text
-patching file prova.txt
-depois
-```
-
-Não apliquei nenhum patch aos repositórios fonte. Um parser HTML local confirmou `tabelas HTML na aula 2: 1`.
-
-### Imagens
-
-As imagens finais foram geradas pelo `image_gen` da assinatura e salvas em `assets/img/hero/` como JPG 1536×1024. Prompts finais: (1) dono segura chave e impede humanoide de tocar na pasta; (2) humanoide adulto realista observa uma mão encaixar um módulo de modelo local no laptop; (8) dona confere folha de auditoria antes de acionar interruptor ao lado de humanoide realista. Todos pediram luz natural neutra, fotografia editorial, sem texto, marca ou logotipo.
-
-### Portão final
-
-Comando executado depois das edições de conteúdo e imagens:
+Primeiro portão, antes de dividir o parágrafo da aula 7:
 
 ```text
 $ python3 gerar.py && python3 validar.py
-8 aulas + index geradas (pt, motor 7.14.23), 0 erros
-OK: 8 aulas + index
+9 aulas + index geradas (pt, motor 7.14.23), 0 erros
+FALHOU:
+ - caixa-projeto: parágrafo com mais de 75 palavras
 ```
 
-Não executei `--links` nem `conferir-tela`, conforme solicitado.
+A menor correção foi separar a explicação do patch em dois parágrafos; registrei a falha em `FALHAS.md`. Após ajustar também os ícones da aula 9 para chaves existentes no motor, acrescentar o pedido de um único item ➕ e os links dos cinco exemplos, rodei o portão final:
+
+```text
+$ python3 gerar.py && python3 validar.py
+9 aulas + index geradas (pt, motor 7.14.23), 0 erros
+OK: 9 aulas + index
+```
+
+Não executei `validar.py --links` nem `conferir-tela`, conforme o portão desta rodada. As saídas de Docker mostradas na aula 7 são as capturas reais fornecidas pelo pedido e pela rodada 3; não são execução nova neste sandbox. O exemplo opcional que invoca Claude Code na caixa foi documentado, não executado.

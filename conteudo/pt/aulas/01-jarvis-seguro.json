@@ -5,7 +5,7 @@
   "titulo": "Por que um Jarvis seu, e por que seguro",
   "titulo_curto": "Seu Jarvis",
   "minutos": 12,
-  "lead": "Você quer ajuda da IA, mas teme que ela apague arquivos ou leia suas senhas. Veja primeiro o que o INTELECTO pode fazer, quando pede sua autorização e onde registra cada decisão. A demonstração usa um cérebro simulado, sem internet.",
+  "lead": "Antes de confiar seus arquivos à IA, veja o que ela pode fazer e quando pede seu OK. Um erro ou um texto malicioso escondido num site pode levar a IA a apagar uma pasta ou enviar uma senha para fora. Testado em Linux (Ubuntu). macOS: no código, não testado ao vivo. Windows: só pelo WSL (Ubuntu dentro do Windows), não testado. A demonstração usa um cérebro simulado, sem internet.",
   "objetivo": "Explicar as oito peças do INTELECTO v2 e reconhecer livre, aprovar e bloqueado na demonstração.",
   "competencias": [
     "jarvis-seguro-compreender",
@@ -85,6 +85,55 @@
     },
     {
       "tipo": "passos",
+      "titulo": "O caminho de uma mensagem",
+      "sub": "Do terminal ou celular até a resposta, em seis etapas do guia do projeto.",
+      "passos": [
+        {
+          "titulo": "Canal",
+          "sub": "entrada",
+          "texto": [
+            "A mensagem chega pelo terminal ou Telegram. No Telegram, o bot confere se o id pertence à lista de donos; outro remetente é ignorado e anotado."
+          ]
+        },
+        {
+          "titulo": "Memória direta",
+          "sub": "lembre que",
+          "texto": [
+            "Um pedido que começa com “lembre que”, “guarde” ou “anote” é salvo diretamente, sem esperar que a IA chame uma ferramenta. Uma pergunta com ? não vira memória."
+          ]
+        },
+        {
+          "titulo": "Contexto",
+          "sub": "o que sabe",
+          "texto": [
+            "O assistente junta os arquivos de identidade, memórias ligadas à pergunta e conversas recentes."
+          ]
+        },
+        {
+          "titulo": "Cérebro",
+          "sub": "decisão",
+          "texto": [
+            "A IA local ou da nuvem recebe esse contexto. Ela responde ou pede uma ferramenta, como buscar memória, ler arquivo ou rodar comando."
+          ]
+        },
+        {
+          "titulo": "Trava",
+          "sub": "ferramenta",
+          "texto": [
+            "O comando pedido passa pela trava: ela roda, pede seu OK ou recusa. Se aprovado, roda na área de trabalho ou na caixa, quando ativada; o resultado volta para a IA."
+          ]
+        },
+        {
+          "titulo": "Resposta",
+          "sub": "auditoria",
+          "texto": [
+            "Você recebe a resposta. Comandos, ferramentas, memórias diretas e erros ficam registrados na auditoria para conferência."
+          ]
+        }
+      ]
+    },
+    {
+      "tipo": "passos",
       "titulo": "O que a demonstração prova",
       "sub": "Clique em cada etapa para ver o que fazer.",
       "passos": [
@@ -92,21 +141,21 @@
           "titulo": "Prepare o terminal",
           "sub": "Python e git",
           "texto": [
-            "No Linux, instale Python 3.10+ e git, programa que baixa o projeto; no macOS, xcode-select --install instala as ferramentas de comando, inclusive git. O curso usa terminal para copiar os passos."
+            "No Linux (Ubuntu), instale Python 3.10+ e git. No macOS, instale as ferramentas de comando com xcode-select --install; Python 3.10+ vem de python.org ou de brew install python. No Windows, use WSL com Ubuntu. Confira as versões antes de continuar. Se python3 --version mostrar menos que 3.10, use Ubuntu 22.04 ou mais novo antes de continuar."
           ]
         },
         {
-          "titulo": "Prepare o terminal",
-          "sub": "Python e git",
+          "titulo": "Baixe e rode a demonstração",
+          "sub": "Sem modelo de IA",
           "texto": [
-            "No Linux, instale Python 3.10+ e git, programa que baixa o projeto; no macOS, xcode-select --install instala as ferramentas de comando, inclusive git. O curso usa terminal para copiar os passos."
+            "Baixe o INTELECTO, entre na pasta e rode demo. A demonstração usa um cérebro simulado e mostra memória, leitura permitida, escrita recusada e comando bloqueado."
           ]
         },
         {
           "titulo": "Memória",
           "sub": "Guardar e buscar",
           "texto": [
-            "O cérebro de mentira guarda “Ana mora em Curitiba” e responde à pergunta seguinte. A prova é do mecanismo, não de um modelo real."
+            "O cérebro simulado guarda “meu nome é Ana e moro em Curitiba” e responde à pergunta seguinte. Esta prova é do mecanismo; na aula 3 você fará o teste com Ollama."
           ]
         },
         {
@@ -128,35 +177,30 @@
     {
       "tipo": "codigo",
       "titulo": "Rode sem instalar modelo",
-      "sub": "Copie os comandos e rode no terminal a partir da pasta indicada.",
+      "sub": "No macOS, Python 3.10+ também pode vir de python.org; use brew install python apenas se tiver Homebrew. Rode os blocos do seu sistema e depois baixe o projeto.",
       "blocos": [
         {
-          "rot": "Linux · pré-requisitos",
+          "rot": "Linux (Ubuntu) · pré-requisitos",
           "icone": "terminal",
-          "conteudo": "sudo apt install -y git python3"
+          "conteudo": "sudo apt install -y git python3\npython3 --version && git --version"
         },
         {
-          "rot": "macOS · ferramentas de comando",
+          "rot": "macOS · instalar ferramentas do terminal e git",
           "icone": "terminal",
-          "conteudo": "xcode-select --install"
+          "conteudo": "xcode-select --install\ngit --version"
         },
         {
-          "rot": "Linux · pré-requisitos",
+          "rot": "macOS · Python 3.10+ com Homebrew",
           "icone": "terminal",
-          "conteudo": "cd ~ && git clone https://github.com/inematds/intelecto-v2 && cd intelecto-v2"
+          "conteudo": "brew install python\npython3 --version"
         },
         {
-          "rot": "macOS · ferramentas de comando",
-          "icone": "terminal",
-          "conteudo": "xcode-select --install"
-        },
-        {
-          "rot": "Terminal · baixar e entrar",
+          "rot": "Terminal · baixar o projeto e entrar",
           "icone": "terminal",
           "conteudo": "cd ~ && git clone https://github.com/inematds/intelecto-v2 && cd intelecto-v2"
         },
         {
-          "rot": "Terminal · demonstração sem rede",
+          "rot": "Terminal · rodar a demonstração",
           "icone": "terminal",
           "conteudo": "python3 -m intelecto demo"
         }

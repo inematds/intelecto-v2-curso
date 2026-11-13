@@ -18,9 +18,9 @@
   "rodape": "INEMA.CLUB · conteúdo aberto e gratuito · formato INEMA Learning v7.2 · <a href=\"https://inematds.github.io/intelecto-v2/guia/\">Guia do INTELECTO v2</a> · <a href=\"https://inematds.github.io/caixa-do-agente/guia/\">Guia da caixa-do-agente</a>",
   "videos": {},
   "inicio": {
-    "kicker": "Curso · INEMA Learning v7.2 · 8 aulas",
+    "kicker": "Curso · INEMA Learning v7.2 · 9 aulas",
     "titulo": "Seu Jarvis seguro: INTELECTO v2 e caixa-do-agente",
-    "lead": "Você tem medo de pedir ajuda à IA e ela apagar seus arquivos ou expor suas senhas? Monte o INTELECTO v2 para conversar e conferir cada ação. Use a caixa-do-agente para testar mudanças numa cópia antes de levá-las ao projeto. A caixa começa sem rede; um agente de nuvem precisa de rede e da chave dele, e pode enviar o conteúdo da cópia.",
+    "lead": "Um erro ou um texto malicioso escondido num site basta para a IA apagar uma pasta ou mandar a sua senha para fora. Aqui você monta um assistente com trava, cofre e aprovação, aprende como deixar agentes trabalharem numa cópia pela caixa e cria um plano do seu jeito na mercearia.",
     "cta": "Começar pela demonstração",
     "cta2": {
       "t": "Abrir o guia do INTELECTO",
@@ -29,7 +29,7 @@
     "capa_alt": "Mesa calma com computador, cofre e o título Seu Jarvis seguro.",
     "numeros": [
       {
-        "v": "8",
+        "v": "9",
         "t": "aulas para montar e conferir"
       },
       {
@@ -42,20 +42,22 @@
       }
     ],
     "aulas_titulo": "Sua sequência",
-    "aulas_sub": "Comece pela demonstração. Telegram e serviço são opcionais; a caixa do projeto começa sem rede e protege o original enquanto você testa.",
+    "aulas_sub": "Comece pela demonstração. Telegram e serviço são opcionais; só as aulas 6 e 7 pedem Docker. Na aula 9, escolha ingredientes e baixe seu plano em .md.",
     "blocos": [
       {
         "t": "Para quem é",
         "itens": [
           "Você usa IA no chat, abre um terminal e consegue copiar comandos.",
-          "Você ainda não montou um agente e quer entender cada proteção antes de usar."
+          "Você ainda não montou um agente e quer entender cada proteção antes de usar.",
+          "O curso foi testado em Linux (Ubuntu). No macOS, o suporte existe no código, sem teste ao vivo; no Windows, use WSL com Ubuntu, também sem teste ao vivo."
         ]
       },
       {
         "t": "O que você vai conferir",
         "itens": [
           "O assistente lembra um fato em outra execução e registra decisões na auditoria.",
-          "A caixa testa numa cópia sem .env e chaves. Você lê o patch (arquivo de mudanças) e decide se aplica no original."
+          "A caixa testa numa cópia sem .env e chaves. Você lê o patch (arquivo de mudanças) e decide se aplica no original.",
+          "Na mercearia, você escolhe ingredientes, baixa meu-assistente.md e confere o que já existe e o que falta construir."
         ]
       }
     ]

@@ -5,8 +5,8 @@
   "titulo": "A caixa-do-agente no seu projeto",
   "titulo_curto": "Caixa do projeto",
   "minutos": 20,
-  "lead": "Antes de deixar um agente mexer no seu projeto, use a caixa-do-agente para trabalhar numa cópia. Sem --rede, ela fica sem internet. Um agente de nuvem precisa de --rede e da chave dele; você revisa o patch (arquivo de mudanças) antes de aplicar no original.",
-  "objetivo": "Rodar as checagens do kit ou executar um projeto na caixa e revisar o patch antes de aplicar.",
+  "lead": "Você precisa do Docker instalado na aula 6; só as aulas 6 e 7 pedem Docker. Aqui, a caixa-do-agente trabalha numa cópia do projeto. Faça uma mudança pequena sem chave, leia o patch e decida se aplica. Você também aprende como deixar agentes trabalharem numa cópia, em um exemplo opcional não executado neste curso.",
+  "objetivo": "Criar e ler um patch sem chave, aplicar a mudança revisada no projeto e desfazê-la.",
   "competencias": [
     "caixa-projeto-compreender",
     "caixa-projeto-praticar"
@@ -68,15 +68,17 @@
           "titulo": "caixa.sh",
           "sub": "maquete",
           "texto": [
-            "O fluxo cria → roda → destrói usa uma cópia: .env, chaves .pem e ~/.ssh ficam fora. Sem --aplicar, o original fica intacto; arquivo excluído na caixa não é excluído no original. Há teto de memória, CPU e tempo.",
-            "Com --rede e --env ANTHROPIC_API_KEY, a chave escolhida entra na caixa e o agente pode enviar para fora o conteúdo da cópia. --dangerously-skip-permissions tira as perguntas dentro dessa cópia; leia o patch e nunca ponha outros segredos na pasta de trabalho."
+            "O fluxo cria → roda → destrói usa uma cópia: .env, chaves .pem e ~/.ssh ficam fora. A imagem Docker é o molde da caixa; sem --aplicar, o original fica intacto. Há teto de memória, CPU e tempo.",
+            "Com --rede, a caixa ganha acesso à rede. Com --env ANTHROPIC_API_KEY, só essa chave entra. O comando opcional com agente usa sua chave e pode enviar o conteúdo da cópia ao serviço do agente; não foi executado neste curso. --dangerously-skip-permissions desliga as perguntas internas do agente na cópia. Confira o patch antes de aplicar.",
+            "No macOS, a caixa.sh também precisa do comando timeout: instale coreutils com brew install coreutils, conforme o README do kit."
           ]
         },
         {
           "titulo": "Patch",
           "sub": "recibo do trabalho",
           "texto": [
-            "Patch é um arquivo de texto com as mudanças. O .patch fica na pasta de onde você rodou a caixa ou em --patch. Leia o arquivo específico antes de aplicar; patch -p1 leva exatamente essas mudanças ao original. Use o caminho completo que a caixa mostrou para o arquivo, sem selecionar outro patch por engano."
+            "Patch é um arquivo de texto com as mudanças. O .patch fica na pasta de onde você rodou caixa.sh, ou na pasta indicada por --patch PASTA. Leia com less (aperte q para sair) antes de aplicar. Em patch -p1, o -p1 tira o primeiro pedaço do caminho, “antes/” ou “trabalho/”, para casar com o arquivo da sua pasta. Use o nome exato mostrado pela caixa.",
+            "Para arquivo novo, a linha antes/ no cabeçalho do patch pode mostrar 1969; ela representa a ausência do arquivo antes da execução."
           ]
         },
         {
@@ -90,51 +92,92 @@
           "titulo": "Caso real",
           "sub": "INTELECTO v2",
           "texto": [
-            "A prática principal usa o ~/intelecto-v2 que você já baixou. A imagem de testes traz pytest, o programa que roda testes Python, porque a caixa começa sem rede. O README do projeto documenta 67 testes passados, 1 pulado e nenhum arquivo alterado na medição dele; confira sua própria saída."
+            "A primeira prática usa ~/intelecto-v2 e a imagem pública python:3.12-slim; não pede chave nem agente de nuvem. A segunda roda testes numa imagem preparada com pytest, o programa de testes Python. O README do projeto documenta 67 testes passados e 1 pulado em uma medição anterior; confira sua própria saída."
           ]
         }
       ]
     },
     {
       "tipo": "codigo",
-      "titulo": "Use o kit numa pasta de projeto",
-      "sub": "Use ~/intelecto-v2, baixado na aula 1. Baixe o kit caixa-do-agente uma vez. Os comandos de agente de nuvem e patch são exemplos: precisam da sua chave/assinatura ou de um patch criado por uma rodada com mudanças.",
+      "titulo": "Crie, leia e aplique um patch sem chave",
+      "sub": "O Docker da aula 6 já deve funcionar. Comece na pasta pessoal e use o caminho completo da caixa.sh; o patch fica em ~. Substitua AAAAMMDD-HHMMSS pelo nome que a caixa imprimir.",
       "blocos": [
         {
-          "rot": "Terminal · baixar o kit e testar",
+          "rot": "Terminal · baixar o kit uma vez",
           "icone": "terminal",
-          "conteudo": "cd ~ && git clone https://github.com/inematds/caixa-do-agente && cd caixa-do-agente\nbash testes/teste.sh"
+          "conteudo": "cd ~ && git clone https://github.com/inematds/caixa-do-agente"
         },
         {
-          "rot": "Terminal · auditar o projeto da aula 1",
+          "rot": "macOS · requisito do caixa.sh",
           "icone": "terminal",
-          "conteudo": "cd ~/caixa-do-agente\npython3 auditar.py ~/intelecto-v2"
+          "conteudo": "brew install coreutils"
         },
         {
-          "rot": "Terminal · prática principal: testes numa cópia",
+          "rot": "Ubuntu · conferir ferramentas da caixa e do patch",
+          "icone": "terminal",
+          "conteudo": "rsync --version\npatch --version"
+        },
+        {
+          "rot": "Terminal · criar nota na cópia, sem chave",
+          "icone": "terminal",
+          "conteudo": "cd ~ && ~/caixa-do-agente/caixa.sh ~/intelecto-v2 --imagem python:3.12-slim -- sh -c \"echo teste > nota.txt\""
+        },
+        {
+          "rot": "Terminal · ler o patch (q sai do less)",
+          "icone": "terminal",
+          "conteudo": "less ~/caixa-AAAAMMDD-HHMMSS.patch"
+        },
+        {
+          "rot": "Terminal · aplicar o patch lido",
+          "icone": "terminal",
+          "conteudo": "cd ~/intelecto-v2 && patch -p1 < ~/caixa-AAAAMMDD-HHMMSS.patch\ncat nota.txt"
+        },
+        {
+          "rot": "Terminal · desfazer a nota de prova",
+          "icone": "terminal",
+          "conteudo": "cd ~/intelecto-v2 && rm nota.txt"
+        },
+        {
+          "rot": "Segunda prática · testes na imagem do projeto",
           "icone": "terminal",
           "conteudo": "cd ~/intelecto-v2\ndocker build -t intelecto-v2-testes caixa/\ncd ~/caixa-do-agente\n./caixa.sh ~/intelecto-v2 --imagem intelecto-v2-testes -- python3 -m pytest -q -p no:cacheprovider"
         },
         {
-          "rot": "Exemplo · agente de nuvem na cópia (precisa de chave autorizada)",
+          "rot": "Opcional · auditar o projeto",
           "icone": "terminal",
-          "conteudo": "./caixa.sh ~/intelecto-v2 --rede --env ANTHROPIC_API_KEY -- npx -y @anthropic-ai/claude-code -p \"rode os testes\" --dangerously-skip-permissions"
+          "conteudo": "cd ~/caixa-do-agente\npython3 auditar.py ~/intelecto-v2"
         },
         {
-          "rot": "Exemplo · aplicar exatamente o patch que você leu",
+          "rot": "OPCIONAL · exemplo de agente na caixa, não executado neste curso",
           "icone": "terminal",
-          "conteudo": "less /caminho/absoluto/caixa-AAAAMMDD-HHMMSS.patch\ncd ~/intelecto-v2 && patch -p1 < /caminho/absoluto/caixa-AAAAMMDD-HHMMSS.patch"
+          "conteudo": "cd ~/caixa-do-agente\n./caixa.sh ~/meu-projeto --rede --env ANTHROPIC_API_KEY -- npx -y @anthropic-ai/claude-code -p \"rode os testes\" --dangerously-skip-permissions"
         }
       ],
       "saida": {
         "selo": "real",
         "abas": [
           {
-            "rot": "Medição documentada nos READMEs · não repetida neste ambiente",
-            "html": "<pre>67 passed, 1 skipped\n0 arquivo(s) mudaram</pre><p>Esse resultado veio do README do INTELECTO e do guia da caixa. Seu terminal pode mostrar contagens diferentes. Uma rodada de testes sem mudanças não cria patch para aplicar.</p>"
+            "rot": "Saída real da caixa e nome do patch · 13/11/2026",
+            "html": "<pre>▶ 1/3 CRIAR   cópia de ~/intelecto-v2 (sem segredos)\n  0 arquivo(s) de segredo ficaram de fora\n▶ 2/3 CAIXA   python:3.12-slim · rede desligada · 4g · 2 CPU · 1800s\n  saída do comando: 0\n▶ 3/3 DESTRUIR\n  1 arquivo(s) mudaram dentro da caixa\n  patch salvo (o diff de tudo que mudou): ~/caixa-20261113-005926.patch\n  container apagado · cópia apagada</pre><p>Capturada pela sessão principal em 13/11/2026 com o comando da prática rodado a partir de ~. O nome do patch muda a cada execução.</p>"
+          },
+          {
+            "rot": "Conteúdo e aplicação reais do patch · 13/11/2026",
+            "html": "<pre>diff -ruN -x node_modules -x .venv -x __pycache__ -x &#x27;*.pyc&#x27; -x .npm -x .cache -x .git antes/nota.txt trabalho/nota.txt\n--- antes/nota.txt\t1969-12-31 21:00:00.000000000 -0300\n+++ trabalho/nota.txt\t2026-11-13 00:59:26.721454106 -0300\n@@ -0,0 +1 @@\n+teste\n\npatching file nota.txt\n\nteste</pre><p>O diff acima é o patch real completo; abaixo dele, “patching file nota.txt” e “teste” são as saídas reais de aplicar e ler a nota. A data de 1969 no cabeçalho de <code>antes/nota.txt</code> é normal para um arquivo novo: antes da execução ele não existia.</p>"
+          },
+          {
+            "rot": "Testes documentados no README anterior",
+            "html": "<pre>67 passed, 1 skipped\n0 arquivo(s) mudaram</pre><p>Estes números são documentados nas fontes, não foram capturados nesta rodada. A quantidade pode mudar no seu projeto.</p>"
           }
         ]
       }
+    },
+    {
+      "tipo": "texto",
+      "titulo": "O que faz o exemplo opcional com agente",
+      "paragrafos": [
+        "Este exemplo do README da caixa-do-agente não foi executado neste curso. Ele usa a sua chave ANTHROPIC_API_KEY e manda a cópia do projeto pela rede ao serviço do agente. Isso pode consumir a sua assinatura ou créditos do serviço.",
+        "<code>./caixa.sh ~/meu-projeto</code> copia esse projeto; <code>--rede</code> libera a internet; <code>--env ANTHROPIC_API_KEY</code> põe só essa chave na caixa. Depois de <code>--</code>, <code>npx -y @anthropic-ai/claude-code -p \"rode os testes\"</code> inicia o agente com esse pedido; <code>--dangerously-skip-permissions</code> remove as perguntas internas na cópia. A caixa gera um patch para você revisar antes de aplicar ao original."
+      ]
     },
     {
       "tipo": "pratica",
@@ -143,17 +186,17 @@
       "exercicios": [
         {
           "id": "1",
-          "titulo": "Teste o kit",
-          "min": 8,
-          "texto": "Dentro da pasta caixa-do-agente, rode a bateria. A primeira execução pode precisar da imagem Docker.",
-          "pronto": "A linha final mostra “TUDO OK (18/18)”."
+          "titulo": "Faça a mudança e volte ao original",
+          "min": 12,
+          "texto": "Na pasta pessoal, rode o comando sem chave da imagem python:3.12-slim usando ~/caixa-do-agente/caixa.sh. Copie o nome do patch impresso. Abra esse arquivo com less, aperte q para sair; entre em ~/intelecto-v2, aplique com patch -p1, confira com cat nota.txt e desfaça com rm nota.txt.",
+          "pronto": "O patch lido contém +teste; patch imprime “patching file nota.txt”; cat mostra “teste”; depois de rm, a nota de prova não fica no original."
         },
         {
           "id": "2",
-          "titulo": "Teste o projeto que você já tem",
+          "titulo": "Rode os testes em outra caixa",
           "min": 8,
-          "texto": "No ~/intelecto-v2 da aula 1, crie a imagem de testes com docker build e rode o pytest dentro da caixa. Leia a nota do auditor separadamente. Se um agente fizer mudanças, leia o patch específico; para aplicar exatamente o que leu, use patch -p1. ~/meu-projeto é uma opção para depois.",
-          "pronto": "O pytest mostra um resumo de testes e a caixa informa o que mudou. Se houver patch, você consegue identificar o arquivo exato antes de aplicá-lo."
+          "texto": "Em ~/intelecto-v2, crie a imagem intelecto-v2-testes com docker build. Depois, em ~/caixa-do-agente, rode caixa.sh com essa imagem e python3 -m pytest -q -p no:cacheprovider. A bateria bash testes/teste.sh do kit é opcional.",
+          "pronto": "O pytest mostra seu resumo de testes e a caixa informa quantos arquivos mudaram; compare com a medição documentada, sem exigir os mesmos números."
         }
       ]
     },
@@ -181,7 +224,7 @@
             "Pedir outra resposta ao agente"
           ],
           "certa": 1,
-          "explica": "patch -p1 aplica o arquivo revisado. --aplicar faz uma rodada nova e pergunta antes de copiar; a saída pode ser diferente.",
+          "explica": "Depois de ler o arquivo, patch -p1 aplica exatamente esse patch. -p1 remove “antes/” ou “trabalho/” do caminho; --aplicar inicia uma rodada nova.",
           "ref": "passos"
         },
         {

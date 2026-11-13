@@ -68,7 +68,7 @@
           "titulo": "Criar bot",
           "sub": "@BotFather",
           "texto": [
-            "Abra @BotFather no Telegram, envie /newbot, escolha um nome e depois um nome de usuário que termina em bot. Copie o token recebido: é o código secreto do bot. Não cole em USER.md, AGENTS.md ou config.json."
+            "Abra @BotFather no Telegram, envie /newbot, escolha um nome e depois um nome de usuário que termina em bot. Copie o token recebido: é o código secreto do bot. Não cole em USER.md, AGENTS.md ou config.json. O @BotFather manda também o link do seu bot, no formato t.me/nome_bot: abra esse link para conversar com ele."
           ]
         },
         {
@@ -89,7 +89,7 @@
           "titulo": "Cadastrar dono",
           "sub": "configurar",
           "texto": [
-            "Informe o id na pergunta de donos e ligue o bot novamente. Teste com outra conta se tiver uma; somente a sua deve receber resposta."
+            "Informe o id na pergunta de donos e ligue o bot novamente. Teste com outra conta se tiver uma; somente a sua deve receber resposta. Se um comando pedir aprovação, responda /sim ou /nao em até 120 segundos; depois disso o pedido expira e o comando não roda."
           ]
         }
       ]
@@ -141,7 +141,7 @@
           "id": "2",
           "titulo": "Confira uma aprovação",
           "min": 5,
-          "texto": "No chat com o seu bot, mande “rode: echo teste > nota.txt”. Isso pede aprovação porque grava arquivo. Responda /nao primeiro; só use /sim se você quiser mesmo criar o arquivo.",
+          "texto": "No chat com o seu bot, mande “rode: echo teste > nota.txt”. Isso pede aprovação porque grava arquivo. Responda /nao primeiro; só use /sim se você quiser mesmo criar o arquivo. A aprovação expira após 120 segundos sem /sim ou /nao.",
           "pronto": "A auditoria registra a decisão e o comando não roda após /nao."
         }
       ]
