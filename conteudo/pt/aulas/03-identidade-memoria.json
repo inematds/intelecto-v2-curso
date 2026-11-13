@@ -1,0 +1,214 @@
+{
+  "slug": "identidade-memoria",
+  "num": 3,
+  "menu": "Memória",
+  "titulo": "Dar identidade e memória ao assistente",
+  "titulo_curto": "Memória",
+  "minutos": 15,
+  "lead": "Você pode mudar o jeito de falar do assistente e guardar fatos para outra conversa. O arquivo MEMORY.md só entra na memória na primeira execução; depois, ensine fatos dizendo “lembre que…” na conversa.",
+  "objetivo": "Editar a identidade e achar pelo comando memoria um fato contado ao assistente.",
+  "competencias": [
+    "identidade-memoria-compreender",
+    "identidade-memoria-praticar"
+  ],
+  "aprende": [
+    {
+      "t": "Diferenciar os quatro arquivos",
+      "icone": "check"
+    },
+    {
+      "t": "Guardar um fato duradouro",
+      "icone": "check"
+    },
+    {
+      "t": "Buscar o mesmo fato depois",
+      "icone": "check"
+    }
+  ],
+  "hero_alt": "Fotografia editorial que representa dar identidade e memória ao assistente.",
+  "secoes": [
+    {
+      "tipo": "diagrama",
+      "titulo": "Quatro arquivos, funções diferentes",
+      "sub": "A identidade fica em ~/.intelecto2/identidade/.",
+      "nos": [
+        {
+          "titulo": "SOUL.md",
+          "sub": "jeito de falar",
+          "icone": "usuario",
+          "detalhe": "A personalidade e o tom do assistente. Você pode editar como texto."
+        },
+        {
+          "titulo": "AGENTS.md",
+          "sub": "regras de trabalho",
+          "icone": "arquivo",
+          "detalhe": "Diz para consultar memórias relevantes, respeitar a pasta e não contornar comando recusado."
+        },
+        {
+          "titulo": "USER.md",
+          "sub": "quem é você",
+          "icone": "usuario",
+          "detalhe": "Contexto sobre o dono para personalizar respostas."
+        },
+        {
+          "titulo": "MEMORY.md",
+          "sub": "fatos iniciais",
+          "icone": "memoria",
+          "detalhe": "Linhas iniciadas por “- ” entram na memória uma única vez, na primeira execução. Editar MEMORY.md depois não reimporta os fatos."
+        }
+      ],
+      "legenda": "Clique em cada parte para ver sua função."
+    },
+    {
+      "tipo": "passos",
+      "titulo": "Identidade não é lembrança automática",
+      "sub": "Clique em cada etapa para ver o que fazer.",
+      "passos": [
+        {
+          "titulo": "Edite a pessoa",
+          "sub": "USER.md",
+          "texto": [
+            "Descreva quem é você sem senha. No editor nano, salve com Ctrl+O, Enter e saia com Ctrl+X."
+          ]
+        },
+        {
+          "titulo": "Edite o jeito",
+          "sub": "SOUL.md",
+          "texto": [
+            "Mude a personalidade em linguagem comum. Mantenha as regras de segurança em AGENTS.md."
+          ]
+        },
+        {
+          "titulo": "Conte um fato",
+          "sub": "conversa real",
+          "texto": [
+            "Depois da primeira execução, não adianta acrescentar fatos em MEMORY.md: ele já foi importado. Na conversa, diga “lembre que minha cidade é Porto Alegre”. O modelo precisa usar a ferramenta salvar_memoria; isso depende da capacidade dele."
+          ]
+        },
+        {
+          "titulo": "Busque depois",
+          "sub": "memoria",
+          "texto": [
+            "Encerre a conversa, abra outra e peça para lembrar. Confirme também pelo comando memoria, que consulta o banco diretamente."
+          ]
+        }
+      ]
+    },
+    {
+      "tipo": "codigo",
+      "titulo": "Arquivos e busca",
+      "sub": "Abra só os arquivos que quer editar. No nano: Ctrl+O, Enter, Ctrl+X. MEMORY.md só vale antes da primeira execução.",
+      "blocos": [
+        {
+          "rot": "Terminal · abrir os arquivos",
+          "icone": "terminal",
+          "conteudo": "nano ~/.intelecto2/identidade/USER.md\nnano ~/.intelecto2/identidade/SOUL.md\nnano ~/.intelecto2/identidade/MEMORY.md"
+        },
+        {
+          "rot": "Terminal · procurar o fato",
+          "icone": "terminal",
+          "conteudo": "python3 -m intelecto memoria Porto Alegre"
+        },
+        {
+          "rot": "Terminal · listar as últimas memórias",
+          "icone": "terminal",
+          "conteudo": "python3 -m intelecto memoria"
+        }
+      ],
+      "saida": {
+        "selo": "real",
+        "abas": [
+          {
+            "rot": "Resultado medido · 12/11/2026",
+            "html": "<p>Com Ollama e qwen3.6:35b-a3b, o INEMA contou “meu nome é Nei e moro em Porto Alegre” e o assistente lembrou em outra execução. O texto exato da resposta pode variar.</p>"
+          }
+        ]
+      }
+    },
+    {
+      "tipo": "pratica",
+      "titulo": "Prove a lembrança",
+      "sub": "Faça na ordem e marque apenas depois de conferir o resultado.",
+      "exercicios": [
+        {
+          "id": "1",
+          "titulo": "Conte um fato seu",
+          "min": 5,
+          "texto": "Na conversa com Ollama, diga “lembre que minha cidade é Porto Alegre” ou outro fato simples que aceita guardar. Evite dados sensíveis.",
+          "pronto": "O assistente confirma que guardou o fato, ou o fato aparece em memoria."
+        },
+        {
+          "id": "2",
+          "titulo": "Busque em outra execução",
+          "min": 5,
+          "texto": "Encerre, volte ao terminal e procure uma palavra do fato com memoria.",
+          "pronto": "A linha encontrada contém o fato que você contou."
+        }
+      ]
+    },
+    {
+      "tipo": "quiz",
+      "titulo": "Confira se entendeu",
+      "sub": "Escolha antes de abrir o comentário. Se errar, use o link para rever.",
+      "perguntas": [
+        {
+          "p": "Onde ficam as regras de comportamento?",
+          "opcoes": [
+            "AGENTS.md",
+            "USER.md",
+            "MEMORY.md"
+          ],
+          "certa": 0,
+          "explica": "AGENTS.md traz as regras de trabalho. USER.md descreve o dono; MEMORY.md traz fatos iniciais.",
+          "ref": "diagrama"
+        },
+        {
+          "p": "Qual comando procura um fato guardado?",
+          "opcoes": [
+            "python3 -m intelecto demo",
+            "python3 -m intelecto verificar --help",
+            "python3 -m intelecto memoria Nei"
+          ],
+          "certa": 2,
+          "explica": "memoria com uma palavra consulta a memória. A demo usa uma pasta temporária e apaga esse estado ao terminar.",
+          "ref": "codigo"
+        },
+        {
+          "p": "Se o assistente conversa, mas não guarda nada, qual hipótese é coerente com os testes?",
+          "opcoes": [
+            "A caixa sempre apagou o banco ao terminar",
+            "O modelo pode não usar a ferramenta",
+            "O Telegram precisa estar ligado"
+          ],
+          "certa": 1,
+          "explica": "O teste com llama3.2 mostrou conversa com pouco uso de ferramentas. Verifique o modelo e a ferramenta antes de culpar o banco.",
+          "ref": "passos"
+        }
+      ]
+    },
+    {
+      "tipo": "resumo",
+      "titulo": "Leve desta aula",
+      "itens": [
+        {
+          "t": "Texto editável",
+          "texto": "SOUL, AGENTS e USER definem o contexto. MEMORY entra só na primeira execução; novos fatos vêm pela conversa."
+        },
+        {
+          "t": "Prova direta",
+          "texto": "O comando memoria confere o banco, independente da resposta do modelo."
+        }
+      ]
+    },
+    {
+      "tipo": "links",
+      "titulo": "Fontes e próximos passos",
+      "links": [
+        {
+          "t": "Memória no guia do INTELECTO",
+          "href": "https://inematds.github.io/intelecto-v2/guia/"
+        }
+      ]
+    }
+  ]
+}

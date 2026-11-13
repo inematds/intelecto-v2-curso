@@ -1,0 +1,214 @@
+{
+  "slug": "cofre-telegram",
+  "num": 5,
+  "menu": "Telegram",
+  "titulo": "Cofre, dono e aprovação pelo Telegram",
+  "titulo_curto": "Telegram",
+  "minutos": 15,
+  "lead": "Telegram é opcional. @BotFather é a conta oficial do Telegram que cria bots; o token é o código secreto do seu bot, e o id é o número da sua conta. O token fica no cofre; só ids cadastrados podem conversar com o bot. Os testes do projeto usaram servidor falso local.",
+  "objetivo": "Preparar o token no cofre e configurar o id de dono para que o bot responda só à pessoa autorizada.",
+  "competencias": [
+    "cofre-telegram-compreender",
+    "cofre-telegram-praticar"
+  ],
+  "aprende": [
+    {
+      "t": "Guardar o token fora do config",
+      "icone": "check"
+    },
+    {
+      "t": "Descobrir e cadastrar o id de dono",
+      "icone": "check"
+    },
+    {
+      "t": "Entender /sim e /nao sem prometer teste ao vivo",
+      "icone": "check"
+    }
+  ],
+  "hero_alt": "Fotografia editorial que representa cofre, dono e aprovação pelo telegram.",
+  "secoes": [
+    {
+      "tipo": "diagrama",
+      "titulo": "Mensagem até a resposta",
+      "sub": "Sem dono cadastrado, o bot só responde /id.",
+      "nos": [
+        {
+          "titulo": "Token",
+          "sub": "cofre cifrado",
+          "icone": "cadeado",
+          "detalhe": "No Telegram, abra @BotFather, envie /newbot, escolha nome e identificador e copie o token (código secreto do bot). Guarde-o pelo comando cofre guardar telegram; não cole em arquivo do projeto."
+        },
+        {
+          "titulo": "/id",
+          "sub": "descobrir o número",
+          "icone": "usuario",
+          "detalhe": "Envie /id ao seu bot. Ele responde “Seu id é [número]. Coloque em telegram_donos no config.json.” O configurar preenche esse mesmo campo sem editar o JSON à mão."
+        },
+        {
+          "titulo": "Filtro de dono",
+          "sub": "somente ids autorizados",
+          "icone": "portao",
+          "detalhe": "Mensagem de outro id é ignorada e anotada na auditoria."
+        },
+        {
+          "titulo": "Aprovação",
+          "sub": "/sim ou /nao",
+          "icone": "check",
+          "detalhe": "Quando um comando exige decisão, o bot pergunta e espera a resposta do dono que fez o pedido."
+        }
+      ],
+      "legenda": "Clique em cada parte para ver sua função."
+    },
+    {
+      "tipo": "passos",
+      "titulo": "Ligue só se você for usar",
+      "sub": "Clique em cada etapa para ver o que fazer.",
+      "passos": [
+        {
+          "titulo": "Criar bot",
+          "sub": "@BotFather",
+          "texto": [
+            "Abra @BotFather no Telegram, envie /newbot, escolha um nome e depois um nome de usuário que termina em bot. Copie o token recebido: é o código secreto do bot. Não cole em USER.md, AGENTS.md ou config.json."
+          ]
+        },
+        {
+          "titulo": "Guardar segredo",
+          "sub": "cofre",
+          "texto": [
+            "O comando guardar telegram pede o token sem exibi-lo. O arquivo de configuração guarda os ids, não o token."
+          ]
+        },
+        {
+          "titulo": "Descobrir id",
+          "sub": "/id",
+          "texto": [
+            "Ligue o bot, mande /id e anote o número. A mensagem real diz “Coloque em telegram_donos no config.json”. Você pode preencher esse mesmo campo pelo configurar, na pergunta de ids do Telegram. Pare o bot com Ctrl+C antes de configurar."
+          ]
+        },
+        {
+          "titulo": "Cadastrar dono",
+          "sub": "configurar",
+          "texto": [
+            "Informe o id na pergunta de donos e ligue o bot novamente. Teste com outra conta se tiver uma; somente a sua deve receber resposta."
+          ]
+        }
+      ]
+    },
+    {
+      "tipo": "codigo",
+      "titulo": "Sequência opcional",
+      "sub": "Copie os comandos e rode no terminal a partir da pasta indicada.",
+      "blocos": [
+        {
+          "rot": "Terminal · guardar e descobrir id",
+          "icone": "terminal",
+          "conteudo": "python3 -m intelecto cofre guardar telegram\npython3 -m intelecto telegram"
+        },
+        {
+          "rot": "Terminal · cadastrar e ligar",
+          "icone": "terminal",
+          "conteudo": "python3 -m intelecto configurar\npython3 -m intelecto verificar\npython3 -m intelecto telegram"
+        },
+        {
+          "rot": "No chat com o bot · mensagens",
+          "icone": "terminal",
+          "conteudo": "/id\nrode: echo teste > nota.txt\n/nao"
+        }
+      ],
+      "saida": {
+        "selo": "real",
+        "abas": [
+          {
+            "rot": "Estado da evidência",
+            "html": "<p>Os testes automatizados usam servidor Telegram falso: filtro de dono, formato das mensagens e aprovação por /sim. Não houve teste ao vivo do bot pelo INEMA.</p>"
+          }
+        ]
+      }
+    },
+    {
+      "tipo": "pratica",
+      "titulo": "Verifique quem manda",
+      "sub": "Opcional. Depende do seu bot e da sua conta; esta integração não foi testada ao vivo pelo INEMA.",
+      "exercicios": [
+        {
+          "id": "1",
+          "titulo": "Conclua o cadastro",
+          "min": 8,
+          "texto": "Se usar Telegram, obtenha /id, coloque o número em configurar e ligue novamente. Se não usar, pule sem bloquear o restante do curso.",
+          "pronto": "O bot responde ao seu id; uma outra conta não recebe resposta, se você puder testar com ela."
+        },
+        {
+          "id": "2",
+          "titulo": "Confira uma aprovação",
+          "min": 5,
+          "texto": "No chat com o seu bot, mande “rode: echo teste > nota.txt”. Isso pede aprovação porque grava arquivo. Responda /nao primeiro; só use /sim se você quiser mesmo criar o arquivo.",
+          "pronto": "A auditoria registra a decisão e o comando não roda após /nao."
+        }
+      ]
+    },
+    {
+      "tipo": "quiz",
+      "titulo": "Confira se entendeu",
+      "sub": "Escolha antes de abrir o comentário. Se errar, use o link para rever.",
+      "perguntas": [
+        {
+          "p": "Onde guardar o token do bot?",
+          "opcoes": [
+            "No cofre do INTELECTO",
+            "No arquivo USER.md do assistente",
+            "Em telegram_donos"
+          ],
+          "certa": 0,
+          "explica": "O cofre guarda o segredo cifrado. telegram_donos contém somente ids de usuários.",
+          "ref": "diagrama"
+        },
+        {
+          "p": "O que o bot faz sem dono cadastrado?",
+          "opcoes": [
+            "Responde qualquer pessoa que tenha o link",
+            "Responde só ao comando /id",
+            "Aprova comandos sozinho"
+          ],
+          "certa": 1,
+          "explica": "O código deixa /id disponível para descobrir o número e ignora as demais mensagens.",
+          "ref": "diagrama"
+        },
+        {
+          "p": "Qual é a evidência do Telegram nas fontes?",
+          "opcoes": [
+            "Uso público contínuo por vários meses",
+            "Teste ao vivo pelo INEMA",
+            "Testes com servidor falso local"
+          ],
+          "certa": 2,
+          "explica": "A integração foi testada contra servidor falso, não ao vivo. O aluno precisa verificar com seu próprio bot.",
+          "ref": "codigo"
+        }
+      ]
+    },
+    {
+      "tipo": "resumo",
+      "titulo": "Leve desta aula",
+      "itens": [
+        {
+          "t": "Token separado",
+          "texto": "O token fica no cofre; o id fica na configuração."
+        },
+        {
+          "t": "Limite da prova",
+          "texto": "O teste automatizado não comprova operação ao vivo no Telegram."
+        }
+      ]
+    },
+    {
+      "tipo": "links",
+      "titulo": "Fontes e próximos passos",
+      "links": [
+        {
+          "t": "Telegram no guia do INTELECTO",
+          "href": "https://inematds.github.io/intelecto-v2/guia/"
+        }
+      ]
+    }
+  ]
+}

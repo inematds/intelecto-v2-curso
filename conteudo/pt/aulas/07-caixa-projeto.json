@@ -1,0 +1,233 @@
+{
+  "slug": "caixa-projeto",
+  "num": 7,
+  "menu": "Caixa do projeto",
+  "titulo": "A caixa-do-agente no seu projeto",
+  "titulo_curto": "Caixa do projeto",
+  "minutos": 20,
+  "lead": "Antes de deixar um agente mexer no seu projeto, use a caixa-do-agente para trabalhar numa cópia. Sem --rede, ela fica sem internet. Um agente de nuvem precisa de --rede e da chave dele; você revisa o patch (arquivo de mudanças) antes de aplicar no original.",
+  "objetivo": "Rodar as checagens do kit ou executar um projeto na caixa e revisar o patch antes de aplicar.",
+  "competencias": [
+    "caixa-projeto-compreender",
+    "caixa-projeto-praticar"
+  ],
+  "aprende": [
+    {
+      "t": "Entender criar, rodar e destruir",
+      "icone": "check"
+    },
+    {
+      "t": "Revisar patch e aplicar conscientemente",
+      "icone": "check"
+    },
+    {
+      "t": "Ler a nota do auditor sem confundi-la com nota do modelo",
+      "icone": "check"
+    }
+  ],
+  "hero_alt": "Fotografia editorial que representa a caixa-do-agente no seu projeto.",
+  "secoes": [
+    {
+      "tipo": "diagrama",
+      "titulo": "A maquete da sua casa",
+      "sub": "O original só muda quando você aplica o patch lido ou confirma uma rodada nova com --aplicar.",
+      "nos": [
+        {
+          "titulo": "1 · Cria",
+          "sub": "cópia sem segredos",
+          "icone": "pasta",
+          "detalhe": "O script copia o projeto para uma pasta temporária, deixando .env, chaves .pem e ~/.ssh de fora. Qualquer outro arquivo da cópia pode ser visto pelo agente."
+        },
+        {
+          "titulo": "2 · Roda",
+          "sub": "sem rede por padrão",
+          "icone": "caixa",
+          "detalhe": "Comando ou agente trabalha na cópia, com limites de memória, CPU e tempo. Agente de nuvem precisa de --rede e da chave dele; o que estiver na cópia pode sair pela rede."
+        },
+        {
+          "titulo": "3 · Destrói",
+          "sub": "patch e limpeza",
+          "icone": "arquivo",
+          "detalhe": "O kit conta mudanças, salva um .patch (arquivo de mudanças) e apaga container e cópia."
+        },
+        {
+          "titulo": "4 · Você decide",
+          "sub": "aplicar ou não",
+          "icone": "usuario",
+          "detalhe": "Para levar exatamente o que você leu, use patch -p1 no projeto. --aplicar roda tudo de novo, salva outro patch e pergunta antes de copiar; com agente, a nova rodada pode mudar o resultado."
+        }
+      ],
+      "legenda": "Clique em cada parte para ver sua função."
+    },
+    {
+      "tipo": "passos",
+      "titulo": "Duas ferramentas no kit",
+      "sub": "Clique em cada etapa para ver o que fazer.",
+      "passos": [
+        {
+          "titulo": "caixa.sh",
+          "sub": "maquete",
+          "texto": [
+            "O fluxo cria → roda → destrói usa uma cópia: .env, chaves .pem e ~/.ssh ficam fora. Sem --aplicar, o original fica intacto; arquivo excluído na caixa não é excluído no original. Há teto de memória, CPU e tempo.",
+            "Com --rede e --env ANTHROPIC_API_KEY, a chave escolhida entra na caixa e o agente pode enviar para fora o conteúdo da cópia. --dangerously-skip-permissions tira as perguntas dentro dessa cópia; leia o patch e nunca ponha outros segredos na pasta de trabalho."
+          ]
+        },
+        {
+          "titulo": "Patch",
+          "sub": "recibo do trabalho",
+          "texto": [
+            "Patch é um arquivo de texto com as mudanças. O .patch fica na pasta de onde você rodou a caixa ou em --patch. Leia o arquivo específico antes de aplicar; patch -p1 leva exatamente essas mudanças ao original. Use o caminho completo que a caixa mostrou para o arquivo, sem selecionar outro patch por engano."
+          ]
+        },
+        {
+          "titulo": "auditar.py",
+          "sub": "nota de 0 a 10",
+          "texto": [
+            "O auditor lê Claude Code, Codex e DeepSeek Harness instalados no computador, além do projeto. Harness é o programa que roda comandos do modelo; sandbox é o limite ao que ele alcança. Sem nenhum desses programas, a nota sai baixa e isso é normal; ela não mede a inteligência da IA."
+          ]
+        },
+        {
+          "titulo": "Caso real",
+          "sub": "INTELECTO v2",
+          "texto": [
+            "A prática principal usa o ~/intelecto-v2 que você já baixou. A imagem de testes traz pytest, o programa que roda testes Python, porque a caixa começa sem rede. O README do projeto documenta 67 testes passados, 1 pulado e nenhum arquivo alterado na medição dele; confira sua própria saída."
+          ]
+        }
+      ]
+    },
+    {
+      "tipo": "codigo",
+      "titulo": "Use o kit numa pasta de projeto",
+      "sub": "Use ~/intelecto-v2, baixado na aula 1. Baixe o kit caixa-do-agente uma vez. Os comandos de agente de nuvem e patch são exemplos: precisam da sua chave/assinatura ou de um patch criado por uma rodada com mudanças.",
+      "blocos": [
+        {
+          "rot": "Terminal · baixar o kit e testar",
+          "icone": "terminal",
+          "conteudo": "cd ~ && git clone https://github.com/inematds/caixa-do-agente && cd caixa-do-agente\nbash testes/teste.sh"
+        },
+        {
+          "rot": "Terminal · auditar o projeto da aula 1",
+          "icone": "terminal",
+          "conteudo": "cd ~/caixa-do-agente\npython3 auditar.py ~/intelecto-v2"
+        },
+        {
+          "rot": "Terminal · prática principal: testes numa cópia",
+          "icone": "terminal",
+          "conteudo": "cd ~/intelecto-v2\ndocker build -t intelecto-v2-testes caixa/\ncd ~/caixa-do-agente\n./caixa.sh ~/intelecto-v2 --imagem intelecto-v2-testes -- python3 -m pytest -q -p no:cacheprovider"
+        },
+        {
+          "rot": "Exemplo · agente de nuvem na cópia (precisa de chave autorizada)",
+          "icone": "terminal",
+          "conteudo": "./caixa.sh ~/intelecto-v2 --rede --env ANTHROPIC_API_KEY -- npx -y @anthropic-ai/claude-code -p \"rode os testes\" --dangerously-skip-permissions"
+        },
+        {
+          "rot": "Exemplo · aplicar exatamente o patch que você leu",
+          "icone": "terminal",
+          "conteudo": "less /caminho/absoluto/caixa-AAAAMMDD-HHMMSS.patch\ncd ~/intelecto-v2 && patch -p1 < /caminho/absoluto/caixa-AAAAMMDD-HHMMSS.patch"
+        }
+      ],
+      "saida": {
+        "selo": "real",
+        "abas": [
+          {
+            "rot": "Medição documentada nos READMEs · não repetida neste ambiente",
+            "html": "<pre>67 passed, 1 skipped\n0 arquivo(s) mudaram</pre><p>Esse resultado veio do README do INTELECTO e do guia da caixa. Seu terminal pode mostrar contagens diferentes. Uma rodada de testes sem mudanças não cria patch para aplicar.</p>"
+          }
+        ]
+      }
+    },
+    {
+      "tipo": "pratica",
+      "titulo": "Faça a prova da maquete",
+      "sub": "Faça na ordem e marque apenas depois de conferir o resultado.",
+      "exercicios": [
+        {
+          "id": "1",
+          "titulo": "Teste o kit",
+          "min": 8,
+          "texto": "Dentro da pasta caixa-do-agente, rode a bateria. A primeira execução pode precisar da imagem Docker.",
+          "pronto": "A linha final mostra “TUDO OK (18/18)”."
+        },
+        {
+          "id": "2",
+          "titulo": "Teste o projeto que você já tem",
+          "min": 8,
+          "texto": "No ~/intelecto-v2 da aula 1, crie a imagem de testes com docker build e rode o pytest dentro da caixa. Leia a nota do auditor separadamente. Se um agente fizer mudanças, leia o patch específico; para aplicar exatamente o que leu, use patch -p1. ~/meu-projeto é uma opção para depois.",
+          "pronto": "O pytest mostra um resumo de testes e a caixa informa o que mudou. Se houver patch, você consegue identificar o arquivo exato antes de aplicá-lo."
+        }
+      ]
+    },
+    {
+      "tipo": "quiz",
+      "titulo": "Confira se entendeu",
+      "sub": "Escolha antes de abrir o comentário. Se errar, use o link para rever.",
+      "perguntas": [
+        {
+          "p": "O que é a “maquete” nesta aula?",
+          "opcoes": [
+            "O projeto original aberto para a IA editar",
+            "A cópia temporária sem segredos",
+            "A memória SQLite do assistente"
+          ],
+          "certa": 1,
+          "explica": "O script cria uma cópia sem os arquivos de segredo. O original só recebe o patch lido com patch -p1, ou uma rodada nova confirmada com --aplicar.",
+          "ref": "diagrama"
+        },
+        {
+          "p": "Como levar ao original exatamente as mudanças que você leu?",
+          "opcoes": [
+            "Rodar --aplicar sem conferir a rodada nova",
+            "Usar patch -p1 com o arquivo revisado",
+            "Pedir outra resposta ao agente"
+          ],
+          "certa": 1,
+          "explica": "patch -p1 aplica o arquivo revisado. --aplicar faz uma rodada nova e pergunta antes de copiar; a saída pode ser diferente.",
+          "ref": "passos"
+        },
+        {
+          "p": "O que a nota do auditor mede?",
+          "opcoes": [
+            "O ambiente dos agentes e o projeto",
+            "A inteligência do Ollama",
+            "A qualidade da resposta do Telegram"
+          ],
+          "certa": 0,
+          "explica": "O auditor examina o ambiente dos agentes de programação instalados e o projeto. Sem Claude Code, Codex ou DeepSeek Harness, a nota baixa é esperada.",
+          "ref": "passos"
+        }
+      ]
+    },
+    {
+      "tipo": "resumo",
+      "titulo": "Leve desta aula",
+      "itens": [
+        {
+          "t": "Cria, roda, destrói",
+          "texto": "A caixa trabalha numa cópia sem .env e chaves, e começa sem rede. Com --rede, o conteúdo da cópia pode ser enviado; os recursos continuam limitados."
+        },
+        {
+          "t": "Você decide",
+          "texto": "O patch mostra mudanças. patch -p1 aplica o arquivo lido; --aplicar inicia outra rodada e pergunta antes de copiar."
+        },
+        {
+          "t": "Nota com contexto",
+          "texto": "A nota depende dos programas de agente instalados no computador, não da inteligência do modelo."
+        }
+      ]
+    },
+    {
+      "tipo": "links",
+      "titulo": "Fontes e próximos passos",
+      "links": [
+        {
+          "t": "Guia da caixa-do-agente",
+          "href": "https://inematds.github.io/caixa-do-agente/guia/"
+        },
+        {
+          "t": "Caso no guia do INTELECTO",
+          "href": "https://inematds.github.io/intelecto-v2/guia/"
+        }
+      ]
+    }
+  ]
+}

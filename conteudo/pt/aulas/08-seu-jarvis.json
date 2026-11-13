@@ -1,0 +1,228 @@
+{
+  "slug": "seu-jarvis",
+  "num": 8,
+  "menu": "Do seu jeito",
+  "titulo": "Seu Jarvis do seu jeito",
+  "titulo_curto": "Do seu jeito",
+  "minutos": 14,
+  "lead": "O assistente já conversa, lembra e tem freios. A operação contínua é opcional: no Linux, um serviço pode ligar o bot ao iniciar a sessão. Termine com uma revisão das proteções e escolha só o próximo passo que você vai usar.",
+  "objetivo": "Conferir memória, auditoria e proteção; se usar Telegram no Linux, preparar o serviço do usuário.",
+  "competencias": [
+    "seu-jarvis-compreender",
+    "seu-jarvis-praticar"
+  ],
+  "aprende": [
+    {
+      "t": "Revisar o que está ativo",
+      "icone": "check"
+    },
+    {
+      "t": "Entender o serviço Linux opcional",
+      "icone": "check"
+    },
+    {
+      "t": "Separar o que foi testado do que ainda falta testar",
+      "icone": "check"
+    }
+  ],
+  "hero_alt": "Dona confere uma folha de registros antes de acionar o interruptor que liga o assistente humanoide.",
+  "secoes": [
+    {
+      "tipo": "diagrama",
+      "titulo": "Sua operação segura",
+      "sub": "O caminho termina com uma conferência, não com um botão mágico.",
+      "nos": [
+        {
+          "titulo": "Identidade e memória",
+          "sub": "seu assistente",
+          "icone": "memoria",
+          "detalhe": "Revise arquivos de identidade e procure um fato real no banco."
+        },
+        {
+          "titulo": "Trava e auditoria",
+          "sub": "sua decisão",
+          "icone": "portao",
+          "detalhe": "Mantenha a política de aprovação adequada e leia o histórico de comandos."
+        },
+        {
+          "titulo": "Caixa por comando",
+          "sub": "Docker opcional",
+          "icone": "caixa",
+          "detalhe": "Use o executor caixa quando quiser limitar o alcance dos comandos."
+        },
+        {
+          "titulo": "Caixa do projeto",
+          "sub": "maquete para agentes",
+          "icone": "pasta",
+          "detalhe": "Use caixa.sh quando Codex ou Claude Code trabalhar no código do seu projeto."
+        },
+        {
+          "titulo": "Serviço Linux",
+          "sub": "Telegram opcional",
+          "icone": "terminal",
+          "detalhe": "systemd é o gerenciador de serviços do Linux. O arquivo de serviço do usuário inicia o bot; ajuste os caminhos antes de ativar."
+        }
+      ],
+      "legenda": "Clique em cada parte para ver sua função."
+    },
+    {
+      "tipo": "passos",
+      "titulo": "Antes de deixar ligado",
+      "sub": "Clique em cada etapa para ver o que fazer.",
+      "passos": [
+        {
+          "titulo": "Confira estado",
+          "sub": "verificar",
+          "texto": [
+            "O comando confere instalação, banco, configuração e segredos exigidos pelas opções ativas."
+          ]
+        },
+        {
+          "titulo": "Leia registros",
+          "sub": "auditoria",
+          "texto": [
+            "“Feito” na resposta não é o recibo. auditoria -n 20 imprime linhas JSON: comando é o pedido, classe é livre/aprovar/bloqueado, rodou diz se executou, decisao explica o motivo."
+          ]
+        },
+        {
+          "titulo": "Ative só o necessário",
+          "sub": "serviço",
+          "texto": [
+            "O serviço de exemplo usa systemd, gerenciador de serviços do Linux, para ligar o Telegram. journalctl mostra os registros desse serviço. Se você usa só o terminal, não precisa instalá-lo."
+          ]
+        },
+        {
+          "titulo": "Reconheça limites",
+          "sub": "evidência",
+          "texto": [
+            "Ollama local e Linux têm testes reais. OpenRouter, Telegram ao vivo e macOS não foram testados ao vivo pelo INEMA."
+          ]
+        }
+      ]
+    },
+    {
+      "tipo": "codigo",
+      "titulo": "Sua revisão final",
+      "sub": "No serviço, confira WorkingDirectory e ExecStart antes de copiar; os caminhos do exemplo presumem o clone em ~/intelecto-v2.",
+      "blocos": [
+        {
+          "rot": "Terminal · estado, memória e histórico",
+          "icone": "terminal",
+          "conteudo": "python3 -m intelecto verificar\npython3 -m intelecto memoria\npython3 -m intelecto auditoria -n 20"
+        },
+        {
+          "rot": "Linux · serviço Telegram opcional",
+          "icone": "terminal",
+          "conteudo": "mkdir -p ~/.config/systemd/user\ncp servico/intelecto-telegram.service ~/.config/systemd/user/\nsystemctl --user daemon-reload && systemctl --user enable --now intelecto-telegram"
+        },
+        {
+          "rot": "Linux · acompanhar o serviço",
+          "icone": "terminal",
+          "conteudo": "journalctl --user -u intelecto-telegram -f"
+        }
+      ],
+      "saida": {
+        "selo": "real",
+        "abas": [
+          {
+            "rot": "Auditoria JSON real · ensaio isolado, 13/11/2026",
+            "html": "<pre>{&quot;ts&quot;: &quot;2026-11-13T03:38:00+00:00&quot;, &quot;tipo&quot;: &quot;comando&quot;, &quot;comando&quot;: &quot;ls&quot;, &quot;classe&quot;: &quot;livre&quot;, &quot;rodou&quot;: true, &quot;decisao&quot;: &quot;livre (só leitura)&quot;}</pre><p>Nesta linha, <code>comando</code> é ls, <code>classe</code> é livre, <code>rodou</code> é true e <code>decisao</code> explica por que passou.</p>"
+          }
+        ]
+      }
+    },
+    {
+      "tipo": "pratica",
+      "titulo": "Feche o curso com evidência",
+      "sub": "Faça na ordem e marque apenas depois de conferir o resultado.",
+      "exercicios": [
+        {
+          "id": "1",
+          "titulo": "Faça a revisão",
+          "min": 6,
+          "texto": "Rode os três comandos de estado e anote qual fato a memória achou e qual comando a auditoria registra.",
+          "pronto": "verificar termina em “tudo certo”; se você já usou memória e comandos, as linhas correspondem ao que fez. Histórico vazio também é possível antes do primeiro comando."
+        },
+        {
+          "id": "2",
+          "titulo": "Escolha a próxima camada",
+          "min": 4,
+          "texto": "Se programa com agentes, execute a caixa-do-agente em um projeto. Se usa Telegram no Linux, ajuste o arquivo de serviço antes de habilitar.",
+          "pronto": "Você sabe qual camada ativou e qual prova concreta confirma que ela funciona."
+        }
+      ]
+    },
+    {
+      "tipo": "quiz",
+      "titulo": "Confira se entendeu",
+      "sub": "Escolha antes de abrir o comentário. Se errar, use o link para rever.",
+      "perguntas": [
+        {
+          "p": "Quando o serviço Linux faz sentido?",
+          "opcoes": [
+            "Quando você usa apenas a demo sem internet",
+            "Quando quer o bot Telegram ativo na sessão",
+            "Quando não tem Python"
+          ],
+          "certa": 1,
+          "explica": "O serviço de exemplo inicia o Telegram; o terminal sozinho não exige serviço.",
+          "ref": "diagrama"
+        },
+        {
+          "p": "O que mostra se um comando realmente rodou?",
+          "opcoes": [
+            "O nome do modelo",
+            "O título da aula",
+            "A auditoria"
+          ],
+          "certa": 2,
+          "explica": "A auditoria registra comando, classe, decisão e se houve execução.",
+          "ref": "codigo"
+        },
+        {
+          "p": "Qual item não tem teste ao vivo do INEMA?",
+          "opcoes": [
+            "Telegram",
+            "Ollama local",
+            "A caixa com Docker"
+          ],
+          "certa": 0,
+          "explica": "Telegram teve teste contra servidor falso, mas não teste ao vivo; Ollama e a caixa tiveram provas reais.",
+          "ref": "passos"
+        }
+      ]
+    },
+    {
+      "tipo": "resumo",
+      "titulo": "Leve desta aula",
+      "itens": [
+        {
+          "t": "Seu controle",
+          "texto": "Identidade, aprovação, histórico e caixas são escolhas visíveis."
+        },
+        {
+          "t": "Próximo passo",
+          "texto": "Use o guia da ferramenta específica quando precisar configurar detalhes de serviço ou integração."
+        }
+      ]
+    },
+    {
+      "tipo": "links",
+      "titulo": "Fontes e próximos passos",
+      "links": [
+        {
+          "t": "Guia do INTELECTO v2",
+          "href": "https://inematds.github.io/intelecto-v2/guia/"
+        },
+        {
+          "t": "Guia da caixa-do-agente",
+          "href": "https://inematds.github.io/caixa-do-agente/guia/"
+        },
+        {
+          "t": "Curso anterior v1",
+          "href": "https://inematds.github.io/intelecto-curso/"
+        }
+      ]
+    }
+  ]
+}

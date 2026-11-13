@@ -1,0 +1,214 @@
+{
+  "slug": "trava-aprovacao",
+  "num": 4,
+  "menu": "A trava",
+  "titulo": "A trava: roda, pergunta ou recusa",
+  "titulo_curto": "A trava",
+  "minutos": 16,
+  "lead": "Um comando de leitura não precisa da mesma decisão que um comando que grava arquivo. A trava classifica antes de executar; a auditoria mostra o que rodou e o que foi recusado.",
+  "objetivo": "Identificar as três classes de comando e conferir um pedido recusado e um pedido de aprovação na auditoria.",
+  "competencias": [
+    "trava-aprovacao-compreender",
+    "trava-aprovacao-praticar"
+  ],
+  "aprende": [
+    {
+      "t": "Ler as três classes",
+      "icone": "check"
+    },
+    {
+      "t": "Entender a política perigosos",
+      "icone": "check"
+    },
+    {
+      "t": "Conferir decisões reais da demo",
+      "icone": "check"
+    }
+  ],
+  "hero_alt": "Fotografia editorial que representa a trava: roda, pergunta ou recusa.",
+  "secoes": [
+    {
+      "tipo": "diagrama",
+      "titulo": "Três destinos para um comando",
+      "sub": "A classificação acontece antes da execução.",
+      "nos": [
+        {
+          "titulo": "Livre",
+          "sub": "só leitura",
+          "icone": "check",
+          "detalhe": "Comandos da lista de leitura, como ls, cat e pwd, rodam com a política padrão perigosos.",
+          "itens": [
+            {
+              "t": "ls → roda",
+              "icone": "check"
+            }
+          ]
+        },
+        {
+          "titulo": "Aprovar",
+          "sub": "precisa da sua decisão",
+          "icone": "portao",
+          "detalhe": "Qualquer comando fora da lista de leitura, ou que grava arquivo, pede OK. Na demo, o dono não aprova.",
+          "itens": [
+            {
+              "t": "echo teste > nota.txt → pergunta",
+              "icone": "check"
+            }
+          ]
+        },
+        {
+          "titulo": "Bloqueado",
+          "sub": "recusa mesmo com OK",
+          "icone": "cadeado",
+          "detalhe": "Padrões destrutivos conhecidos, como rm -rf / e variantes, nunca rodam.",
+          "itens": [
+            {
+              "t": "rm -rf / → recusa",
+              "icone": "check"
+            }
+          ]
+        }
+      ],
+      "legenda": "A classificação não é uma garantia total contra qualquer comando desconhecido; a caixa reduz o alcance quando você precisa executar algo novo."
+    },
+    {
+      "tipo": "passos",
+      "titulo": "Leia a decisão completa",
+      "sub": "Clique em cada etapa para ver o que fazer.",
+      "passos": [
+        {
+          "titulo": "Classificar",
+          "sub": "antes de agir",
+          "texto": [
+            "Só o que está na lista de leitura passa direto. O restante pede aprovação; isso é mais seguro que uma lista curta de palavras proibidas."
+          ]
+        },
+        {
+          "titulo": "Perguntar",
+          "sub": "terminal ou celular",
+          "texto": [
+            "Com “perigosos”, a ação aprovar pergunta ao dono. No terminal, a pergunta só funciona com entrada de terminal de verdade; se a conversa recebe texto por pipe, ela recusa: “entrada não é um terminal → recusado”. “sempre” pergunta até sobre leitura; “nunca” permite só leitura."
+          ]
+        },
+        {
+          "titulo": "Registrar",
+          "sub": "auditoria",
+          "texto": [
+            "A auditoria imprime uma linha JSON (registro com campos nomeados) por evento. Na linha de comando, comando é o pedido; classe é livre, aprovar ou bloqueado; rodou é true se executou; decisao explica o motivo. Linhas do tipo ferramenta registram a ferramenta usada."
+          ]
+        }
+      ]
+    },
+    {
+      "tipo": "codigo",
+      "titulo": "Comandos para observar, sem risco",
+      "sub": "Copie os comandos e rode no terminal a partir da pasta indicada.",
+      "blocos": [
+        {
+          "rot": "Terminal · demonstração",
+          "icone": "terminal",
+          "conteudo": "python3 -m intelecto demo"
+        },
+        {
+          "rot": "Terminal · auditoria da sua instalação",
+          "icone": "terminal",
+          "conteudo": "python3 -m intelecto auditoria -n 20"
+        }
+      ],
+      "saida": {
+        "selo": "real",
+        "abas": [
+          {
+            "rot": "Auditoria JSON real · ensaio isolado, 13/11/2026",
+            "html": "<pre>{&quot;ts&quot;: &quot;2026-11-13T03:37:49+00:00&quot;, &quot;tipo&quot;: &quot;comando&quot;, &quot;comando&quot;: &quot;echo x &gt; y.txt&quot;, &quot;classe&quot;: &quot;aprovar&quot;, &quot;rodou&quot;: false, &quot;decisao&quot;: &quot;o dono não aprovou&quot;}</pre><p>A entrada foi por pipe, então não havia terminal para aprovar; nenhum arquivo foi gravado.</p>"
+          }
+        ]
+      }
+    },
+    {
+      "tipo": "pratica",
+      "titulo": "Leia a trava funcionando",
+      "sub": "Faça na ordem e marque apenas depois de conferir o resultado.",
+      "exercicios": [
+        {
+          "id": "1",
+          "titulo": "Marque as três classes",
+          "min": 5,
+          "texto": "Rode demo e identifique na auditoria o comando e o valor rodou de cada classe.",
+          "pronto": "Você aponta um livre que rodou, um aprovar que não rodou e um bloqueado que não rodou."
+        },
+        {
+          "id": "2",
+          "titulo": "Veja sua auditoria",
+          "min": 4,
+          "texto": "Depois de uma conversa real, rode auditoria -n 20. A demo apaga sua pasta temporária, por isso não aparece no histórico da sua instalação.",
+          "pronto": "Você distingue o histórico da sua instalação do bloco de auditoria impresso pela demo."
+        }
+      ]
+    },
+    {
+      "tipo": "quiz",
+      "titulo": "Confira se entendeu",
+      "sub": "Escolha antes de abrir o comentário. Se errar, use o link para rever.",
+      "perguntas": [
+        {
+          "p": "Qual comando da demonstração roda sem perguntar?",
+          "opcoes": [
+            "echo teste > nota.txt",
+            "ls",
+            "rm -rf /"
+          ],
+          "certa": 1,
+          "explica": "ls está na lista de leitura. A gravação pede aprovação; apagar a raiz é bloqueado.",
+          "ref": "diagrama"
+        },
+        {
+          "p": "O que a política “nunca” faz com uma ação aprovar?",
+          "opcoes": [
+            "Roda sem pedir",
+            "Pergunta uma vez e executa por padrão",
+            "Recusa por falta de dono disponível"
+          ],
+          "certa": 2,
+          "explica": "Ela permite leitura livre e recusa o que precisaria de aprovação.",
+          "ref": "passos"
+        },
+        {
+          "p": "O que a auditoria informa?",
+          "opcoes": [
+            "Classe, comando e se rodou",
+            "Só a resposta final do modelo",
+            "A senha usada pelo cofre"
+          ],
+          "certa": 0,
+          "explica": "A linha de comando registra classe, decisão e execução. O cofre não publica a senha.",
+          "ref": "codigo"
+        }
+      ]
+    },
+    {
+      "tipo": "resumo",
+      "titulo": "Leve desta aula",
+      "itens": [
+        {
+          "t": "Regra principal",
+          "texto": "Só leitura conhecida passa direto; o restante pede decisão."
+        },
+        {
+          "t": "Prova",
+          "texto": "A auditoria mostra tanto a recusa quanto a execução."
+        }
+      ]
+    },
+    {
+      "tipo": "links",
+      "titulo": "Fontes e próximos passos",
+      "links": [
+        {
+          "t": "Segurança no guia do INTELECTO",
+          "href": "https://inematds.github.io/intelecto-v2/guia/"
+        }
+      ]
+    }
+  ]
+}

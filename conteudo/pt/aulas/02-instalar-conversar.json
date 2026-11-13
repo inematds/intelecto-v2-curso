@@ -1,0 +1,240 @@
+{
+  "slug": "instalar-conversar",
+  "num": 2,
+  "menu": "Instalar",
+  "titulo": "Instalar e conversar no terminal",
+  "titulo_curto": "Instalar",
+  "minutos": 16,
+  "lead": "Você já baixou o projeto na aula 1. Agora escolha uma IA local que caiba no seu computador, responda às sete perguntas do configurar e confira a instalação antes de conversar.",
+  "objetivo": "Configurar o INTELECTO com Ollama local e confirmar que verificar termina em “tudo certo”.",
+  "competencias": [
+    "instalar-conversar-compreender",
+    "instalar-conversar-praticar"
+  ],
+  "aprende": [
+    {
+      "t": "Preparar Python e o modelo local",
+      "icone": "check"
+    },
+    {
+      "t": "Escolher cérebro e política de aprovação",
+      "icone": "check"
+    },
+    {
+      "t": "Conferir a instalação",
+      "icone": "check"
+    }
+  ],
+  "hero_alt": "Mão encaixa um módulo que representa o modelo local no computador; assistente humanoide aguarda.",
+  "secoes": [
+    {
+      "tipo": "diagrama",
+      "titulo": "Do comando à resposta",
+      "sub": "Quatro partes bastam para a primeira conversa.",
+      "nos": [
+        {
+          "titulo": "Python 3.10+",
+          "sub": "roda o pacote",
+          "icone": "terminal",
+          "detalhe": "Python 3.10+ roda o INTELECTO. A proteção forte do cofre é opcional e depende de uma biblioteca extra."
+        },
+        {
+          "titulo": "Ollama",
+          "sub": "IA neste computador",
+          "icone": "camadas",
+          "detalhe": "Ollama executa um modelo no seu computador. O configurar lista os modelos que você já baixou e sugere um deles."
+        },
+        {
+          "titulo": "Configurar",
+          "sub": "sua escolha",
+          "icone": "lista",
+          "detalhe": "Define nome, cérebro, modelo, executor local ou caixa e aprovação."
+        },
+        {
+          "titulo": "Verificar",
+          "sub": "checagem antes de usar",
+          "icone": "check",
+          "detalhe": "Confere Python, memória, configuração, cofre e itens exigidos pelo modo escolhido."
+        }
+      ],
+      "legenda": "Clique em cada parte para ver sua função."
+    },
+    {
+      "tipo": "passos",
+      "titulo": "Primeiro uso, em ordem",
+      "sub": "Clique em cada etapa para ver o que fazer.",
+      "passos": [
+        {
+          "titulo": "Entrar no projeto",
+          "sub": "Clone concluído",
+          "texto": [
+            "Entre em ~/intelecto-v2. Se ainda não baixou o projeto, faça o clone da aula 1."
+          ]
+        },
+        {
+          "titulo": "Instalar o cérebro",
+          "sub": "Ollama local",
+          "texto": [
+            "No Linux, instale o Ollama com o comando oficial abaixo; no macOS, baixe o aplicativo em ollama.com. Depois use ollama pull para baixar o modelo escolhido.",
+            "Teste documentado no README: llama3.2 conversa, mas quase não usa as ferramentas. Isso pode impedir a memória de ser gravada pela conversa. qwen3.6:35b-a3b usou as ferramentas no teste ao vivo, mas seu arquivo local é muito maior."
+          ]
+        },
+        {
+          "titulo": "Escolher opções",
+          "sub": "configurar",
+          "texto": [
+            "As sete respostas: nome e personalidade em frases livres; cérebro ollama; modelo um dos listados pelo configurar; onde rodar comandos local; aprovação perigosos; ids do Telegram vazios por enquanto. Enter mantém o valor entre colchetes.",
+            "Executor é o programa que roda o comando; escolha local agora e veja a caixa Docker na aula 6. OpenRouter é um serviço pago na nuvem e não faz parte desta prática."
+          ]
+        },
+        {
+          "titulo": "Conferir e conversar",
+          "sub": "verificar → conversar",
+          "texto": [
+            "verificar confere o que a configuração atual exige. “tudo certo” não prova que o modelo usará ferramentas; faça uma conversa real para conferir. SQLite com FTS5 significa memória local com busca de texto. Fernet é o modo de cifrar o cofre quando a biblioteca cryptography está instalada."
+          ]
+        }
+      ]
+    },
+    {
+      "tipo": "texto",
+      "titulo": "Qual modelo cabe na sua máquina?",
+      "sub": "Tamanhos dos arquivos locais lidos dos manifestos instalados nesta máquina em 13/11/2026; o download pode variar. Não são medidas de RAM.",
+      "paragrafos": [
+        "<table style=\"width:100%;border-collapse:collapse;table-layout:fixed;overflow-wrap:anywhere\"><thead><tr><th style=\"text-align:left;padding:8px;border-bottom:1px solid\">Sua máquina</th><th style=\"text-align:left;padding:8px;border-bottom:1px solid\">Modelo</th><th style=\"text-align:left;padding:8px;border-bottom:1px solid\">Arquivo local medido</th></tr></thead><tbody><tr><td style=\"padding:8px\">Computador comum</td><td style=\"padding:8px\"><code>llama3.2</code></td><td style=\"padding:8px\">2,02 GB (2.019.392.628 bytes)</td></tr><tr><td style=\"padding:8px\">Placa de vídeo grande</td><td style=\"padding:8px\"><code>qwen3.6:35b-a3b</code></td><td style=\"padding:8px\">23,94 GB (23.938.333.115 bytes)</td></tr></tbody></table>",
+        "Comece pelo modelo que sua máquina consegue baixar e executar. O tamanho do arquivo não garante que ele caiba na memória. Se usar llama3.2, saiba que o teste do projeto mostrou conversa, mas quase nenhum uso das ferramentas."
+      ]
+    },
+    {
+      "tipo": "codigo",
+      "titulo": "Comandos do projeto",
+      "sub": "Copie os comandos e rode no terminal a partir da pasta indicada.",
+      "blocos": [
+        {
+          "rot": "Terminal · entrar na pasta da aula 1",
+          "icone": "terminal",
+          "conteudo": "cd ~/intelecto-v2"
+        },
+        {
+          "rot": "Linux · instalar Ollama",
+          "icone": "terminal",
+          "conteudo": "curl -fsSL https://ollama.com/install.sh | sh"
+        },
+        {
+          "rot": "Terminal · baixar o modelo comum",
+          "icone": "terminal",
+          "conteudo": "ollama pull llama3.2"
+        },
+        {
+          "rot": "Opcional · modelo para placa grande",
+          "icone": "terminal",
+          "conteudo": "ollama pull qwen3.6:35b-a3b"
+        },
+        {
+          "rot": "Terminal · configurar e conferir",
+          "icone": "terminal",
+          "conteudo": "python3 -m intelecto configurar\npython3 -m intelecto verificar"
+        },
+        {
+          "rot": "Terminal · conversar",
+          "icone": "terminal",
+          "conteudo": "python3 -m intelecto"
+        }
+      ],
+      "saida": {
+        "selo": "real",
+        "abas": [
+          {
+            "rot": "Saída completa de verificar · ensaio isolado, 13/11/2026",
+            "html": "<p>O ensaio usou provedor <code>mock</code> (cérebro simulado) e pasta temporária. Só o caminho foi normalizado para mostrar onde ficará no seu computador: <code>~/.intelecto2</code>. Não comprova o Ollama.</p><pre>[OK] Python 3.12.3 (precisa 3.10+)\n[OK] SQLite com FTS5 (memória)\n[OK] config em ~/.intelecto2/config.json\n[INFO] cofre: fernet (Fernet)\ntudo certo</pre>"
+          }
+        ]
+      }
+    },
+    {
+      "tipo": "pratica",
+      "titulo": "Sua primeira conversa",
+      "sub": "Faça na ordem e marque apenas depois de conferir o resultado.",
+      "exercicios": [
+        {
+          "id": "1",
+          "titulo": "Termine a verificação",
+          "min": 5,
+          "texto": "Rode verificar após configurar. Se aparecer item faltando, resolva o item indicado e rode de novo.",
+          "pronto": "A última linha é “tudo certo”."
+        },
+        {
+          "id": "2",
+          "titulo": "Fale com o assistente",
+          "min": 5,
+          "texto": "Abra a conversa e faça uma pergunta simples. O modelo precisa estar disponível no Ollama.",
+          "pronto": "O assistente responde no terminal e você consegue sair com “sair”."
+        }
+      ]
+    },
+    {
+      "tipo": "quiz",
+      "titulo": "Confira se entendeu",
+      "sub": "Escolha antes de abrir o comentário. Se errar, use o link para rever.",
+      "perguntas": [
+        {
+          "p": "O que o comando verificar confirma?",
+          "opcoes": [
+            "Que todo modelo responderá usando ferramentas",
+            "Os itens exigidos pela configuração atual",
+            "Que o Telegram foi testado ao vivo"
+          ],
+          "certa": 1,
+          "explica": "Ele verifica a configuração presente. Não substitui testar uma conversa real nem prova o Telegram ao vivo.",
+          "ref": "passos"
+        },
+        {
+          "p": "Qual provedor foi testado ao vivo com memória?",
+          "opcoes": [
+            "OpenRouter na nuvem",
+            "Telegram",
+            "Ollama local"
+          ],
+          "certa": 2,
+          "explica": "Ollama local foi testado com qwen3.6:35b-a3b. OpenRouter e Telegram só contra servidor falso.",
+          "ref": "diagrama"
+        },
+        {
+          "p": "O que fazer se um modelo menor conversa, mas não usa ferramentas?",
+          "opcoes": [
+            "Tentar um modelo mais capaz",
+            "Desligar toda aprovação do assistente",
+            "Pôr a senha no config.json"
+          ],
+          "certa": 0,
+          "explica": "O teste documentado com llama3.2 mostrou conversa, mas quase nenhum uso de ferramentas. Um modelo mais capaz pode ajudar; nunca desligue a aprovação para compensar.",
+          "ref": "passos"
+        }
+      ]
+    },
+    {
+      "tipo": "resumo",
+      "titulo": "Leve desta aula",
+      "itens": [
+        {
+          "t": "Começo simples",
+          "texto": "Python 3.10+, configuração, verificação e conversa."
+        },
+        {
+          "t": "Modelo importa",
+          "texto": "O teste com llama3.2 quase não usou ferramentas; o teste de memória ao vivo usou qwen3.6:35b-a3b."
+        }
+      ]
+    },
+    {
+      "tipo": "links",
+      "titulo": "Fontes e próximos passos",
+      "links": [
+        {
+          "t": "Instalação no guia do INTELECTO",
+          "href": "https://inematds.github.io/intelecto-v2/guia/"
+        }
+      ]
+    }
+  ]
+}

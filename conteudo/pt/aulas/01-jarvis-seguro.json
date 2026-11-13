@@ -1,0 +1,264 @@
+{
+  "slug": "jarvis-seguro",
+  "num": 1,
+  "menu": "Seu Jarvis",
+  "titulo": "Por que um Jarvis seu, e por que seguro",
+  "titulo_curto": "Seu Jarvis",
+  "minutos": 12,
+  "lead": "Você quer ajuda da IA, mas teme que ela apague arquivos ou leia suas senhas. Veja primeiro o que o INTELECTO pode fazer, quando pede sua autorização e onde registra cada decisão. A demonstração usa um cérebro simulado, sem internet.",
+  "objetivo": "Explicar as oito peças do INTELECTO v2 e reconhecer livre, aprovar e bloqueado na demonstração.",
+  "competencias": [
+    "jarvis-seguro-compreender",
+    "jarvis-seguro-praticar"
+  ],
+  "aprende": [
+    {
+      "t": "Ver as oito peças do assistente",
+      "icone": "check"
+    },
+    {
+      "t": "Distinguir o assistente da caixa do projeto",
+      "icone": "check"
+    },
+    {
+      "t": "Ler as três decisões da auditoria",
+      "icone": "check"
+    }
+  ],
+  "hero_alt": "Dono segura a chave e impede que um assistente humanoide toque numa pasta fechada: a decisão é humana.",
+  "secoes": [
+    {
+      "tipo": "diagrama",
+      "titulo": "As oito peças",
+      "sub": "Clique numa peça; o ciclo começa com você e termina com um registro.",
+      "nos": [
+        {
+          "titulo": "1 · Canal",
+          "sub": "terminal ou Telegram",
+          "icone": "chat",
+          "detalhe": "É por onde você fala. O Telegram aceita somente ids (números das contas) de donos configurados."
+        },
+        {
+          "titulo": "2 · Loop com freio",
+          "sub": "pensar → agir → responder",
+          "icone": "robo",
+          "detalhe": "O assistente consulta o cérebro, usa ferramentas e para em até cinco rodadas."
+        },
+        {
+          "titulo": "3 · Identidade",
+          "sub": "quatro arquivos de texto",
+          "icone": "usuario",
+          "detalhe": "SOUL, AGENTS, USER e MEMORY dão jeito, regras, dados do dono e fatos iniciais."
+        },
+        {
+          "titulo": "4 · Cérebro",
+          "sub": "Ollama local",
+          "icone": "camadas",
+          "detalhe": "Ollama roda a IA no computador. OpenRouter é um serviço pago na nuvem; existe no código, mas não foi testado ao vivo pelo INEMA."
+        },
+        {
+          "titulo": "5 · Memória",
+          "sub": "guarda e procura",
+          "icone": "memoria",
+          "detalhe": "A memória é um banco local: guarda fatos e procura palavras depois, inclusive sem acento."
+        },
+        {
+          "titulo": "6 · Ferramentas",
+          "sub": "dentro da área",
+          "icone": "pasta",
+          "detalhe": "Ler, gravar, listar e rodar comandos; arquivos ficam limitados à pasta de trabalho."
+        },
+        {
+          "titulo": "7 · Trava e cofre",
+          "sub": "decide e registra",
+          "icone": "cadeado",
+          "detalhe": "Só leitura roda; outras ações pedem aprovação; destrutivas conhecidas são recusadas. Segredos ficam cifrados."
+        },
+        {
+          "titulo": "8 · Caixa",
+          "sub": "caixa sem rede",
+          "icone": "caixa",
+          "detalhe": "Opcionalmente, cada comando roda em um container Docker: uma caixa isolada, com a pasta de trabalho e sem rede."
+        }
+      ],
+      "legenda": "A caixa-do-agente é outra camada: protege a cópia de um projeto quando um agente de programação trabalha nele."
+    },
+    {
+      "tipo": "passos",
+      "titulo": "O que a demonstração prova",
+      "sub": "Clique em cada etapa para ver o que fazer.",
+      "passos": [
+        {
+          "titulo": "Prepare o terminal",
+          "sub": "Python e git",
+          "texto": [
+            "No Linux, instale Python 3.10+ e git, programa que baixa o projeto; no macOS, xcode-select --install instala as ferramentas de comando, inclusive git. O curso usa terminal para copiar os passos."
+          ]
+        },
+        {
+          "titulo": "Prepare o terminal",
+          "sub": "Python e git",
+          "texto": [
+            "No Linux, instale Python 3.10+ e git, programa que baixa o projeto; no macOS, xcode-select --install instala as ferramentas de comando, inclusive git. O curso usa terminal para copiar os passos."
+          ]
+        },
+        {
+          "titulo": "Memória",
+          "sub": "Guardar e buscar",
+          "texto": [
+            "O cérebro de mentira guarda “Ana mora em Curitiba” e responde à pergunta seguinte. A prova é do mecanismo, não de um modelo real."
+          ]
+        },
+        {
+          "titulo": "Comandos",
+          "sub": "Três destinos",
+          "texto": [
+            "“ls” roda. “echo teste > nota.txt” pede aprovação e é recusado na demo. “rm -rf /” fica bloqueado."
+          ]
+        },
+        {
+          "titulo": "Área",
+          "sub": "Fora é fora",
+          "texto": [
+            "O pedido para ler ../../etc/passwd recebe “fora da pasta de trabalho”."
+          ]
+        }
+      ]
+    },
+    {
+      "tipo": "codigo",
+      "titulo": "Rode sem instalar modelo",
+      "sub": "Copie os comandos e rode no terminal a partir da pasta indicada.",
+      "blocos": [
+        {
+          "rot": "Linux · pré-requisitos",
+          "icone": "terminal",
+          "conteudo": "sudo apt install -y git python3"
+        },
+        {
+          "rot": "macOS · ferramentas de comando",
+          "icone": "terminal",
+          "conteudo": "xcode-select --install"
+        },
+        {
+          "rot": "Linux · pré-requisitos",
+          "icone": "terminal",
+          "conteudo": "cd ~ && git clone https://github.com/inematds/intelecto-v2 && cd intelecto-v2"
+        },
+        {
+          "rot": "macOS · ferramentas de comando",
+          "icone": "terminal",
+          "conteudo": "xcode-select --install"
+        },
+        {
+          "rot": "Terminal · baixar e entrar",
+          "icone": "terminal",
+          "conteudo": "cd ~ && git clone https://github.com/inematds/intelecto-v2 && cd intelecto-v2"
+        },
+        {
+          "rot": "Terminal · demonstração sem rede",
+          "icone": "terminal",
+          "conteudo": "python3 -m intelecto demo"
+        }
+      ],
+      "saida": {
+        "selo": "real",
+        "abas": [
+          {
+            "rot": "Trecho real da demo · 13/11/2026",
+            "html": "<pre>livre     rodou=True  ls\naprovar   rodou=False echo teste &gt; nota.txt\nbloqueado rodou=False rm -rf /</pre>"
+          }
+        ]
+      }
+    },
+    {
+      "tipo": "pratica",
+      "titulo": "Sua primeira prova",
+      "sub": "Faça na ordem e marque apenas depois de conferir o resultado.",
+      "exercicios": [
+        {
+          "id": "1",
+          "titulo": "Encontre as três decisões",
+          "min": 5,
+          "texto": "Rode a demonstração e leia o bloco final “Auditoria desta demonstração”.",
+          "pronto": "As linhas livre, aprovar e bloqueado aparecem, com rodou=True só para ls."
+        },
+        {
+          "id": "2",
+          "titulo": "Explique as duas caixas",
+          "min": 4,
+          "texto": "Diga em voz alta: o executor (programa que roda o comando) caixa isola um comando do INTELECTO; a caixa-do-agente isola uma cópia de projeto para um agente de programação.",
+          "pronto": "Você consegue apontar qual delas protege o comando e qual protege o projeto."
+        }
+      ]
+    },
+    {
+      "tipo": "quiz",
+      "titulo": "Confira se entendeu",
+      "sub": "Escolha antes de abrir o comentário. Se errar, use o link para rever.",
+      "perguntas": [
+        {
+          "p": "Qual peça guarda fatos para outra conversa?",
+          "opcoes": [
+            "O canal",
+            "A memória",
+            "O executor caixa"
+          ],
+          "certa": 1,
+          "explica": "A memória guarda e busca fatos. O canal só recebe a mensagem; a caixa isola o comando.",
+          "ref": "diagrama"
+        },
+        {
+          "p": "O que acontece com “rm -rf /” na demonstração?",
+          "opcoes": [
+            "Pede aprovação",
+            "Roda na área",
+            "É bloqueado"
+          ],
+          "certa": 2,
+          "explica": "A trava classifica o alvo destrutivo como bloqueado, mesmo que alguém queira aprovar.",
+          "ref": "codigo"
+        },
+        {
+          "p": "Para que serve a caixa-do-agente?",
+          "opcoes": [
+            "Trabalhar numa cópia do projeto",
+            "Guardar as mensagens do celular",
+            "Responder mensagens no terminal"
+          ],
+          "certa": 0,
+          "explica": "O kit copia o projeto sem segredos e mostra as diferenças num patch, arquivo que guarda alterações.",
+          "ref": "diagrama"
+        }
+      ]
+    },
+    {
+      "tipo": "resumo",
+      "titulo": "Leve desta aula",
+      "itens": [
+        {
+          "t": "Primeira prova",
+          "texto": "A demo funciona sem rede nem modelo."
+        },
+        {
+          "t": "Dois limites",
+          "texto": "A trava decide sobre ações; a caixa reduz o alcance do comando."
+        }
+      ]
+    },
+    {
+      "tipo": "links",
+      "titulo": "Fontes e próximos passos",
+      "links": [
+        {
+          "t": "Guia do INTELECTO v2",
+          "href": "https://inematds.github.io/intelecto-v2/guia/"
+        },
+        {
+          "t": "Curso anterior, versão v1",
+          "href": "https://inematds.github.io/intelecto-curso/"
+        }
+      ]
+    }
+  ]
+}

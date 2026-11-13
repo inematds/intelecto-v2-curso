@@ -1,0 +1,233 @@
+{
+  "slug": "caixa-comando",
+  "num": 6,
+  "menu": "Caixa por comando",
+  "titulo": "Cada comando numa caixa sem internet",
+  "titulo_curto": "Caixa por comando",
+  "minutos": 14,
+  "lead": "A aprovação decide se o comando começa; o executor (programa que o roda) caixa decide onde. Docker cria um container, uma caixa isolada: o INTELECTO monta só a pasta de trabalho em /trabalho, sem rede e sem as variáveis do terminal. Saída 0 significa que deu certo.",
+  "objetivo": "Rodar uma leitura pelo executor caixa e encontrar “[na caixa, saída 0]” na resposta.",
+  "competencias": [
+    "caixa-comando-compreender",
+    "caixa-comando-praticar"
+  ],
+  "aprende": [
+    {
+      "t": "Separar decisão de isolamento",
+      "icone": "check"
+    },
+    {
+      "t": "Ligar o executor Docker",
+      "icone": "check"
+    },
+    {
+      "t": "Conferir a saída e os limites",
+      "icone": "check"
+    }
+  ],
+  "hero_alt": "Fotografia editorial que representa cada comando numa caixa sem internet.",
+  "secoes": [
+    {
+      "tipo": "diagrama",
+      "titulo": "Um comando aprovado, um container",
+      "sub": "A caixa é opcional e vale para cada comando do INTELECTO.",
+      "nos": [
+        {
+          "titulo": "Pedido",
+          "sub": "você solicita",
+          "icone": "usuario",
+          "detalhe": "O assistente transforma o pedido em ferramenta; a trava decide se é livre, aprovar ou bloqueado."
+        },
+        {
+          "titulo": "Portão",
+          "sub": "sua decisão",
+          "icone": "portao",
+          "detalhe": "Comandos que não são só leitura precisam de aprovação. Bloqueados não chegam ao executor."
+        },
+        {
+          "titulo": "Container Docker",
+          "sub": "sem rede",
+          "icone": "caixa",
+          "detalhe": "Usa --network none, limites de recursos, sem privilégios e apenas a área montada em /trabalho."
+        },
+        {
+          "titulo": "Resposta",
+          "sub": "resultado visível",
+          "icone": "check",
+          "detalhe": "O assistente recebe o resultado e o código de saída. “saída 0” quer dizer que o comando terminou sem erro; o prefixo “[na caixa, saída 0]” identifica o executor."
+        }
+      ],
+      "legenda": "Clique em cada parte para ver sua função."
+    },
+    {
+      "tipo": "passos",
+      "titulo": "O que a caixa alcança",
+      "sub": "Clique em cada etapa para ver o que fazer.",
+      "passos": [
+        {
+          "titulo": "Área de trabalho",
+          "sub": "montagem única",
+          "texto": [
+            "Somente ~/.intelecto2/area entra como pasta de trabalho em /trabalho. O cofre, ~/.ssh e outras pastas pessoais não são montados."
+          ]
+        },
+        {
+          "titulo": "Rede",
+          "sub": "fechada",
+          "texto": [
+            "O comando Docker usa --network none. Uma tarefa que depende da internet não funciona nesse executor. No Linux, siga o <a href=\"https://docs.docker.com/engine/install/\">manual oficial de instalação</a>, rode sudo usermod -aG docker $USER, saia da sessão e entre de novo. Depois teste docker run --rm hello-world."
+          ]
+        },
+        {
+          "titulo": "Recursos",
+          "sub": "limitados",
+          "texto": [
+            "O código define memória, CPU, processos, tempo e saída máxima. Isso reduz o estrago de um erro, mas container não é máquina virtual."
+          ]
+        },
+        {
+          "titulo": "Modelo",
+          "sub": "fora da caixa",
+          "texto": [
+            "Ollama responde fora do container. A caixa isola o comando que o assistente executa, não o processo inteiro da conversa."
+          ]
+        }
+      ]
+    },
+    {
+      "tipo": "codigo",
+      "titulo": "Ative e prove",
+      "sub": "Copie os comandos e rode no terminal a partir da pasta indicada.",
+      "blocos": [
+        {
+          "rot": "Linux · liberar seu usuário para Docker",
+          "icone": "terminal",
+          "conteudo": "sudo usermod -aG docker $USER"
+        },
+        {
+          "rot": "Terminal · provar Docker após entrar de novo",
+          "icone": "terminal",
+          "conteudo": "docker run --rm hello-world"
+        },
+        {
+          "rot": "Terminal · preparar a imagem",
+          "icone": "terminal",
+          "conteudo": "docker pull python:3.12-slim"
+        },
+        {
+          "rot": "Terminal · conversar com executor caixa",
+          "icone": "terminal",
+          "conteudo": "python3 -m intelecto conversar --executor caixa"
+        },
+        {
+          "rot": "Na conversa · pedido de leitura",
+          "icone": "terminal",
+          "conteudo": "rode: ls /trabalho\nrode: pwd"
+        },
+        {
+          "rot": "Terminal · ver o registro",
+          "icone": "terminal",
+          "conteudo": "python3 -m intelecto auditoria -n 20"
+        }
+      ],
+      "saida": {
+        "selo": "simulacao",
+        "abas": [
+          {
+            "rot": "Exemplo esperado · Docker não executou aqui",
+            "html": "<pre>[na caixa, saída 0]\n/trabalho</pre><p>É o trecho a procurar após <code>rode: pwd</code>. No pedido <code>rode: ls /trabalho</code>, os nomes dependem dos arquivos da sua área.</p>"
+          }
+        ]
+      }
+    },
+    {
+      "tipo": "pratica",
+      "titulo": "Prove a caixa",
+      "sub": "Faça na ordem e marque apenas depois de conferir o resultado.",
+      "exercicios": [
+        {
+          "id": "1",
+          "titulo": "Veja a etiqueta da saída",
+          "min": 6,
+          "texto": "Com Docker disponível e o modelo local ligado, peça “rode: ls /trabalho” e depois “rode: pwd” na conversa aberta com --executor caixa. Se o modelo não chamar a ferramenta, a prova ainda não aconteceu.",
+          "pronto": "A resposta do comando começa com “[na caixa, saída 0]” (deu certo); ls /trabalho lista só a área de trabalho e pwd mostra /trabalho."
+        },
+        {
+          "id": "2",
+          "titulo": "Confira o alcance",
+          "min": 5,
+          "texto": "Compare os nomes de ls /trabalho com ~/.intelecto2/area. Leia em auditoria se os comandos rodaram. Não copie senhas para a área.",
+          "pronto": "Você sabe qual pasta foi montada e que a rede do container está fechada."
+        }
+      ]
+    },
+    {
+      "tipo": "quiz",
+      "titulo": "Confira se entendeu",
+      "sub": "Escolha antes de abrir o comentário. Se errar, use o link para rever.",
+      "perguntas": [
+        {
+          "p": "Que parte da operação o executor caixa isola?",
+          "opcoes": [
+            "A conversa inteira do Ollama",
+            "Cada comando executado",
+            "A instalação do Telegram"
+          ],
+          "certa": 1,
+          "explica": "O executor é chamado para cada comando. O cérebro e a conversa ficam fora do container.",
+          "ref": "diagrama"
+        },
+        {
+          "p": "Qual opção do Docker fecha a rede?",
+          "opcoes": [
+            "--network none",
+            "--env TOKEN",
+            "--privileged --network host"
+          ],
+          "certa": 0,
+          "explica": "O código monta o comando com --network none. As outras opções abririam alcance.",
+          "ref": "passos"
+        },
+        {
+          "p": "O que significa saída 0 na etiqueta?",
+          "opcoes": [
+            "A memória do assistente ficou vazia",
+            "O bot foi aprovado",
+            "O comando terminou sem erro"
+          ],
+          "certa": 2,
+          "explica": "É o código de saída do processo dentro da caixa; a etiqueta também identifica o executor.",
+          "ref": "codigo"
+        }
+      ]
+    },
+    {
+      "tipo": "resumo",
+      "titulo": "Leve desta aula",
+      "itens": [
+        {
+          "t": "Portão + caixa",
+          "texto": "A aprovação decide se roda; Docker limita onde roda."
+        },
+        {
+          "t": "Prova visível",
+          "texto": "A resposta identifica “[na caixa, saída 0]” quando a execução termina bem."
+        }
+      ]
+    },
+    {
+      "tipo": "links",
+      "titulo": "Fontes e próximos passos",
+      "links": [
+        {
+          "t": "Executor caixa no guia do INTELECTO",
+          "href": "https://inematds.github.io/intelecto-v2/guia/"
+        },
+        {
+          "t": "Guia oficial de instalação do Docker Engine",
+          "href": "https://docs.docker.com/engine/install/"
+        }
+      ]
+    }
+  ]
+}
