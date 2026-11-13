@@ -15,3 +15,8 @@ revisou; e monta a versão do seu jeito na mercearia, que gera o `meu-assistente
 ## Como o curso é feito
 Conteúdo em `conteudo/<pt|en|es>/` (JSON) → `python3 gerar.py [--lang en|es]` gera o HTML estático →
 `python3 validar.py --links` + `conferir-tela.cjs` são o portão. Não edite o HTML gerado à mão.
+
+## Mais no INEMA.CLUB
+- Ficha do curso: https://www.inema.club/cursos/391-seu-jarvis-seguro-intelecto-v2-e-caixa-do-agente-9-aulas/
+- Guia: como aprender inteligência artificial: https://www.inema.club/aprender-inteligencia-artificial/
+- Todos os cursos: https://www.inema.club/cursos/
