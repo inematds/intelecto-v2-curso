@@ -1,0 +1,214 @@
+{
+  "slug": "cofre-telegram",
+  "num": 5,
+  "menu": "Telegram",
+  "titulo": "Bóveda, propietario y aprobación por Telegram",
+  "titulo_curto": "Telegram",
+  "minutos": 15,
+  "lead": "Telegram es opcional. @BotFather es la cuenta oficial de Telegram que crea bots; el token es el código secreto de tu bot y el id es el número de tu cuenta. El token queda en la bóveda; solo los ids registrados pueden conversar con el bot. Las pruebas del proyecto usaron un servidor falso local.",
+  "objetivo": "Preparar el token en la bóveda y configurar el id del propietario para que el bot responda solo a la persona autorizada.",
+  "competencias": [
+    "cofre-telegram-compreender",
+    "cofre-telegram-praticar"
+  ],
+  "aprende": [
+    {
+      "t": "Guardar el token fuera de config",
+      "icone": "check"
+    },
+    {
+      "t": "Descubrir y registrar el id del propietario",
+      "icone": "check"
+    },
+    {
+      "t": "Entender /sim y /nao sin prometer una prueba en vivo",
+      "icone": "check"
+    }
+  ],
+  "hero_alt": "Fotografía editorial que representa la bóveda, el propietario y la aprobación por Telegram.",
+  "secoes": [
+    {
+      "tipo": "diagrama",
+      "titulo": "Mensaje hasta la respuesta",
+      "sub": "Sin un propietario registrado, el bot solo responde /id.",
+      "nos": [
+        {
+          "titulo": "Token",
+          "sub": "bóveda cifrada",
+          "icone": "cadeado",
+          "detalhe": "En Telegram, abre @BotFather, envía /newbot, elige un nombre y un identificador, y copia el token (código secreto del bot). Guárdalo con el comando cofre guardar telegram; no lo pegues en un archivo del proyecto."
+        },
+        {
+          "titulo": "/id",
+          "sub": "descubrir el número",
+          "icone": "usuario",
+          "detalhe": "Envía /id a tu bot. Responde: “Tu id es [número]. Colócalo en telegram_donos en config.json”. configurar completa ese mismo campo sin editar el JSON a mano."
+        },
+        {
+          "titulo": "Filtro de propietario",
+          "sub": "solo ids autorizados",
+          "icone": "portao",
+          "detalhe": "Los mensajes de otro id se ignoran y se anotan en la auditoría."
+        },
+        {
+          "titulo": "Aprobación",
+          "sub": "/sim o /nao",
+          "icone": "check",
+          "detalhe": "Cuando un comando requiere una decisión, el bot pregunta y espera la respuesta del propietario que hizo el pedido."
+        }
+      ],
+      "legenda": "Haz clic en cada parte para ver qué función cumple."
+    },
+    {
+      "tipo": "passos",
+      "titulo": "Actívalo solo si lo vas a usar",
+      "sub": "Haz clic en cada etapa para ver qué hacer.",
+      "passos": [
+        {
+          "titulo": "Crear bot",
+          "sub": "@BotFather",
+          "texto": [
+            "Abre @BotFather en Telegram, envía /newbot, elige un nombre y luego un nombre de usuario que termine en bot. Copia el token que recibas: es el código secreto del bot. No lo pegues en USER.md, AGENTS.md o config.json. @BotFather también te envía el enlace de tu bot, con el formato t.me/nome_bot: abre ese enlace para conversar con él."
+          ]
+        },
+        {
+          "titulo": "Guardar secreto",
+          "sub": "bóveda",
+          "texto": [
+            "El comando guardar telegram pide el token sin mostrarlo. El archivo de configuración guarda los ids, no el token."
+          ]
+        },
+        {
+          "titulo": "Descubrir id",
+          "sub": "/id",
+          "texto": [
+            "Activa el bot, envía /id y anota el número. El mensaje real dice “Colócalo en telegram_donos en config.json”. Puedes completar ese mismo campo con configurar, en la pregunta sobre los ids de Telegram. Detén el bot con Ctrl+C antes de configurar."
+          ]
+        },
+        {
+          "titulo": "Registrar propietario",
+          "sub": "configurar",
+          "texto": [
+            "Ingresa el id cuando te pregunte por los propietarios y vuelve a activar el bot. Prueba con otra cuenta si tienes una; solo la tuya debe recibir respuesta. Si un comando pide aprobación, responde /sim o /nao en un plazo de 120 segundos; después, el pedido vence y el comando no se ejecuta."
+          ]
+        }
+      ]
+    },
+    {
+      "tipo": "codigo",
+      "titulo": "Secuencia opcional",
+      "sub": "Copia los comandos y ejecútalos en la terminal desde la carpeta indicada.",
+      "blocos": [
+        {
+          "rot": "Terminal · guardar y descubrir el id",
+          "icone": "terminal",
+          "conteudo": "cd ~/intelecto-v2\npython3 -m intelecto cofre guardar telegram\npython3 -m intelecto telegram"
+        },
+        {
+          "rot": "Terminal · registrar y conectar",
+          "icone": "terminal",
+          "conteudo": "cd ~/intelecto-v2\npython3 -m intelecto configurar\npython3 -m intelecto verificar\npython3 -m intelecto telegram"
+        },
+        {
+          "rot": "En el chat con el bot · mensajes",
+          "icone": "terminal",
+          "conteudo": "/id\nrode: echo teste > nota.txt\n/nao"
+        }
+      ],
+      "saida": {
+        "selo": "real",
+        "abas": [
+          {
+            "rot": "Estado de la evidencia",
+            "html": "<p>Las pruebas automatizadas usan un servidor falso de Telegram: filtro de propietario, formato de los mensajes y aprobación con /sim. INEMA no probó el bot en vivo.</p>"
+          }
+        ]
+      }
+    },
+    {
+      "tipo": "pratica",
+      "titulo": "Verifica quién envía",
+      "sub": "Opcional. Depende de tu bot y de tu cuenta; INEMA no probó esta integración en vivo.",
+      "exercicios": [
+        {
+          "id": "1",
+          "titulo": "Completa el registro",
+          "min": 8,
+          "texto": "Si usas Telegram, obtén /id, coloca el número en configurar y vuelve a conectar. Si no lo usas, puedes omitir este paso sin que eso te impida continuar el curso.",
+          "pronto": "El bot responde a tu id; si puedes probar con otra cuenta, esa cuenta no recibirá respuesta."
+        },
+        {
+          "id": "2",
+          "titulo": "Comprueba una aprobación",
+          "min": 5,
+          "texto": "En el chat con tu bot, envía “rode: echo teste > nota.txt”. Esto pide aprobación porque escribe un archivo. Responde /nao primero; usa /sim solo si realmente quieres crear el archivo. La aprobación vence después de 120 segundos sin /sim o /nao.",
+          "pronto": "La auditoría registra la decisión y el comando no se ejecuta después de /nao."
+        }
+      ]
+    },
+    {
+      "tipo": "quiz",
+      "titulo": "Comprueba si lo entendiste",
+      "sub": "Elige antes de abrir el comentario. Si te equivocas, usa el enlace para repasar.",
+      "perguntas": [
+        {
+          "p": "¿Dónde guardar el token del bot?",
+          "opcoes": [
+            "En la bóveda de INTELECTO",
+            "En el archivo USER.md del asistente",
+            "En telegram_donos"
+          ],
+          "certa": 0,
+          "explica": "La bóveda guarda el secreto cifrado. telegram_donos contiene solo ids de usuarios.",
+          "ref": "diagrama"
+        },
+        {
+          "p": "¿Qué hace el bot si no hay ningún propietario registrado?",
+          "opcoes": [
+            "Responde a cualquiera que tenga el enlace",
+            "Responde solo al comando /id",
+            "Aprueba comandos por su cuenta"
+          ],
+          "certa": 1,
+          "explica": "El código deja disponible /id para descubrir el número e ignora los demás mensajes.",
+          "ref": "diagrama"
+        },
+        {
+          "p": "¿Cuál es la evidencia de Telegram en las fuentes?",
+          "opcoes": [
+            "Uso público continuo durante varios meses",
+            "Prueba en vivo por INEMA",
+            "Pruebas con un servidor falso local"
+          ],
+          "certa": 2,
+          "explica": "La integración se probó con un servidor falso, no en vivo. El estudiante debe verificarla con su propio bot.",
+          "ref": "codigo"
+        }
+      ]
+    },
+    {
+      "tipo": "resumo",
+      "titulo": "Lo que te llevas de esta clase",
+      "itens": [
+        {
+          "t": "Token separado",
+          "texto": "El token queda en la bóveda; el id queda en la configuración."
+        },
+        {
+          "t": "Límite de la prueba",
+          "texto": "La prueba automatizada no demuestra que funcione en vivo en Telegram."
+        }
+      ]
+    },
+    {
+      "tipo": "links",
+      "titulo": "Fuentes y próximos pasos",
+      "links": [
+        {
+          "t": "Telegram en la guía de INTELECTO",
+          "href": "https://inematds.github.io/intelecto-v2/guia/"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,308 @@
+{
+  "slug": "jarvis-seguro",
+  "num": 1,
+  "menu": "Tu Jarvis",
+  "titulo": "Por qué tener tu propio Jarvis y cómo mantenerlo seguro",
+  "titulo_curto": "Tu Jarvis",
+  "minutos": 12,
+  "lead": "Antes de confiarle tus archivos a la IA, mira qué puede hacer y cuándo te pide tu OK. Un error o un texto malicioso oculto en un sitio puede hacer que la IA borre una carpeta o envíe una contraseña al exterior. Probado en Linux (Ubuntu). macOS: el código no se probó en vivo. Windows: solo mediante WSL (Ubuntu dentro de Windows), no se probó.",
+  "objetivo": "Explicar las ocho piezas de INTELECTO v2 y reconocer libre, aprobar y bloqueado en la demostración.",
+  "competencias": [
+    "jarvis-seguro-compreender",
+    "jarvis-seguro-praticar"
+  ],
+  "aprende": [
+    {
+      "t": "Ver las ocho piezas del asistente",
+      "icone": "check"
+    },
+    {
+      "t": "Distinguir el asistente de la caja del proyecto",
+      "icone": "check"
+    },
+    {
+      "t": "Leer las tres decisiones de la auditoría",
+      "icone": "check"
+    }
+  ],
+  "hero_alt": "El dueño sostiene la llave e impide que un asistente humanoide toque una carpeta cerrada: la decisión es humana.",
+  "secoes": [
+    {
+      "tipo": "diagrama",
+      "titulo": "Las ocho piezas",
+      "sub": "Haz clic en una pieza; el ciclo empieza contigo y termina con un registro.",
+      "nos": [
+        {
+          "titulo": "1 · Canal",
+          "sub": "terminal o Telegram",
+          "icone": "chat",
+          "detalhe": "Es por donde hablas. Telegram acepta solo los ids (números de las cuentas) de los dueños configurados."
+        },
+        {
+          "titulo": "2 · Bucle con freno",
+          "sub": "pensar → actuar → responder",
+          "icone": "robo",
+          "detalhe": "El asistente consulta el cerebro, usa herramientas y se detiene en un máximo de cinco rondas."
+        },
+        {
+          "titulo": "3 · Identidad",
+          "sub": "cuatro archivos de texto",
+          "icone": "usuario",
+          "detalhe": "SOUL, AGENTS, USER y MEMORY definen el estilo, las reglas, los datos del dueño y los hechos iniciales."
+        },
+        {
+          "titulo": "4 · Cerebro",
+          "sub": "Ollama local",
+          "icone": "camadas",
+          "detalhe": "Ollama ejecuta la IA en la computadora. OpenRouter es un servicio pago en la nube; está en el código, pero INEMA no lo probó en vivo."
+        },
+        {
+          "titulo": "5 · Memoria",
+          "sub": "guarda y busca",
+          "icone": "memoria",
+          "detalhe": "La memoria es una base de datos local: guarda hechos y luego busca palabras, incluso sin tilde."
+        },
+        {
+          "titulo": "6 · Herramientas",
+          "sub": "dentro del área",
+          "icone": "pasta",
+          "detalhe": "Leer, guardar, listar y ejecutar comandos; los archivos se limitan a la carpeta de trabajo."
+        },
+        {
+          "titulo": "7 · Bloqueo y bóveda",
+          "sub": "decide y registra",
+          "icone": "cadeado",
+          "detalhe": "Solo se ejecutan las acciones de lectura; las demás piden aprobación; las acciones destructivas conocidas se rechazan. Los secretos quedan cifrados."
+        },
+        {
+          "titulo": "8 · Caja",
+          "sub": "caja sin red",
+          "icone": "caixa",
+          "detalhe": "Opcionalmente, cada comando se ejecuta en un contenedor Docker: una caja aislada, con la carpeta de trabajo y sin red."
+        }
+      ],
+      "legenda": "La caja del agente es otra capa: protege la copia de un proyecto cuando un agente de programación trabaja en él."
+    },
+    {
+      "tipo": "passos",
+      "titulo": "El recorrido de un mensaje",
+      "sub": "Del terminal o celular hasta la respuesta, en seis etapas de la guía del proyecto.",
+      "passos": [
+        {
+          "titulo": "Canal",
+          "sub": "entrada",
+          "texto": [
+            "El mensaje llega por el terminal o Telegram. En Telegram, el bot comprueba si el id pertenece a la lista de dueños; ignora y registra los mensajes de otros remitentes."
+          ]
+        },
+        {
+          "titulo": "Memoria directa",
+          "sub": "recuerda que",
+          "texto": [
+            "Una solicitud que empieza con «recuerda que», «guarda» o «anota» se guarda directamente, sin esperar a que la IA llame a una herramienta. Una pregunta con ? no se convierte en memoria."
+          ]
+        },
+        {
+          "titulo": "Contexto",
+          "sub": "lo que sabe",
+          "texto": [
+            "El asistente reúne los archivos de identidad, los recuerdos relacionados con la pregunta y las conversaciones recientes."
+          ]
+        },
+        {
+          "titulo": "Cerebro",
+          "sub": "decisión",
+          "texto": [
+            "La IA local o de la nube recibe este contexto. Responde o solicita una herramienta, como buscar en la memoria, leer un archivo o ejecutar un comando."
+          ]
+        },
+        {
+          "titulo": "Bloqueo",
+          "sub": "herramienta",
+          "texto": [
+            "El comando solicitado pasa por el bloqueo: se ejecuta, pide tu aprobación o se rechaza. Si lo apruebas, se ejecuta en el área de trabajo o en la caja, si está activada; el resultado vuelve a la IA."
+          ]
+        },
+        {
+          "titulo": "Respuesta",
+          "sub": "auditoría",
+          "texto": [
+            "Recibes la respuesta. Los comandos, las herramientas, las memorias directas y los errores quedan registrados en la auditoría para que puedas revisarlos."
+          ]
+        }
+      ]
+    },
+    {
+      "tipo": "passos",
+      "titulo": "Qué demuestra la demo",
+      "sub": "Haz clic en cada etapa para ver qué hacer.",
+      "passos": [
+        {
+          "titulo": "Prepara el terminal",
+          "sub": "Python y git",
+          "texto": [
+            "En Linux (Ubuntu), instala Python 3.10+ y git. En macOS, instala las herramientas de línea de comandos con xcode-select --install; puedes instalar Python 3.10+ desde python.org o con brew install python. En Windows, usa WSL con Ubuntu. Comprueba las versiones antes de continuar. Si python3 --version muestra una versión anterior a 3.10, usa Ubuntu 22.04 o una versión posterior antes de continuar."
+          ]
+        },
+        {
+          "titulo": "Descarga y ejecuta la demo",
+          "sub": "Sin modelo de IA",
+          "texto": [
+            "Descarga INTELECTO, entra en la carpeta y ejecuta demo. La demo usa un cerebro simulado y muestra la memoria, la lectura permitida, la escritura rechazada y el comando bloqueado."
+          ]
+        },
+        {
+          "titulo": "Memoria",
+          "sub": "Guardar y buscar",
+          "texto": [
+            "El cerebro simulado guarda «me llamo Ana y vivo en Curitiba» y responde a la siguiente pregunta. Esta prueba es del mecanismo; en la clase 3 harás la prueba con Ollama."
+          ]
+        },
+        {
+          "titulo": "Comandos",
+          "sub": "Tres destinos",
+          "texto": [
+            "«ls» se ejecuta. «echo teste > nota.txt» pide aprobación y se rechaza en la demo. «rm -rf /» queda bloqueado."
+          ]
+        },
+        {
+          "titulo": "Área",
+          "sub": "Afuera es afuera",
+          "texto": [
+            "La solicitud para leer ../../etc/passwd recibe «fora da pasta de trabalho» (fuera de la carpeta de trabajo)."
+          ]
+        }
+      ]
+    },
+    {
+      "tipo": "codigo",
+      "titulo": "Ejecútalo sin instalar un modelo",
+      "sub": "En macOS, Python 3.10+ también puede venir de python.org; usa brew install python solo si tienes Homebrew. Ejecuta los bloques de tu sistema y luego descarga el proyecto.",
+      "blocos": [
+        {
+          "rot": "Linux (Ubuntu) · requisitos previos",
+          "icone": "terminal",
+          "conteudo": "sudo apt install -y git python3 curl\npython3 --version && git --version"
+        },
+        {
+          "rot": "macOS · instalar herramientas de terminal y git",
+          "icone": "terminal",
+          "conteudo": "xcode-select --install\ngit --version"
+        },
+        {
+          "rot": "macOS · Python 3.10+ con Homebrew",
+          "icone": "terminal",
+          "conteudo": "brew install python\npython3 --version"
+        },
+        {
+          "rot": "Terminal · descargar el proyecto y entrar",
+          "icone": "terminal",
+          "conteudo": "cd ~ && git clone https://github.com/inematds/intelecto-v2 && cd intelecto-v2"
+        },
+        {
+          "rot": "Terminal · ejecutar la demostración",
+          "icone": "terminal",
+          "conteudo": "python3 -m intelecto demo"
+        }
+      ],
+      "saida": {
+        "selo": "real",
+        "abas": [
+          {
+            "rot": "Fragmento real de la demo · 13/11/2026",
+            "html": "<pre>livre     rodou=True  ls\naprovar   rodou=False echo teste &gt; nota.txt\nbloqueado rodou=False rm -rf /</pre><p><em>El programa muestra esto en portugués, tal cual.</em></p>"
+          }
+        ]
+      }
+    },
+    {
+      "tipo": "pratica",
+      "titulo": "Tu primera prueba",
+      "sub": "Sigue el orden y marca cada punto solo después de comprobar el resultado.",
+      "exercicios": [
+        {
+          "id": "1",
+          "titulo": "Encuentra las tres decisiones",
+          "min": 5,
+          "texto": "Ejecuta la demostración y lee el bloque final «Auditoría de esta demostración».",
+          "pronto": "Aparecen las líneas libre, aprovar y bloqueado, con rodou=True solo para ls."
+        },
+        {
+          "id": "2",
+          "titulo": "Explica las dos cajas",
+          "min": 4,
+          "texto": "Di en voz alta: el ejecutor (programa que ejecuta el comando) caja aísla un comando de INTELECTO; la caja del agente aísla una copia del proyecto para un agente de programación.",
+          "pronto": "Puedes señalar cuál protege el comando y cuál protege el proyecto."
+        }
+      ]
+    },
+    {
+      "tipo": "quiz",
+      "titulo": "Comprueba si lo entendiste",
+      "sub": "Elige antes de abrir el comentario. Si te equivocas, usa el enlace para repasar.",
+      "perguntas": [
+        {
+          "p": "¿Qué pieza guarda datos para otra conversación?",
+          "opcoes": [
+            "El canal",
+            "La memoria",
+            "El ejecutor caja"
+          ],
+          "certa": 1,
+          "explica": "La memoria guarda y busca datos. El canal solo recibe el mensaje; la caja aísla el comando.",
+          "ref": "diagrama"
+        },
+        {
+          "p": "¿Qué pasa con «rm -rf /» en la demostración?",
+          "opcoes": [
+            "Pide aprobación",
+            "Se ejecuta en el área",
+            "Se bloquea"
+          ],
+          "certa": 2,
+          "explica": "El bloqueo clasifica el objetivo destructivo como bloqueado, aunque alguien quiera aprobarlo.",
+          "ref": "codigo"
+        },
+        {
+          "p": "¿Para qué sirve la caja del agente?",
+          "opcoes": [
+            "Trabajar en una copia del proyecto",
+            "Guardar los mensajes del celular",
+            "Responder mensajes en la terminal"
+          ],
+          "certa": 0,
+          "explica": "El kit copia el proyecto sin secretos y muestra las diferencias en un parche, archivo que guarda los cambios.",
+          "ref": "diagrama"
+        }
+      ]
+    },
+    {
+      "tipo": "resumo",
+      "titulo": "Lo que te llevas de esta clase",
+      "itens": [
+        {
+          "t": "Primera prueba",
+          "texto": "La demo funciona sin conexión ni modelo."
+        },
+        {
+          "t": "Dos límites",
+          "texto": "El bloqueo decide sobre las acciones; la caja reduce el alcance del comando."
+        }
+      ]
+    },
+    {
+      "tipo": "links",
+      "titulo": "Fuentes y próximos pasos",
+      "links": [
+        {
+          "t": "Guía de INTELECTO v2",
+          "href": "https://inematds.github.io/intelecto-v2/guia/"
+        },
+        {
+          "t": "Curso anterior, versión v1",
+          "href": "https://inematds.github.io/intelecto-curso/"
+        }
+      ]
+    }
+  ]
+}

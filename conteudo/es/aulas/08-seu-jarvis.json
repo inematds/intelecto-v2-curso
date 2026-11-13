@@ -1,0 +1,228 @@
+{
+  "slug": "seu-jarvis",
+  "num": 8,
+  "menu": "A tu manera",
+  "titulo": "Tu Jarvis a tu manera",
+  "titulo_curto": "A tu manera",
+  "minutos": 14,
+  "lead": "El asistente ya conversa, recuerda y tiene límites. La operación continua es opcional: en Linux, un servicio puede iniciar el bot cuando empieza la sesión. Termina con una revisión de las protecciones y elige solo el siguiente paso que vas a usar.",
+  "objetivo": "Revisa la memoria, la auditoría y la protección; si usas Telegram en Linux, prepara el servicio del usuario.",
+  "competencias": [
+    "tu-jarvis-comprender",
+    "tu-jarvis-practicar"
+  ],
+  "aprende": [
+    {
+      "t": "Revisar lo que está activo",
+      "icone": "check"
+    },
+    {
+      "t": "Entender el servicio Linux opcional",
+      "icone": "check"
+    },
+    {
+      "t": "Separar lo que se probó de lo que aún falta probar",
+      "icone": "check"
+    }
+  ],
+  "hero_alt": "La dueña de una tienda revisa una lista sencilla junto a un asistente humanoide realista antes de encenderlo.",
+  "secoes": [
+    {
+      "tipo": "diagrama",
+      "titulo": "Tu operación segura",
+      "sub": "El camino termina con una revisión, no con un botón mágico.",
+      "nos": [
+        {
+          "titulo": "Identidad y memoria",
+          "sub": "tu asistente",
+          "icone": "memoria",
+          "detalhe": "Revisa los archivos de identidad y busca un dato real en la base de datos."
+        },
+        {
+          "titulo": "Bloqueo y auditoría",
+          "sub": "tu decisión",
+          "icone": "portao",
+          "detalhe": "Mantén la política de aprobación adecuada y lee el historial de comandos."
+        },
+        {
+          "titulo": "Caja por comando",
+          "sub": "Docker opcional",
+          "icone": "caixa",
+          "detalhe": "Usa el ejecutor caja cuando quieras limitar el alcance de los comandos."
+        },
+        {
+          "titulo": "Caja del proyecto",
+          "sub": "maqueta para agentes",
+          "icone": "pasta",
+          "detalhe": "Usa caixa.sh cuando Codex o Claude Code trabaje en el código de tu proyecto."
+        },
+        {
+          "titulo": "Servicio Linux",
+          "sub": "Telegram opcional",
+          "icone": "terminal",
+          "detalhe": "systemd es el gestor de servicios de Linux. El archivo de servicio del usuario inicia el bot; ajusta las rutas antes de activarlo."
+        }
+      ],
+      "legenda": "Haz clic en cada parte para ver qué función cumple."
+    },
+    {
+      "tipo": "passos",
+      "titulo": "Antes de dejarlo encendido",
+      "sub": "Haz clic en cada etapa para ver qué hacer.",
+      "passos": [
+        {
+          "titulo": "Revisa el estado",
+          "sub": "verificar",
+          "texto": [
+            "El comando revisa la instalación, la base de datos, la configuración y los secretos que requieren las opciones activas."
+          ]
+        },
+        {
+          "titulo": "Lee los registros",
+          "sub": "auditoría",
+          "texto": [
+            "“Listo” en la respuesta no es el comprobante. auditoria -n 20 imprime líneas JSON: comando es el pedido, classe es libre/aprovar/bloqueado, rodou indica si se ejecutó y decisao explica el motivo."
+          ]
+        },
+        {
+          "titulo": "Activa solo lo necesario",
+          "sub": "servicio",
+          "texto": [
+            "El servicio de ejemplo usa systemd, el gestor de servicios de Linux, para activar Telegram. journalctl muestra los registros de ese servicio. Si solo usas la terminal, no necesitas instalarlo."
+          ]
+        },
+        {
+          "titulo": "Reconoce los límites",
+          "sub": "evidencia",
+          "texto": [
+            "Ollama local, Linux y la caja por comando con Docker se probaron en vivo. INEMA no probó en vivo OpenRouter, Telegram ni macOS. Windows solo se probó mediante WSL con Ubuntu, también sin una prueba en vivo."
+          ]
+        }
+      ]
+    },
+    {
+      "tipo": "codigo",
+      "titulo": "Tu revisión final",
+      "sub": "WorkingDirectory y ExecStart son la carpeta y el comando que ejecuta el servicio. Revisa esas rutas en el archivo antes de copiarlo; el ejemplo supone que clonaste el proyecto en ~/intelecto-v2.",
+      "blocos": [
+        {
+          "rot": "Terminal · estado, memoria e historial",
+          "icone": "terminal",
+          "conteudo": "cd ~/intelecto-v2\npython3 -m intelecto verificar\npython3 -m intelecto memoria\npython3 -m intelecto auditoria -n 20"
+        },
+        {
+          "rot": "Linux · servicio Telegram opcional",
+          "icone": "terminal",
+          "conteudo": "cd ~/intelecto-v2\ncat servico/intelecto-telegram.service\n# Revisa WorkingDirectory y ExecStart; ajústalos si es necesario.\nmkdir -p ~/.config/systemd/user\ncp servico/intelecto-telegram.service ~/.config/systemd/user/\nsystemctl --user daemon-reload && systemctl --user enable --now intelecto-telegram"
+        },
+        {
+          "rot": "Linux · seguir el servicio",
+          "icone": "terminal",
+          "conteudo": "cd ~/intelecto-v2\njournalctl --user -u intelecto-telegram -f"
+        }
+      ],
+      "saida": {
+        "selo": "real",
+        "abas": [
+          {
+            "rot": "Auditoría JSON real · prueba aislada, 13/11/2026",
+            "html": "<pre>{&quot;ts&quot;: &quot;2026-11-13T03:38:00+00:00&quot;, &quot;tipo&quot;: &quot;comando&quot;, &quot;comando&quot;: &quot;ls&quot;, &quot;classe&quot;: &quot;livre&quot;, &quot;rodou&quot;: true, &quot;decisao&quot;: &quot;livre (só leitura)&quot;}</pre><p>En esta línea, <code>comando</code> es ls, <code>classe</code> es libre, <code>rodou</code> es true y <code>decisao</code> explica por qué se permitió.</p>"
+          }
+        ]
+      }
+    },
+    {
+      "tipo": "pratica",
+      "titulo": "Cierra el curso con evidencia",
+      "sub": "Sigue el orden y marca cada punto solo después de comprobar el resultado.",
+      "exercicios": [
+        {
+          "id": "1",
+          "titulo": "Haz la revisión",
+          "min": 6,
+          "texto": "Ejecuta los tres comandos de estado y anota qué dato encontró la memoria y qué comando registra la auditoría.",
+          "pronto": "La verificación termina con «tudo certo» (todo correcto); si ya usaste la memoria y los comandos, las líneas corresponden a lo que hiciste. El historial también puede estar vacío antes del primer comando."
+        },
+        {
+          "id": "2",
+          "titulo": "Elige la siguiente capa",
+          "min": 4,
+          "texto": "Si programas con agentes, ejecuta la caja del agente en un proyecto. Si usas Telegram en Linux, ajusta el archivo de servicio antes de habilitarlo.",
+          "pronto": "Sabes qué capa activaste y qué prueba concreta confirma que funciona."
+        }
+      ]
+    },
+    {
+      "tipo": "quiz",
+      "titulo": "Comprueba si lo entendiste",
+      "sub": "Elige antes de abrir el comentario. Si te equivocas, usa el enlace para repasar.",
+      "perguntas": [
+        {
+          "p": "¿Cuándo tiene sentido el servicio de Linux?",
+          "opcoes": [
+            "Cuando solo usas la demo sin internet",
+            "Cuando quieres que el bot de Telegram esté activo en la sesión",
+            "Cuando no tienes Python"
+          ],
+          "certa": 1,
+          "explica": "El servicio de ejemplo inicia Telegram; el terminal por sí solo no requiere un servicio.",
+          "ref": "diagrama"
+        },
+        {
+          "p": "¿Qué muestra si un comando realmente se ejecutó?",
+          "opcoes": [
+            "El nombre del modelo",
+            "El título de la clase",
+            "La auditoría"
+          ],
+          "certa": 2,
+          "explica": "La auditoría registra el comando, la clase, la decisión y si se ejecutó.",
+          "ref": "codigo"
+        },
+        {
+          "p": "¿Qué elemento no tiene una prueba en vivo de INEMA?",
+          "opcoes": [
+            "Telegram",
+            "Ollama local",
+            "La caja con Docker"
+          ],
+          "certa": 0,
+          "explica": "Telegram se probó contra un servidor falso, pero no en vivo; Ollama y la caja tuvieron pruebas reales.",
+          "ref": "passos"
+        }
+      ]
+    },
+    {
+      "tipo": "resumo",
+      "titulo": "Lo que te llevas de esta clase",
+      "itens": [
+        {
+          "t": "Tu control",
+          "texto": "La identidad, la aprobación, el historial y las cajas son opciones visibles."
+        },
+        {
+          "t": "Siguiente paso",
+          "texto": "Usa la guía de la herramienta específica cuando necesites configurar detalles del servicio o la integración."
+        }
+      ]
+    },
+    {
+      "tipo": "links",
+      "titulo": "Fuentes y próximos pasos",
+      "links": [
+        {
+          "t": "Guía de INTELECTO v2",
+          "href": "https://inematds.github.io/intelecto-v2/guia/"
+        },
+        {
+          "t": "Guía de caixa-do-agente",
+          "href": "https://inematds.github.io/caixa-do-agente/guia/"
+        },
+        {
+          "t": "Curso anterior v1",
+          "href": "https://inematds.github.io/intelecto-curso/"
+        }
+      ]
+    }
+  ]
+}

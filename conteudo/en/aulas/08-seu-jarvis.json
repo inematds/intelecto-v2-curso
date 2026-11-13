@@ -1,0 +1,228 @@
+{
+  "slug": "seu-jarvis",
+  "num": 8,
+  "menu": "Your way",
+  "titulo": "Your Jarvis, your way",
+  "titulo_curto": "Your way",
+  "minutos": 14,
+  "lead": "The assistant already chats, remembers, and has safeguards. Continuous operation is optional: on Linux, a service can start the bot when you log in. Finish by reviewing the safeguards and choosing only the next step you’ll use.",
+  "objetivo": "Check memory, audit, and safeguards; if you use Telegram on Linux, set up the user service.",
+  "competencias": [
+    "your-jarvis-understand",
+    "your-jarvis-practice"
+  ],
+  "aprende": [
+    {
+      "t": "Review what’s active",
+      "icone": "check"
+    },
+    {
+      "t": "Understand the optional Linux service",
+      "icone": "check"
+    },
+    {
+      "t": "Separate what’s been tested from what still needs testing",
+      "icone": "check"
+    }
+  ],
+  "hero_alt": "A shop owner checks a simple list beside a realistic humanoid assistant before turning it on.",
+  "secoes": [
+    {
+      "tipo": "diagrama",
+      "titulo": "Your safe operation",
+      "sub": "The path ends with a check, not a magic button.",
+      "nos": [
+        {
+          "titulo": "Identity and memory",
+          "sub": "your assistant",
+          "icone": "memoria",
+          "detalhe": "Review identity files and look up a real fact in the database."
+        },
+        {
+          "titulo": "Safeguards and audit",
+          "sub": "your decision",
+          "icone": "portao",
+          "detalhe": "Keep the approval policy appropriate and read the command history."
+        },
+        {
+          "titulo": "Command sandbox",
+          "sub": "Optional Docker",
+          "icone": "caixa",
+          "detalhe": "Use the box runner when you want to limit the reach of commands."
+        },
+        {
+          "titulo": "Project box",
+          "sub": "agent sandbox",
+          "icone": "pasta",
+          "detalhe": "Use caixa.sh when Codex or Claude Code works on your project code."
+        },
+        {
+          "titulo": "Linux service",
+          "sub": "Optional Telegram",
+          "icone": "terminal",
+          "detalhe": "systemd is Linux’s service manager. The user service file starts the bot; adjust the paths before enabling it."
+        }
+      ],
+      "legenda": "Click each part to see what it does."
+    },
+    {
+      "tipo": "passos",
+      "titulo": "Before leaving it on",
+      "sub": "Click each step to see what to do.",
+      "passos": [
+        {
+          "titulo": "Check status",
+          "sub": "verify",
+          "texto": [
+            "The command checks installation, database, configuration, and secrets required by the active options."
+          ]
+        },
+        {
+          "titulo": "Read logs",
+          "sub": "audit log",
+          "texto": [
+            "“Done” in the reply isn’t a receipt. auditoria -n 20 prints JSON lines: comando is the request, classe is free/approve/blocked, rodou says whether it ran, and decisao explains why."
+          ]
+        },
+        {
+          "titulo": "Enable only what you need",
+          "sub": "service",
+          "texto": [
+            "The example service uses systemd, Linux’s service manager, to start Telegram. journalctl shows that service’s logs. If you only use the terminal, you don’t need to install it."
+          ]
+        },
+        {
+          "titulo": "Recognize the limits",
+          "sub": "evidence",
+          "texto": [
+            "Local Ollama, Linux, and the command runner box with Docker were tested live. OpenRouter, live Telegram, and macOS were not tested live by INEMA. Windows was tested only through WSL with Ubuntu, also without a live test."
+          ]
+        }
+      ]
+    },
+    {
+      "tipo": "codigo",
+      "titulo": "Your final review",
+      "sub": "WorkingDirectory and ExecStart are the folder and command the service runs. Check these paths in the file before copying; the example assumes the clone is in ~/intelecto-v2.",
+      "blocos": [
+        {
+          "rot": "Terminal · status, memory, and history",
+          "icone": "terminal",
+          "conteudo": "cd ~/intelecto-v2\npython3 -m intelecto verificar\npython3 -m intelecto memoria\npython3 -m intelecto auditoria -n 20"
+        },
+        {
+          "rot": "Linux · optional Telegram service",
+          "icone": "terminal",
+          "conteudo": "cd ~/intelecto-v2\ncat servico/intelecto-telegram.service\n# Check WorkingDirectory and ExecStart; adjust if needed.\nmkdir -p ~/.config/systemd/user\ncp servico/intelecto-telegram.service ~/.config/systemd/user/\nsystemctl --user daemon-reload && systemctl --user enable --now intelecto-telegram"
+        },
+        {
+          "rot": "Linux · monitor the service",
+          "icone": "terminal",
+          "conteudo": "cd ~/intelecto-v2\njournalctl --user -u intelecto-telegram -f"
+        }
+      ],
+      "saida": {
+        "selo": "real",
+        "abas": [
+          {
+            "rot": "Real JSON audit · isolated trial, 13/11/2026",
+            "html": "<pre>{&quot;ts&quot;: &quot;2026-11-13T03:38:00+00:00&quot;, &quot;tipo&quot;: &quot;comando&quot;, &quot;comando&quot;: &quot;ls&quot;, &quot;classe&quot;: &quot;livre&quot;, &quot;rodou&quot;: true, &quot;decisao&quot;: &quot;livre (só leitura)&quot;}</pre><p>In this line, <code>comando</code> is ls, <code>classe</code> is livre, <code>rodou</code> is true, and <code>decisao</code> explains why it was allowed.</p>"
+          }
+        ]
+      }
+    },
+    {
+      "tipo": "pratica",
+      "titulo": "Finish the course with evidence",
+      "sub": "Follow the steps in order and check each one only after you’ve confirmed the result.",
+      "exercicios": [
+        {
+          "id": "1",
+          "titulo": "Do the review",
+          "min": 6,
+          "texto": "Run the three status commands and note which fact memory found and which command the audit records.",
+          "pronto": "verificar ends with “tudo certo”; if you’ve already used memory and commands, the lines match what you did. The history can also be empty before the first command."
+        },
+        {
+          "id": "2",
+          "titulo": "Choose the next layer",
+          "min": 4,
+          "texto": "If you program with agents, use caixa-do-agente in a project. If you use Telegram on Linux, adjust the service file before enabling it.",
+          "pronto": "You know which layer you activated and what concrete proof confirms it works."
+        }
+      ]
+    },
+    {
+      "tipo": "quiz",
+      "titulo": "Check your understanding",
+      "sub": "Choose before opening the explanation. If you get it wrong, use the link to review.",
+      "perguntas": [
+        {
+          "p": "When does the Linux service make sense?",
+          "opcoes": [
+            "When you use only the offline demo",
+            "When you want the Telegram bot active in the session",
+            "When you don’t have Python"
+          ],
+          "certa": 1,
+          "explica": "The example service starts Telegram; the terminal alone doesn’t require a service.",
+          "ref": "diagrama"
+        },
+        {
+          "p": "What shows whether a command actually ran?",
+          "opcoes": [
+            "The model name",
+            "The lesson title",
+            "The audit"
+          ],
+          "certa": 2,
+          "explica": "The audit records the command, class, decision, and whether it ran.",
+          "ref": "codigo"
+        },
+        {
+          "p": "Which item has no live test from INEMA?",
+          "opcoes": [
+            "Telegram",
+            "Ollama local",
+            "The box with Docker"
+          ],
+          "certa": 0,
+          "explica": "Telegram was tested against a fake server, but not live; Ollama and the box had real-world proof.",
+          "ref": "passos"
+        }
+      ]
+    },
+    {
+      "tipo": "resumo",
+      "titulo": "Takeaways from this lesson",
+      "itens": [
+        {
+          "t": "Your control",
+          "texto": "Identity, approval, history, and boxes are visible choices."
+        },
+        {
+          "t": "Next step",
+          "texto": "Use the specific tool’s guide when you need to configure service or integration details."
+        }
+      ]
+    },
+    {
+      "tipo": "links",
+      "titulo": "Sources and next steps",
+      "links": [
+        {
+          "t": "INTELECTO v2 guide",
+          "href": "https://inematds.github.io/intelecto-v2/guia/"
+        },
+        {
+          "t": "caixa-do-agente guide",
+          "href": "https://inematds.github.io/caixa-do-agente/guia/"
+        },
+        {
+          "t": "Previous course v1",
+          "href": "https://inematds.github.io/intelecto-curso/"
+        }
+      ]
+    }
+  ]
+}

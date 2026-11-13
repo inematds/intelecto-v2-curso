@@ -1,0 +1,214 @@
+{
+  "slug": "cofre-telegram",
+  "num": 5,
+  "menu": "Telegram",
+  "titulo": "Vault, owner, and approval through Telegram",
+  "titulo_curto": "Telegram",
+  "minutos": 15,
+  "lead": "Telegram is optional. @BotFather is Telegram’s official account for creating bots; the token is your bot’s secret code, and the ID is your account number. The token stays in the vault; only registered IDs can talk to the bot. The project tests used a local fake server.",
+  "objetivo": "Prepare the token in the vault and set the owner ID so the bot only responds to the authorized person.",
+  "competencias": [
+    "cofre-telegram-compreender",
+    "cofre-telegram-praticar"
+  ],
+  "aprende": [
+    {
+      "t": "Keep the token outside the config",
+      "icone": "check"
+    },
+    {
+      "t": "Find and register the owner ID",
+      "icone": "check"
+    },
+    {
+      "t": "Understand /sim and /nao without promising a live test",
+      "icone": "check"
+    }
+  ],
+  "hero_alt": "Editorial photograph representing the vault, owner, and approval through Telegram.",
+  "secoes": [
+    {
+      "tipo": "diagrama",
+      "titulo": "Message until the reply",
+      "sub": "Without a registered owner, the bot only responds to /id.",
+      "nos": [
+        {
+          "titulo": "Token",
+          "sub": "encrypted vault",
+          "icone": "cadeado",
+          "detalhe": "On Telegram, open @BotFather, send /newbot, choose a name and username, and copy the token (the bot’s secret code). Save it with the cofre guardar telegram command; don’t paste it into a project file."
+        },
+        {
+          "titulo": "/id",
+          "sub": "find the number",
+          "icone": "usuario",
+          "detalhe": "Send /id to your bot. It replies, “Your ID is [number]. Put it in telegram_donos in config.json.” The configurar command fills in that same field without editing the JSON by hand."
+        },
+        {
+          "titulo": "Owner filter",
+          "sub": "authorized IDs only",
+          "icone": "portao",
+          "detalhe": "A message from another ID is ignored and recorded in the audit."
+        },
+        {
+          "titulo": "Approval",
+          "sub": "/yes or /no",
+          "icone": "check",
+          "detalhe": "When a command requires a decision, the bot asks and waits for the person who made the request to respond."
+        }
+      ],
+      "legenda": "Click each part to see what it does."
+    },
+    {
+      "tipo": "passos",
+      "titulo": "Turn this on only if you plan to use it",
+      "sub": "Click each step to see what to do.",
+      "passos": [
+        {
+          "titulo": "Create a bot",
+          "sub": "@BotFather",
+          "texto": [
+            "Open @BotFather in Telegram, send /newbot, choose a name, then choose a username that ends in bot. Copy the token you receive: it’s the bot’s secret code. Don’t paste it into USER.md, AGENTS.md, or config.json. @BotFather also sends your bot’s link in the format t.me/bot_name: open that link to chat with it."
+          ]
+        },
+        {
+          "titulo": "Store the secret",
+          "sub": "vault",
+          "texto": [
+            "The guardar telegram command asks for the token without displaying it. The configuration file stores the IDs, not the token."
+          ]
+        },
+        {
+          "titulo": "Find your ID",
+          "sub": "/id",
+          "texto": [
+            "Turn on the bot, send /id, and write down the number. The actual message says “Put it in telegram_donos in config.json.” You can fill in that same field using configurar, when asked for Telegram IDs. Stop the bot with Ctrl+C before configuring it."
+          ]
+        },
+        {
+          "titulo": "Register the owner",
+          "sub": "configure",
+          "texto": [
+            "Enter the ID when asked for owners, then turn the bot on again. Test with another account if you have one; only yours should get a reply. If a command asks for approval, reply /sim or /nao within 120 seconds; after that, the request expires and the command won’t run."
+          ]
+        }
+      ]
+    },
+    {
+      "tipo": "codigo",
+      "titulo": "Optional sequence",
+      "sub": "Copy the commands and run them in the terminal from the specified folder.",
+      "blocos": [
+        {
+          "rot": "Terminal · store the token and find your ID",
+          "icone": "terminal",
+          "conteudo": "cd ~/intelecto-v2\npython3 -m intelecto cofre guardar telegram\npython3 -m intelecto telegram"
+        },
+        {
+          "rot": "Terminal · register the owner and turn it on",
+          "icone": "terminal",
+          "conteudo": "cd ~/intelecto-v2\npython3 -m intelecto configurar\npython3 -m intelecto verificar\npython3 -m intelecto telegram"
+        },
+        {
+          "rot": "In the bot chat · messages",
+          "icone": "terminal",
+          "conteudo": "/id\nrode: echo teste > nota.txt\n/nao"
+        }
+      ],
+      "saida": {
+        "selo": "real",
+        "abas": [
+          {
+            "rot": "Evidence status",
+            "html": "<p>Automated tests use a fake Telegram server: owner filtering, message format, and approval with /sim. INEMA has not tested the bot live.</p>"
+          }
+        ]
+      }
+    },
+    {
+      "tipo": "pratica",
+      "titulo": "Check who can send messages",
+      "sub": "Optional. It depends on your bot and account; INEMA has not tested this integration live.",
+      "exercicios": [
+        {
+          "id": "1",
+          "titulo": "Complete the setup",
+          "min": 8,
+          "texto": "If you use Telegram, get your /id, enter the number in configurar, and turn the bot on again. If you don’t use it, skip this step; it won’t block the rest of the course.",
+          "pronto": "The bot replies to your ID; another account won’t get a reply, if you can test with one."
+        },
+        {
+          "id": "2",
+          "titulo": "Check an approval",
+          "min": 5,
+          "texto": "In your bot’s chat, send “rode: echo teste > nota.txt”. This asks for approval because it writes a file. Reply /nao first; use /sim only if you really want to create the file. Approval expires after 120 seconds without /sim or /nao.",
+          "pronto": "The audit records the decision, and the command doesn’t run after /nao."
+        }
+      ]
+    },
+    {
+      "tipo": "quiz",
+      "titulo": "Check your understanding",
+      "sub": "Choose before opening the explanation. If you get it wrong, use the link to review.",
+      "perguntas": [
+        {
+          "p": "Where should you store the bot token?",
+          "opcoes": [
+            "In the INTELECTO vault",
+            "In the assistant’s USER.md file",
+            "In telegram_donos"
+          ],
+          "certa": 0,
+          "explica": "The vault stores the encrypted secret. telegram_donos contains user IDs only.",
+          "ref": "diagrama"
+        },
+        {
+          "p": "What does the bot do when no owner is registered?",
+          "opcoes": [
+            "Replies to anyone who has the link",
+            "Replies only to the /id command",
+            "Approves commands on its own"
+          ],
+          "certa": 1,
+          "explica": "The code keeps /id available so you can find the number and ignores other messages.",
+          "ref": "diagrama"
+        },
+        {
+          "p": "What evidence for Telegram is available in the sources?",
+          "opcoes": [
+            "Several months of continuous public use",
+            "A live test by INEMA",
+            "Tests with a local fake server"
+          ],
+          "certa": 2,
+          "explica": "The integration was tested against a fake server, not live. Students need to verify it with their own bot.",
+          "ref": "codigo"
+        }
+      ]
+    },
+    {
+      "tipo": "resumo",
+      "titulo": "Takeaways from this lesson",
+      "itens": [
+        {
+          "t": "Separate token",
+          "texto": "The token stays in the vault; the ID stays in the configuration."
+        },
+        {
+          "t": "Proof limit",
+          "texto": "The automated test does not prove live operation on Telegram."
+        }
+      ]
+    },
+    {
+      "tipo": "links",
+      "titulo": "Sources and next steps",
+      "links": [
+        {
+          "t": "Telegram in the INTELECTO guide",
+          "href": "https://inematds.github.io/intelecto-v2/guia/"
+        }
+      ]
+    }
+  ]
+}

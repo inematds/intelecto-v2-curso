@@ -1,0 +1,308 @@
+{
+  "slug": "jarvis-seguro",
+  "num": 1,
+  "menu": "Your Jarvis",
+  "titulo": "Why have your own Jarvis, and why make it safe",
+  "titulo_curto": "Your Jarvis",
+  "minutos": 12,
+  "lead": "Before trusting AI with your files, see what it can do and when it asks for your OK. One mistake or malicious text hidden on a website can lead AI to delete a folder or send a password somewhere else. Tested on Linux (Ubuntu). macOS: supported in the code, not tested live. Windows: only through WSL (Ubuntu inside Windows), not tested.",
+  "objetivo": "Explain the eight parts of INTELECTO v2 and identify what’s allowed, needs approval, and is blocked in the demo.",
+  "competencias": [
+    "jarvis-seguro-compreender",
+    "jarvis-seguro-praticar"
+  ],
+  "aprende": [
+    {
+      "t": "See the assistant’s eight parts",
+      "icone": "check"
+    },
+    {
+      "t": "Tell the assistant apart from the project box",
+      "icone": "check"
+    },
+    {
+      "t": "Read the audit’s three decisions",
+      "icone": "check"
+    }
+  ],
+  "hero_alt": "The owner holds the key and keeps a humanoid assistant from touching a locked folder: the decision is human.",
+  "secoes": [
+    {
+      "tipo": "diagrama",
+      "titulo": "The eight parts",
+      "sub": "Click a part; the cycle starts with you and ends with a log.",
+      "nos": [
+        {
+          "titulo": "1 · Channel",
+          "sub": "terminal or Telegram",
+          "icone": "chat",
+          "detalhe": "This is where you talk to it. Telegram accepts only the IDs (account numbers) of configured owners."
+        },
+        {
+          "titulo": "2 · Loop with a limit",
+          "sub": "think → act → respond",
+          "icone": "robo",
+          "detalhe": "The assistant checks the brain, uses tools, and stops after up to five rounds."
+        },
+        {
+          "titulo": "3 · Identity",
+          "sub": "four text files",
+          "icone": "usuario",
+          "detalhe": "SOUL, AGENTS, USER, and MEMORY set its style, rules, owner details, and initial facts."
+        },
+        {
+          "titulo": "4 · Brain",
+          "sub": "Ollama local",
+          "icone": "camadas",
+          "detalhe": "Ollama runs AI on your computer. OpenRouter is a paid cloud service; it’s in the code, but INEMA hasn’t tested it live."
+        },
+        {
+          "titulo": "5 · Memory",
+          "sub": "stores and searches",
+          "icone": "memoria",
+          "detalhe": "Memory is a local database: it stores facts and searches for words later, even without accent marks."
+        },
+        {
+          "titulo": "6 · Tools",
+          "sub": "inside the workspace",
+          "icone": "pasta",
+          "detalhe": "Read, write, list, and run commands; files are limited to the work folder."
+        },
+        {
+          "titulo": "7 · Lock and vault",
+          "sub": "decides and records",
+          "icone": "cadeado",
+          "detalhe": "Only read actions run; other actions require approval; known destructive actions are refused. Secrets are encrypted."
+        },
+        {
+          "titulo": "8 · Sandbox",
+          "sub": "sandbox without network",
+          "icone": "caixa",
+          "detalhe": "Optionally, each command runs in a Docker container: an isolated sandbox with the working folder and no network access."
+        }
+      ],
+      "legenda": "The agent sandbox is another layer: it protects a copy of a project while a coding agent works on it."
+    },
+    {
+      "tipo": "passos",
+      "titulo": "How a message travels",
+      "sub": "From the terminal or phone to the reply, in six steps from the project guide.",
+      "passos": [
+        {
+          "titulo": "Channel",
+          "sub": "input",
+          "texto": [
+            "The message arrives through the terminal or Telegram. On Telegram, the bot checks whether the ID belongs to the owners list; other senders are ignored and logged."
+          ]
+        },
+        {
+          "titulo": "Direct memory",
+          "sub": "remember that",
+          "texto": [
+            "A request that starts with “remember that,” “save this,” or “make a note” is saved directly, without waiting for AI to call a tool. A question with ? doesn’t become a memory."
+          ]
+        },
+        {
+          "titulo": "Context",
+          "sub": "what it knows",
+          "texto": [
+            "The assistant brings together identity files, memories related to the question, and recent conversations."
+          ]
+        },
+        {
+          "titulo": "Brain",
+          "sub": "decision",
+          "texto": [
+            "The local or cloud AI receives this context. It replies or asks for a tool, such as searching memory, reading a file, or running a command."
+          ]
+        },
+        {
+          "titulo": "Lock",
+          "sub": "tool",
+          "texto": [
+            "The requested command goes through the lock: it runs, asks for your OK, or is refused. If approved, it runs in the workspace or sandbox, when enabled; the result goes back to the AI."
+          ]
+        },
+        {
+          "titulo": "Reply",
+          "sub": "audit log",
+          "texto": [
+            "You get the reply. Commands, tools, direct memories, and errors are recorded in the audit log for review."
+          ]
+        }
+      ]
+    },
+    {
+      "tipo": "passos",
+      "titulo": "What the demo proves",
+      "sub": "Click each step to see what to do.",
+      "passos": [
+        {
+          "titulo": "Prepare the terminal",
+          "sub": "Python and git",
+          "texto": [
+            "On Linux (Ubuntu), install Python 3.10+ and git. On macOS, install the command line tools with xcode-select --install; get Python 3.10+ from python.org or with brew install python. On Windows, use WSL with Ubuntu. Check the versions before continuing. If python3 --version shows a version below 3.10, use Ubuntu 22.04 or later before continuing."
+          ]
+        },
+        {
+          "titulo": "Download and run the demo",
+          "sub": "No AI model",
+          "texto": [
+            "Download INTELECTO, go into the folder, and run demo. The demo uses a simulated brain and shows memory, an allowed read, a refused write, and a blocked command."
+          ]
+        },
+        {
+          "titulo": "Memory",
+          "sub": "Save and search",
+          "texto": [
+            "The simulated brain saves “my name is Ana and I live in Curitiba” and answers the next question. This tests the mechanism; in lesson 3, you’ll test it with Ollama."
+          ]
+        },
+        {
+          "titulo": "Commands",
+          "sub": "Three outcomes",
+          "texto": [
+            "“ls” runs. “echo teste > nota.txt” asks for approval and is refused in the demo. “rm -rf /” is blocked."
+          ]
+        },
+        {
+          "titulo": "Workspace",
+          "sub": "Outside means outside",
+          "texto": [
+            "The request to read ../../etc/passwd gets “fora da pasta de trabalho” (outside the working folder)."
+          ]
+        }
+      ]
+    },
+    {
+      "tipo": "codigo",
+      "titulo": "Run it without installing a model",
+      "sub": "On macOS, you can also get Python 3.10+ from python.org; use brew install python only if you have Homebrew. Run the commands for your system, then download the project.",
+      "blocos": [
+        {
+          "rot": "Linux (Ubuntu) · prerequisites",
+          "icone": "terminal",
+          "conteudo": "sudo apt install -y git python3 curl\npython3 --version && git --version"
+        },
+        {
+          "rot": "macOS · install terminal tools and git",
+          "icone": "terminal",
+          "conteudo": "xcode-select --install\ngit --version"
+        },
+        {
+          "rot": "macOS · Python 3.10+ with Homebrew",
+          "icone": "terminal",
+          "conteudo": "brew install python\npython3 --version"
+        },
+        {
+          "rot": "Terminal · download the project and go into the folder",
+          "icone": "terminal",
+          "conteudo": "cd ~ && git clone https://github.com/inematds/intelecto-v2 && cd intelecto-v2"
+        },
+        {
+          "rot": "Terminal · run the demo",
+          "icone": "terminal",
+          "conteudo": "python3 -m intelecto demo"
+        }
+      ],
+      "saida": {
+        "selo": "real",
+        "abas": [
+          {
+            "rot": "Real excerpt from the demo · 13/11/2026",
+            "html": "<pre>livre     rodou=True  ls\naprovar   rodou=False echo teste &gt; nota.txt\nbloqueado rodou=False rm -rf /</pre>"
+          }
+        ]
+      }
+    },
+    {
+      "tipo": "pratica",
+      "titulo": "Your first proof",
+      "sub": "Follow the steps in order and check each one only after you’ve confirmed the result.",
+      "exercicios": [
+        {
+          "id": "1",
+          "titulo": "Find the three decisions",
+          "min": 5,
+          "texto": "Run the demo and read the final “Audit of this demo” block.",
+          "pronto": "The lines livre, aprovar, and bloqueado appear, with rodou=True only for ls."
+        },
+        {
+          "id": "2",
+          "titulo": "Explain the two boxes",
+          "min": 4,
+          "texto": "Say this out loud: the executor box (the program that runs the command) isolates one INTELECTO command; caixa-do-agente isolates a project copy for a coding agent.",
+          "pronto": "You can point out which one protects the command and which one protects the project."
+        }
+      ]
+    },
+    {
+      "tipo": "quiz",
+      "titulo": "Check your understanding",
+      "sub": "Choose before opening the explanation. If you get it wrong, use the link to review.",
+      "perguntas": [
+        {
+          "p": "Which part saves facts for another conversation?",
+          "opcoes": [
+            "The channel",
+            "Memory",
+            "The executor box"
+          ],
+          "certa": 1,
+          "explica": "Memory saves and searches for facts. The channel only receives the message; the box isolates the command.",
+          "ref": "diagrama"
+        },
+        {
+          "p": "What happens to “rm -rf /” in the demo?",
+          "opcoes": [
+            "It asks for approval",
+            "Runs in the workspace",
+            "Blocked"
+          ],
+          "certa": 2,
+          "explica": "The guard classifies the destructive target as blocked, even if someone wants to approve it.",
+          "ref": "codigo"
+        },
+        {
+          "p": "What is caixa-do-agente for?",
+          "opcoes": [
+            "Work on a copy of the project",
+            "Save messages from your phone",
+            "Reply to messages in the terminal"
+          ],
+          "certa": 0,
+          "explica": "The kit copies the project without secrets and shows the differences in a patch, a file that stores changes.",
+          "ref": "diagrama"
+        }
+      ]
+    },
+    {
+      "tipo": "resumo",
+      "titulo": "Takeaways from this lesson",
+      "itens": [
+        {
+          "t": "First proof",
+          "texto": "The demo works without a network or model."
+        },
+        {
+          "t": "Two limits",
+          "texto": "The guard decides on actions; the box limits the command’s reach."
+        }
+      ]
+    },
+    {
+      "tipo": "links",
+      "titulo": "Sources and next steps",
+      "links": [
+        {
+          "t": "INTELECTO v2 guide",
+          "href": "https://inematds.github.io/intelecto-v2/guia/"
+        },
+        {
+          "t": "Previous course, version v1",
+          "href": "https://inematds.github.io/intelecto-curso/"
+        }
+      ]
+    }
+  ]
+}

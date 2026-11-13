@@ -1,0 +1,243 @@
+{
+  "slug": "caixa-comando",
+  "num": 6,
+  "menu": "Command sandbox",
+  "titulo": "Each command in an offline sandbox",
+  "titulo_curto": "Command sandbox",
+  "minutos": 14,
+  "lead": "Approval decides whether a command can start; the sandbox executor decides where it runs. Docker uses an image, the sandbox template, to create an isolated container. Only the workspace is mounted at /trabalho, with no network or terminal variables (named values, such as keys stored in that session). Exit code 0 means the command finished without errors.",
+  "objetivo": "Run a read-only command with the sandbox executor and find “[in sandbox, exit code 0]” in the response.",
+  "competencias": [
+    "sandbox-command-understand",
+    "sandbox-command-practice"
+  ],
+  "aprende": [
+    {
+      "t": "Separate approval from isolation",
+      "icone": "check"
+    },
+    {
+      "t": "Enable the Docker executor",
+      "icone": "check"
+    },
+    {
+      "t": "Check the output and limits",
+      "icone": "check"
+    }
+  ],
+  "hero_alt": "Editorial photo representing each command running in an offline sandbox.",
+  "secoes": [
+    {
+      "tipo": "diagrama",
+      "titulo": "One approved command, one container",
+      "sub": "The sandbox is optional and applies to each INTELECTO command.",
+      "nos": [
+        {
+          "titulo": "Request",
+          "sub": "you ask",
+          "icone": "usuario",
+          "detalhe": "The assistant turns the request into a tool call; the guard decides whether it is allowed, needs approval, or is blocked."
+        },
+        {
+          "titulo": "Gate",
+          "sub": "your decision",
+          "icone": "portao",
+          "detalhe": "Commands that do more than read require approval. Blocked commands never reach the executor."
+        },
+        {
+          "titulo": "Docker container",
+          "sub": "offline",
+          "icone": "caixa",
+          "detalhe": "Uses --network none, resource limits, no privileges, and only the workspace mounted at /trabalho."
+        },
+        {
+          "titulo": "Reply",
+          "sub": "visible result",
+          "icone": "check",
+          "detalhe": "The assistant receives the result and the exit code. “exit code 0” means the command finished without errors; the prefix “[in sandbox, exit code 0]” identifies the executor."
+        }
+      ],
+      "legenda": "Click each part to see what it does."
+    },
+    {
+      "tipo": "passos",
+      "titulo": "What the sandbox can access",
+      "sub": "Click each step to see what to do.",
+      "passos": [
+        {
+          "titulo": "Workspace",
+          "sub": "single mount",
+          "texto": [
+            "Only ~/.intelecto2/area is mounted as the workspace at /trabalho. The vault, ~/.ssh, and other personal folders are not mounted."
+          ]
+        },
+        {
+          "titulo": "Network",
+          "sub": "blocked",
+          "texto": [
+            "The Docker command uses --network none: a task that depends on the internet will not work in this executor. On Ubuntu, install the docker.io package, give your user access, and sign out and back in. On macOS, install Docker Desktop from docker.com. Check with hello-world before the conversation."
+          ]
+        },
+        {
+          "titulo": "Resources",
+          "sub": "limited",
+          "texto": [
+            "The code sets limits for memory, CPU, processes, time, and maximum output. This reduces the damage from an error, but a container is not a virtual machine."
+          ]
+        },
+        {
+          "titulo": "Model",
+          "sub": "outside the sandbox",
+          "texto": [
+            "Ollama responds outside the container. The sandbox isolates the command the assistant runs, not the entire conversation process."
+          ]
+        }
+      ]
+    },
+    {
+      "tipo": "codigo",
+      "titulo": "Enable and verify",
+      "sub": "Ubuntu: install the docker.io package, sign out and back in, then verify with hello-world. On macOS, install Docker Desktop from docker.com, then run the same hello-world command. The official Docker manual is in the extra links.",
+      "blocos": [
+        {
+          "rot": "Ubuntu · install Docker",
+          "icone": "terminal",
+          "conteudo": "sudo apt install -y docker.io\nsudo usermod -aG docker $USER\n# Sign out and back in before testing."
+        },
+        {
+          "rot": "macOS · install Docker Desktop",
+          "icone": "terminal",
+          "conteudo": "https://www.docker.com/products/docker-desktop/"
+        },
+        {
+          "rot": "Terminal · verify Docker after logging in again",
+          "icone": "terminal",
+          "conteudo": "docker run --rm hello-world"
+        },
+        {
+          "rot": "Terminal · prepare the image (box template)",
+          "icone": "terminal",
+          "conteudo": "docker pull python:3.12-slim"
+        },
+        {
+          "rot": "Terminal · create a test file in the work area",
+          "icone": "terminal",
+          "conteudo": "echo oi > ~/.intelecto2/area/teste.txt"
+        },
+        {
+          "rot": "Terminal · talk to the box executor",
+          "icone": "terminal",
+          "conteudo": "cd ~/intelecto-v2\npython3 -m intelecto conversar --provedor mock --executor caixa"
+        },
+        {
+          "rot": "In the conversation · check the work area and the box",
+          "icone": "terminal",
+          "conteudo": "rode: ls /trabalho\nrode: pwd"
+        },
+        {
+          "rot": "Terminal · view the log",
+          "icone": "terminal",
+          "conteudo": "python3 -m intelecto auditoria -n 20"
+        }
+      ],
+      "saida": {
+        "selo": "real",
+        "abas": [
+          {
+            "rot": "Actual output from the box for a command · 11/13/2026",
+            "html": "<pre>intelecto&gt; Feito. Resultado de rodar_comando: [na caixa, saída 0] /trabalho</pre><p>Captured with <code>--executor caixa</code> and a mock brain. With a real model, the surrounding text changes; look for <code>[na caixa, saída 0] /trabalho</code>.</p><p><em>The program prints this in Portuguese, exactly as shown.</em></p>"
+          }
+        ]
+      }
+    },
+    {
+      "tipo": "pratica",
+      "titulo": "Test the box",
+      "sub": "Follow the steps in order and check each one only after you’ve confirmed the result.",
+      "exercicios": [
+        {
+          "id": "1",
+          "titulo": "Check the output label",
+          "min": 6,
+          "texto": "With Docker running, open the conversation with --provedor mock --executor caixa and ask “rode: pwd”. The mock calls rodar_comando. If you use a real model, count it as proof only if it calls the tool.",
+          "pronto": "The output contains “[na caixa, saída 0] /trabalho” on one line; this proves the command ran inside the box."
+        },
+        {
+          "id": "2",
+          "titulo": "Check the scope",
+          "min": 5,
+          "texto": "Before comparing, run echo oi > ~/.intelecto2/area/teste.txt in the terminal. In the conversation with executor caixa, ask “rode: ls /trabalho”. Also check the audit log. Don’t copy passwords into the work area.",
+          "pronto": "The ls /trabalho response shows teste.txt, the file created in your work area; the audit log records the command."
+        }
+      ]
+    },
+    {
+      "tipo": "quiz",
+      "titulo": "Check your understanding",
+      "sub": "Choose before opening the explanation. If you get it wrong, use the link to review.",
+      "perguntas": [
+        {
+          "p": "What part of the operation does the box executor isolate?",
+          "opcoes": [
+            "The entire Ollama conversation",
+            "Each command that runs",
+            "The Telegram installation"
+          ],
+          "certa": 1,
+          "explica": "The executor is called for each command. The brain and conversation stay outside the container.",
+          "ref": "diagrama"
+        },
+        {
+          "p": "Which Docker option disables networking?",
+          "opcoes": [
+            "--network none",
+            "--env TOKEN",
+            "--privileged --network host"
+          ],
+          "certa": 0,
+          "explica": "The code builds the command with --network none. The other options would expand access.",
+          "ref": "passos"
+        },
+        {
+          "p": "What does exit 0 mean on the label?",
+          "opcoes": [
+            "The assistant’s memory was empty",
+            "The bot was approved",
+            "The command finished without errors"
+          ],
+          "certa": 2,
+          "explica": "It’s the process exit code inside the box; the label also identifies the executor.",
+          "ref": "codigo"
+        }
+      ]
+    },
+    {
+      "tipo": "resumo",
+      "titulo": "Takeaways from this lesson",
+      "itens": [
+        {
+          "t": "Gate + box",
+          "texto": "Approval decides whether it runs; Docker limits where it runs."
+        },
+        {
+          "t": "Visible proof",
+          "texto": "When execution succeeds, the response identifies “[na caixa, saída 0]”."
+        }
+      ]
+    },
+    {
+      "tipo": "links",
+      "titulo": "Sources and next steps",
+      "links": [
+        {
+          "t": "Box executor in the INTELECTO guide",
+          "href": "https://inematds.github.io/intelecto-v2/guia/"
+        },
+        {
+          "t": "Official Docker Engine installation guide",
+          "href": "https://docs.docker.com/engine/install/"
+        }
+      ]
+    }
+  ]
+}

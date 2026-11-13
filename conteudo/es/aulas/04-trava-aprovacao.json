@@ -1,0 +1,228 @@
+{
+  "slug": "trava-aprovacao",
+  "num": 4,
+  "menu": "La compuerta",
+  "titulo": "La compuerta: ejecuta, pregunta o rechaza",
+  "titulo_curto": "La compuerta",
+  "minutos": 16,
+  "lead": "Un comando de lectura no necesita la misma decisión que uno que guarda un archivo. La compuerta clasifica antes de ejecutar; la auditoría muestra lo que se ejecutó y lo que se rechazó. La política elegida cambia cuándo pregunta el asistente: perigosos, sempre o nunca.",
+  "objetivo": "Identificar las tres clases de comandos y comprobar en la auditoría una solicitud rechazada y otra que pide aprobación.",
+  "competencias": [
+    "trava-aprovacao-compreender",
+    "trava-aprovacao-praticar"
+  ],
+  "aprende": [
+    {
+      "t": "Leer las tres clases",
+      "icone": "check"
+    },
+    {
+      "t": "Entender la política perigosos",
+      "icone": "check"
+    },
+    {
+      "t": "Comprobar decisiones reales de la demo",
+      "icone": "check"
+    }
+  ],
+  "hero_alt": "Fotografía editorial que representa la compuerta: ejecuta, pregunta o rechaza.",
+  "secoes": [
+    {
+      "tipo": "diagrama",
+      "titulo": "Tres destinos para un comando",
+      "sub": "La clasificación ocurre antes de la ejecución.",
+      "nos": [
+        {
+          "titulo": "Libre",
+          "sub": "solo lectura",
+          "icone": "check",
+          "detalhe": "Los comandos de la lista de lectura, como ls, cat y pwd, se ejecutan con la política predeterminada perigosos.",
+          "itens": [
+            {
+              "t": "ls → ejecuta",
+              "icone": "check"
+            }
+          ]
+        },
+        {
+          "titulo": "Aprobar",
+          "sub": "necesita que tú decidas",
+          "icone": "portao",
+          "detalhe": "Cualquier comando fuera de la lista de lectura, o que guarde un archivo, pide aprobación. En la demo, el dueño no aprueba.",
+          "itens": [
+            {
+              "t": "echo teste > nota.txt → pregunta",
+              "icone": "check"
+            }
+          ]
+        },
+        {
+          "titulo": "Bloqueado",
+          "sub": "se rechaza incluso con aprobación",
+          "icone": "cadeado",
+          "detalhe": "Los patrones destructivos conocidos, como rm -rf / y sus variantes, nunca se ejecutan.",
+          "itens": [
+            {
+              "t": "rm -rf / → rechazo",
+              "icone": "check"
+            }
+          ]
+        }
+      ],
+      "legenda": "La clasificación no garantiza protección total contra cualquier comando desconocido; el entorno aislado reduce el alcance cuando necesitas ejecutar algo nuevo."
+    },
+    {
+      "tipo": "passos",
+      "titulo": "Lee la decisión completa",
+      "sub": "Haz clic en cada etapa para ver qué hacer.",
+      "passos": [
+        {
+          "titulo": "Clasificar",
+          "sub": "antes de actuar",
+          "texto": [
+            "Solo lo que está en la lista de lectura pasa directamente. El resto pide aprobación; esto es más seguro que una lista corta de palabras prohibidas."
+          ]
+        },
+        {
+          "titulo": "Preguntar",
+          "sub": "terminal o celular",
+          "texto": [
+            "Con la política predeterminada, perigosos (peligrosos), las lecturas como ls o cat corren sin preguntar; lo que escribe pide «rodar …? [s/N]». Escribe n o Enter para rechazar; s para aprobar. Con la política sempre (siempre), pregunta antes de CUALQUIER comando, incluso ls y cat. Con nunca, las lecturas se ejecutan, pero lo que necesitaría aprobación se rechaza sin preguntar. Los comandos bloqueados por el seguro no se ejecutan con ninguna política.",
+            "Un pipe es cuando envías texto listo al programa en lugar de escribirlo en la terminal. En ese caso, se rechaza la solicitud de aprobación porque nadie puede responder a la pregunta interactiva."
+          ]
+        },
+        {
+          "titulo": "Registrar",
+          "sub": "auditoría",
+          "texto": [
+            "La auditoría imprime una línea JSON (registro con campos nombrados) por evento. En la línea de comandos, comando es la solicitud; clase es libre, aprobar o bloqueado; rodou es true si se ejecutó; decisao explica el motivo. Las líneas de tipo herramienta registran la herramienta utilizada."
+          ]
+        }
+      ]
+    },
+    {
+      "tipo": "codigo",
+      "titulo": "Comandos para observar, sin riesgo",
+      "sub": "Usa el cerebro mock para garantizar que se llame a la herramienta. En la terminal interactiva, responde n o Enter. Con llama3.2, pedir un comando puede no llamar a la herramienta.",
+      "blocos": [
+        {
+          "rot": "Terminal · conversación con cerebro mock y aprobación",
+          "icone": "terminal",
+          "conteudo": "cd ~/intelecto-v2\npython3 -m intelecto conversar --provedor mock --aprovacao perigosos"
+        },
+        {
+          "rot": "En la conversación · pide una escritura",
+          "icone": "terminal",
+          "conteudo": "ejecuta: echo teste > nota.txt"
+        },
+        {
+          "rot": "Terminal · revisa la auditoría",
+          "icone": "terminal",
+          "conteudo": "cd ~/intelecto-v2\npython3 -m intelecto auditoria -n 20"
+        }
+      ],
+      "saida": {
+        "selo": "real",
+        "abas": [
+          {
+            "rot": "Pregunta interactiva real · política perigosos, 13/11/2026",
+            "html": "<pre>  [aprovação] rodar &#x27;echo teste &gt; nota.txt&#x27;? (substituição de comando ou redirecionamento para arquivo) [s/N]</pre><p><code>n</code> o Enter rechaza; <code>s</code> aprueba. La auditoría registra <code>\"classe\": \"aprovar\"</code>, <code>\"rodou\": false</code> y <code>\"decisao\": \"o dono não aprovou\"</code>.</p><p><em>El programa muestra esto en portugués, tal cual.</em></p>"
+          },
+          {
+            "rot": "Rechazo real con la política nunca · 13/11/2026",
+            "html": "<pre>recusado: precisa de aprovação (substituição de comando ou redirecionamento para arquivo) e a política é &#x27;nunca&#x27;</pre><p><em>El programa muestra esto en portugués, tal cual.</em></p>"
+          },
+          {
+            "rot": "Auditoría real del ensayo anterior por pipe · 13/11/2026",
+            "html": "<pre>{&quot;ts&quot;: &quot;2026-11-13T03:37:49+00:00&quot;, &quot;tipo&quot;: &quot;comando&quot;, &quot;comando&quot;: &quot;echo x &gt; y.txt&quot;, &quot;classe&quot;: &quot;aprovar&quot;, &quot;rodou&quot;: false, &quot;decisao&quot;: &quot;o dono não aprovou&quot;}</pre><p>Este registro es de otra solicitud rechazada, enviada por pipe. En la práctica interactiva, busca el comando <code>echo teste &gt; nota.txt</code>.</p>"
+          }
+        ]
+      }
+    },
+    {
+      "tipo": "pratica",
+      "titulo": "Lee cómo funciona el seguro",
+      "sub": "Sigue el orden y marca cada punto solo después de comprobar el resultado.",
+      "exercicios": [
+        {
+          "id": "1",
+          "titulo": "Rechaza una escritura en la terminal",
+          "min": 6,
+          "texto": "Abre la conversación con --provedor mock --aprovacao perigosos. Pide «ejecuta: echo teste > nota.txt». Cuando aparezca [s/N], responde n (o Enter). Ejecuta auditoria -n 20 y localiza esa solicitud.",
+          "pronto": "La línea JSON de la solicitud contiene \"classe\": \"aprovar\", \"rodou\": false y \"decisao\": \"o dono não aprovou\"; esa solicitud no creó nota.txt."
+        },
+        {
+          "id": "2",
+          "titulo": "Compáralo con la demostración",
+          "min": 4,
+          "texto": "Ejecuta python3 -m intelecto demo e identifica las clases en el bloque final. La demo usa una carpeta temporal y no aparece en la auditoría de tu instalación.",
+          "pronto": "Señala libre si se ejecutó, aprobar si no se ejecutó y bloqueado si no se ejecutó."
+        }
+      ]
+    },
+    {
+      "tipo": "quiz",
+      "titulo": "Comprueba si lo entendiste",
+      "sub": "Elige antes de abrir el comentario. Si te equivocas, usa el enlace para repasar.",
+      "perguntas": [
+        {
+          "p": "¿Qué comando de la demostración se ejecuta sin preguntar?",
+          "opcoes": [
+            "echo teste > nota.txt",
+            "ls",
+            "rm -rf /"
+          ],
+          "certa": 1,
+          "explica": "ls está en la lista de lectura. La escritura pide aprobación; borrar la raíz está bloqueado.",
+          "ref": "diagrama"
+        },
+        {
+          "p": "¿Qué hace la política «nunca» con una acción que necesita aprobación?",
+          "opcoes": [
+            "La ejecuta sin preguntar",
+            "Pregunta una vez y la ejecuta por defecto",
+            "Rechaza lo que necesitaría aprobación"
+          ],
+          "certa": 2,
+          "explica": "«nunca» significa que nadie aprueba nada más que las acciones de solo lectura: las acciones de escritura se rechazan, incluso si el dueño está presente.",
+          "ref": "passos"
+        },
+        {
+          "p": "¿Qué informa la auditoría?",
+          "opcoes": [
+            "Clase, comando y si se ejecutó",
+            "Solo la respuesta final del modelo",
+            "La contraseña que usa la bóveda"
+          ],
+          "certa": 0,
+          "explica": "La línea de comandos registra la clase, la decisión y la ejecución. La bóveda no publica la contraseña.",
+          "ref": "codigo"
+        }
+      ]
+    },
+    {
+      "tipo": "resumo",
+      "titulo": "Lo que te llevas de esta clase",
+      "itens": [
+        {
+          "t": "Regla principal",
+          "texto": "Peligrosos es el valor predeterminado: la lectura conocida pasa; para escribir, pregunta. Siempre pregunta por cada comando. Nunca rechaza algo que necesitaría aprobación."
+        },
+        {
+          "t": "Prueba",
+          "texto": "La auditoría muestra tanto el rechazo como la ejecución."
+        }
+      ]
+    },
+    {
+      "tipo": "links",
+      "titulo": "Fuentes y próximos pasos",
+      "links": [
+        {
+          "t": "Seguridad en la guía de INTELECTO",
+          "href": "https://inematds.github.io/intelecto-v2/guia/"
+        }
+      ]
+    }
+  ]
+}

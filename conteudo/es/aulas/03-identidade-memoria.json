@@ -1,0 +1,214 @@
+{
+  "slug": "identidade-memoria",
+  "num": 3,
+  "menu": "Memoria",
+  "titulo": "Dale identidad y memoria al asistente",
+  "titulo_curto": "Memoria",
+  "minutos": 15,
+  "lead": "Cambia la forma de hablar del asistente y guarda datos para otra conversación. Desde la v2.0.1, “recuerda que…” se guarda directamente, incluso con llama3.2. Comprueba el dato con el comando memoria; una respuesta amable por sí sola no demuestra que se haya guardado.",
+  "objetivo": "Editar la identidad y buscar con el comando memoria un dato que le contaste al asistente.",
+  "competencias": [
+    "identidade-memoria-compreender",
+    "identidade-memoria-praticar"
+  ],
+  "aprende": [
+    {
+      "t": "Diferenciar los cuatro archivos",
+      "icone": "check"
+    },
+    {
+      "t": "Guardar un dato duradero",
+      "icone": "check"
+    },
+    {
+      "t": "Buscar el mismo dato después",
+      "icone": "check"
+    }
+  ],
+  "hero_alt": "Un asistente humanoide realista lee una nota en el cuaderno y le devuelve el dato al dueño de la tienda.",
+  "secoes": [
+    {
+      "tipo": "diagrama",
+      "titulo": "Cuatro archivos, distintas funciones",
+      "sub": "La identidad está en ~/.intelecto2/identidade/.",
+      "nos": [
+        {
+          "titulo": "SOUL.md",
+          "sub": "forma de hablar",
+          "icone": "usuario",
+          "detalhe": "La personalidad y el tono del asistente. Puedes editarlo como texto."
+        },
+        {
+          "titulo": "AGENTS.md",
+          "sub": "reglas de trabajo",
+          "icone": "arquivo",
+          "detalhe": "Indica que consulte las memorias relevantes, respete la carpeta y no busque cómo ejecutar un comando rechazado."
+        },
+        {
+          "titulo": "USER.md",
+          "sub": "quién eres",
+          "icone": "usuario",
+          "detalhe": "Contexto sobre el dueño para personalizar las respuestas."
+        },
+        {
+          "titulo": "MEMORY.md",
+          "sub": "datos iniciales",
+          "icone": "memoria",
+          "detalhe": "Las líneas que empiezan con “- ” se agregan a la memoria una sola vez, en la primera ejecución. Editar MEMORY.md después no vuelve a importar los datos."
+        }
+      ],
+      "legenda": "Haz clic en cada parte para ver qué función cumple."
+    },
+    {
+      "tipo": "passos",
+      "titulo": "La identidad no es un recuerdo automático",
+      "sub": "Haz clic en cada etapa para ver qué hacer.",
+      "passos": [
+        {
+          "titulo": "Edita la persona",
+          "sub": "USER.md",
+          "texto": [
+            "Describe quién eres sin incluir contraseñas. En el editor nano, guarda con Ctrl+O, Enter y sal con Ctrl+X."
+          ]
+        },
+        {
+          "titulo": "Edita la forma de hablar",
+          "sub": "SOUL.md",
+          "texto": [
+            "Cambia la personalidad con lenguaje cotidiano. Mantén las reglas de seguridad en AGENTS.md."
+          ]
+        },
+        {
+          "titulo": "Cuenta un dato",
+          "sub": "conversación real",
+          "texto": [
+            "Después de la primera ejecución, no sirve agregar datos a MEMORY.md: ya se importó. En la conversación, di “recuerda que mi ciudad es Porto Alegre”. La v2.0.1 guarda el dato directamente, sin depender de que el modelo llame a salvar_memoria; también funcionan “recuerda que”, “guarda” y “anota”. Un mensaje que termina en “?” nunca se convierte en memoria."
+          ]
+        },
+        {
+          "titulo": "Búscalo después",
+          "sub": "memoria",
+          "texto": [
+            "Termina la conversación, abre otra y pide el dato. Confírmalo con el comando memoria usando una palabra del dato: consulta la base de datos directamente, aunque la respuesta del modelo varíe."
+          ]
+        }
+      ]
+    },
+    {
+      "tipo": "codigo",
+      "titulo": "Archivos y búsqueda",
+      "sub": "En nano, guarda con Ctrl+O, Enter y sal con Ctrl+X. MEMORY.md se importa solo en una instalación nueva, durante la primera ejecución; los datos posteriores se agregan desde la conversación.",
+      "blocos": [
+        {
+          "rot": "Terminal · abrir los archivos",
+          "icone": "terminal",
+          "conteudo": "nano ~/.intelecto2/identidade/USER.md\nnano ~/.intelecto2/identidade/SOUL.md"
+        },
+        {
+          "rot": "Terminal · buscar el dato",
+          "icone": "terminal",
+          "conteudo": "cd ~/intelecto-v2\npython3 -m intelecto memoria Porto"
+        },
+        {
+          "rot": "Terminal · listar los últimos recuerdos",
+          "icone": "terminal",
+          "conteudo": "cd ~/intelecto-v2\npython3 -m intelecto memoria"
+        }
+      ],
+      "saida": {
+        "selo": "real",
+        "abas": [
+          {
+            "rot": "Prueba real con llama3.2 · 13/11/2026",
+            "html": "<p>Después de “recuerda que me llamo Nei y vivo en Porto Alegre”, una conversación nueva respondió: “El nombre de tu dueño es Nei y tú vives en Porto Alegre”. La búsqueda <code>python3 -m intelecto memoria</code> mostró <code>#2 … Me llamo Nei y vivo en Porto Alegre</code>. El número del registro y la respuesta pueden variar en tu instalación.</p>"
+          }
+        ]
+      }
+    },
+    {
+      "tipo": "pratica",
+      "titulo": "Pon a prueba el recuerdo",
+      "sub": "Sigue el orden y marca cada punto solo después de comprobar el resultado.",
+      "exercicios": [
+        {
+          "id": "1",
+          "titulo": "Cuenta un dato sobre ti",
+          "min": 5,
+          "texto": "En la conversación con Ollama, incluso con llama3.2, di “recuerda que mi ciudad es Porto Alegre” u otro dato sencillo. Evita datos sensibles. Después ejecuta python3 -m intelecto memoria Porto (cambia Porto por una palabra de tu dato).",
+          "pronto": "El dato aparece en python3 -m intelecto memoria [palabra]; la confirmación del asistente, por sí sola, no basta."
+        },
+        {
+          "id": "2",
+          "titulo": "Búscalo en otra ejecución",
+          "min": 5,
+          "texto": "Cierra, abre otra conversación y pregunta por el dato. Después vuelve a la terminal y busca una palabra del dato con memoria.",
+          "pronto": "La línea encontrada contiene el dato que contaste."
+        }
+      ]
+    },
+    {
+      "tipo": "quiz",
+      "titulo": "Comprueba si lo entendiste",
+      "sub": "Elige antes de abrir el comentario. Si te equivocas, usa el enlace para repasar.",
+      "perguntas": [
+        {
+          "p": "¿Dónde están las reglas de comportamiento?",
+          "opcoes": [
+            "AGENTS.md",
+            "USER.md",
+            "MEMORY.md"
+          ],
+          "certa": 0,
+          "explica": "AGENTS.md contiene las reglas de trabajo. USER.md describe al dueño; MEMORY.md contiene datos iniciales.",
+          "ref": "diagrama"
+        },
+        {
+          "p": "¿Qué comando busca un dato guardado?",
+          "opcoes": [
+            "python3 -m intelecto demo",
+            "python3 -m intelecto verificar --help",
+            "python3 -m intelecto memoria Nei"
+          ],
+          "certa": 2,
+          "explica": "memoria con una palabra consulta la memoria. La demo usa una carpeta temporal y borra ese estado al terminar.",
+          "ref": "codigo"
+        },
+        {
+          "p": "Con llama3.2, ¿cuándo se convierte “recuerda que mi ciudad es Porto Alegre” en un recuerdo?",
+          "opcoes": [
+            "Solo si el modelo llama a salvar_memoria",
+            "Directamente desde el asistente, sin la herramienta",
+            "Solo al editar MEMORY.md después"
+          ],
+          "certa": 1,
+          "explica": "Desde la v2.0.1, la solicitud afirmativa se guarda directamente. llama3.2 todavía usa poco las otras herramientas; las preguntas que terminan en “?” no se convierten en recuerdos.",
+          "ref": "passos"
+        }
+      ]
+    },
+    {
+      "tipo": "resumo",
+      "titulo": "Lo que te llevas de esta clase",
+      "itens": [
+        {
+          "t": "Texto editable",
+          "texto": "SOUL, AGENTS y USER definen el contexto. MEMORY se incluye solo en la primera ejecución; los datos nuevos llegan por la conversación."
+        },
+        {
+          "t": "Prueba directa",
+          "texto": "El comando memoria comprueba la base de datos, independientemente de la respuesta del modelo."
+        }
+      ]
+    },
+    {
+      "tipo": "links",
+      "titulo": "Fuentes y próximos pasos",
+      "links": [
+        {
+          "t": "Memoria en la guía de INTELECTO",
+          "href": "https://inematds.github.io/intelecto-v2/guia/"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,243 @@
+{
+  "slug": "caixa-comando",
+  "num": 6,
+  "menu": "Caja por comando",
+  "titulo": "Cada comando en una caja sin internet",
+  "titulo_curto": "Caja por comando",
+  "minutos": 14,
+  "lead": "La aprobación decide si un comando empieza; el ejecutor de caja decide dónde se ejecuta. Docker usa una imagen, el molde de la caja, para crear un contenedor aislado. Solo el área de trabajo entra en /trabalho, sin red ni variables de la terminal (valores con nombre, como las claves guardadas en esa sesión). «saída 0» significa que el comando terminó sin errores.",
+  "objetivo": "Ejecutar una lectura con el ejecutor de caja y encontrar “[na caixa, saída 0]” en la respuesta.",
+  "competencias": [
+    "caja-comando-comprender",
+    "caja-comando-practicar"
+  ],
+  "aprende": [
+    {
+      "t": "Separar la decisión del aislamiento",
+      "icone": "check"
+    },
+    {
+      "t": "Conectar el ejecutor Docker",
+      "icone": "check"
+    },
+    {
+      "t": "Revisar la salida y los límites",
+      "icone": "check"
+    }
+  ],
+  "hero_alt": "Fotografía editorial que representa cada comando dentro de una caja sin internet.",
+  "secoes": [
+    {
+      "tipo": "diagrama",
+      "titulo": "Un comando aprobado, un contenedor",
+      "sub": "La caja es opcional y se aplica a cada comando de INTELECTO.",
+      "nos": [
+        {
+          "titulo": "Solicitud",
+          "sub": "tú solicitas",
+          "icone": "usuario",
+          "detalhe": "El asistente convierte la solicitud en una herramienta; el bloqueo decide si queda libre, requiere aprobación o está bloqueada."
+        },
+        {
+          "titulo": "Compuerta",
+          "sub": "tu decisión",
+          "icone": "portao",
+          "detalhe": "Los comandos que no son solo de lectura necesitan aprobación. Los bloqueados no llegan al ejecutor."
+        },
+        {
+          "titulo": "Contenedor Docker",
+          "sub": "sin red",
+          "icone": "caixa",
+          "detalhe": "Usa --network none, límites de recursos, sin privilegios y solo el área montada en /trabalho."
+        },
+        {
+          "titulo": "Respuesta",
+          "sub": "resultado visible",
+          "icone": "check",
+          "detalhe": "El asistente recibe el resultado y el código de salida. «saída 0» quiere decir que el comando terminó sin errores; el prefijo «[na caixa, saída 0]» identifica al ejecutor."
+        }
+      ],
+      "legenda": "Haz clic en cada parte para ver qué función cumple."
+    },
+    {
+      "tipo": "passos",
+      "titulo": "Qué puede alcanzar la caja",
+      "sub": "Haz clic en cada etapa para ver qué hacer.",
+      "passos": [
+        {
+          "titulo": "Área de trabajo",
+          "sub": "montaje único",
+          "texto": [
+            "Solo ~/.intelecto2/area se monta como carpeta de trabajo en /trabalho. La bóveda, ~/.ssh y otras carpetas personales no se montan."
+          ]
+        },
+        {
+          "titulo": "Red",
+          "sub": "cerrada",
+          "texto": [
+            "El comando Docker usa --network none: una tarea que depende de internet no funciona en este ejecutor. En Ubuntu, instala el paquete docker.io, dale acceso al usuario y cierra la sesión para volver a entrar. En macOS, instala Docker Desktop desde docker.com. Comprueba que funcione con hello-world antes de la conversación."
+          ]
+        },
+        {
+          "titulo": "Recursos",
+          "sub": "limitados",
+          "texto": [
+            "El código define límites de memoria, CPU, procesos, tiempo y salida máxima. Esto reduce el daño de un error, pero un contenedor no es una máquina virtual."
+          ]
+        },
+        {
+          "titulo": "Modelo",
+          "sub": "fuera de la caja",
+          "texto": [
+            "Ollama responde fuera del contenedor. La caja aísla el comando que ejecuta el asistente, no el proceso completo de la conversación."
+          ]
+        }
+      ]
+    },
+    {
+      "tipo": "codigo",
+      "titulo": "Actívalo y compruébalo",
+      "sub": "Ubuntu: instala el paquete docker.io, vuelve a entrar en la sesión y compruébalo con hello-world. En macOS, instala Docker Desktop desde docker.com; luego ejecuta el mismo hello-world. El manual oficial de Docker está en los enlaces adicionales.",
+      "blocos": [
+        {
+          "rot": "Ubuntu · instalar Docker",
+          "icone": "terminal",
+          "conteudo": "sudo apt install -y docker.io\nsudo usermod -aG docker $USER\n# Cierra la sesión y vuelve a entrar antes de la prueba."
+        },
+        {
+          "rot": "macOS · instalar Docker Desktop",
+          "icone": "terminal",
+          "conteudo": "https://www.docker.com/products/docker-desktop/"
+        },
+        {
+          "rot": "Terminal · comprobar Docker después de volver a entrar",
+          "icone": "terminal",
+          "conteudo": "docker run --rm hello-world"
+        },
+        {
+          "rot": "Terminal · preparar la imagen (molde de la caja)",
+          "icone": "terminal",
+          "conteudo": "docker pull python:3.12-slim"
+        },
+        {
+          "rot": "Terminal · crear un archivo de prueba en el área",
+          "icone": "terminal",
+          "conteudo": "echo oi > ~/.intelecto2/area/teste.txt"
+        },
+        {
+          "rot": "Terminal · conversar con el ejecutor caja",
+          "icone": "terminal",
+          "conteudo": "cd ~/intelecto-v2\npython3 -m intelecto conversar --provedor mock --executor caixa"
+        },
+        {
+          "rot": "En la conversación · revisar el área y la caja",
+          "icone": "terminal",
+          "conteudo": "ejecuta: ls /trabalho\nejecuta: pwd"
+        },
+        {
+          "rot": "Terminal · ver el registro",
+          "icone": "terminal",
+          "conteudo": "python3 -m intelecto auditoria -n 20"
+        }
+      ],
+      "saida": {
+        "selo": "real",
+        "abas": [
+          {
+            "rot": "Salida real de la caja por comando · 13/11/2026",
+            "html": "<pre>intelecto&gt; Feito. Resultado de rodar_comando: [na caixa, saída 0] /trabalho</pre><p>Capturada con <code>--executor caixa</code> y cerebro simulado. Con un modelo real, el texto alrededor cambia; busca <code>[na caixa, saída 0] /trabalho</code>.</p>"
+          }
+        ]
+      }
+    },
+    {
+      "tipo": "pratica",
+      "titulo": "Pon a prueba la caja",
+      "sub": "Sigue el orden y marca cada punto solo después de comprobar el resultado.",
+      "exercicios": [
+        {
+          "id": "1",
+          "titulo": "Mira la etiqueta de salida",
+          "min": 6,
+          "texto": "Con Docker encendido, abre la conversación con --provedor mock --executor caixa y pide “ejecuta: pwd”. El mock llama a ejecutar_comando. Si usas un modelo real, cuenta como prueba solo si llama a la herramienta.",
+          "pronto": "La salida contiene “[na caixa, saída 0] /trabalho” en una línea; eso prueba que el comando se ejecutó dentro de la caja."
+        },
+        {
+          "id": "2",
+          "titulo": "Comprueba el alcance",
+          "min": 5,
+          "texto": "Antes de comparar, ejecuta en la terminal echo oi > ~/.intelecto2/area/teste.txt. En la conversación con executor caixa, pide “ejecuta: ls /trabalho”. Revisa también la auditoría. No copies contraseñas al área.",
+          "pronto": "La respuesta de ls /trabalho muestra teste.txt, el archivo creado en tu área; la auditoría registra el comando."
+        }
+      ]
+    },
+    {
+      "tipo": "quiz",
+      "titulo": "Comprueba si lo entendiste",
+      "sub": "Elige antes de abrir el comentario. Si te equivocas, usa el enlace para repasar.",
+      "perguntas": [
+        {
+          "p": "¿Qué parte de la operación aísla el executor caixa?",
+          "opcoes": [
+            "Toda la conversación de Ollama",
+            "Cada comando ejecutado",
+            "La instalación de Telegram"
+          ],
+          "certa": 1,
+          "explica": "El executor se llama para cada comando. El cerebro y la conversación quedan fuera del contenedor.",
+          "ref": "diagrama"
+        },
+        {
+          "p": "¿Qué opción de Docker cierra la red?",
+          "opcoes": [
+            "--network none",
+            "--env TOKEN",
+            "--privileged --network host"
+          ],
+          "certa": 0,
+          "explica": "El código arma el comando con --network none. Las otras opciones ampliarían el alcance.",
+          "ref": "passos"
+        },
+        {
+          "p": "¿Qué significa «saída 0» en la etiqueta?",
+          "opcoes": [
+            "La memoria del asistente quedó vacía",
+            "El bot fue aprobado",
+            "El comando terminó sin errores"
+          ],
+          "certa": 2,
+          "explica": "Es el código de salida del proceso dentro de la caja; la etiqueta también identifica el executor.",
+          "ref": "codigo"
+        }
+      ]
+    },
+    {
+      "tipo": "resumo",
+      "titulo": "Lo que te llevas de esta clase",
+      "itens": [
+        {
+          "t": "Compuerta + caja",
+          "texto": "La aprobación decide si se ejecuta; Docker limita dónde se ejecuta."
+        },
+        {
+          "t": "Prueba visible",
+          "texto": "La respuesta identifica “[na caixa, saída 0]” cuando la ejecución termina correctamente."
+        }
+      ]
+    },
+    {
+      "tipo": "links",
+      "titulo": "Fuentes y próximos pasos",
+      "links": [
+        {
+          "t": "Executor caixa en la guía de INTELECTO",
+          "href": "https://inematds.github.io/intelecto-v2/guia/"
+        },
+        {
+          "t": "Guía oficial de instalación de Docker Engine",
+          "href": "https://docs.docker.com/engine/install/"
+        }
+      ]
+    }
+  ]
+}

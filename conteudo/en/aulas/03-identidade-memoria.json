@@ -1,0 +1,214 @@
+{
+  "slug": "identidade-memoria",
+  "num": 3,
+  "menu": "Memory",
+  "titulo": "Give the assistant an identity and memory",
+  "titulo_curto": "Memory",
+  "minutos": 15,
+  "lead": "Change how the assistant speaks and save facts for another conversation. Since v2.0.1, “remember that…” is saved directly, even with llama3.2. Check the fact with the memoria command; a friendly response alone doesn’t prove it was saved.",
+  "objetivo": "Edit the identity and find a fact you told the assistant using the memoria command.",
+  "competencias": [
+    "identity-memory-understand",
+    "identity-memory-practice"
+  ],
+  "aprende": [
+    {
+      "t": "Tell the four files apart",
+      "icone": "check"
+    },
+    {
+      "t": "Save a lasting fact",
+      "icone": "check"
+    },
+    {
+      "t": "Find the same fact later",
+      "icone": "check"
+    }
+  ],
+  "hero_alt": "A realistic humanoid assistant reads a note in a notebook and gives the fact back to the shop owner.",
+  "secoes": [
+    {
+      "tipo": "diagrama",
+      "titulo": "Four files, different roles",
+      "sub": "The identity is in ~/.intelecto2/identidade/.",
+      "nos": [
+        {
+          "titulo": "SOUL.md",
+          "sub": "way of speaking",
+          "icone": "usuario",
+          "detalhe": "The assistant’s personality and tone. You can edit it as text."
+        },
+        {
+          "titulo": "AGENTS.md",
+          "sub": "work rules",
+          "icone": "arquivo",
+          "detalhe": "Tells it to check relevant memories, respect the folder, and not work around a refused command."
+        },
+        {
+          "titulo": "USER.md",
+          "sub": "who you are",
+          "icone": "usuario",
+          "detalhe": "Context about the owner to personalize responses."
+        },
+        {
+          "titulo": "MEMORY.md",
+          "sub": "initial facts",
+          "icone": "memoria",
+          "detalhe": "Lines that start with “- ” are added to memory only once, on the first run. Editing MEMORY.md later doesn’t import the facts again."
+        }
+      ],
+      "legenda": "Click each part to see what it does."
+    },
+    {
+      "tipo": "passos",
+      "titulo": "Identity isn’t automatic recall",
+      "sub": "Click each step to see what to do.",
+      "passos": [
+        {
+          "titulo": "Edit the person",
+          "sub": "USER.md",
+          "texto": [
+            "Describe who you are without a password. In the nano editor, save with Ctrl+O, Enter, and exit with Ctrl+X."
+          ]
+        },
+        {
+          "titulo": "Edit the style",
+          "sub": "SOUL.md",
+          "texto": [
+            "Change the personality in everyday language. Keep the safety rules in AGENTS.md."
+          ]
+        },
+        {
+          "titulo": "Share a fact",
+          "sub": "real conversation",
+          "texto": [
+            "After the first run, adding facts to MEMORY.md won’t help: it has already been imported. In the conversation, say “remember that my city is Porto Alegre.” Version 2.0.1 saves the fact directly, without relying on the model to call salvar_memoria; “remember,” “save,” and “note” work too. A message that ends with “?” never becomes a memory."
+          ]
+        },
+        {
+          "titulo": "Look it up later",
+          "sub": "memoria",
+          "texto": [
+            "End the conversation, open another one, and ask for the fact. Confirm it with the memoria command using a word from the fact: it checks the database directly, even if the model’s answer varies."
+          ]
+        }
+      ]
+    },
+    {
+      "tipo": "codigo",
+      "titulo": "Files and search",
+      "sub": "In nano, save with Ctrl+O, Enter, then exit with Ctrl+X. MEMORY.md is imported only in a new installation, on the first run; later facts are added through the conversation.",
+      "blocos": [
+        {
+          "rot": "Terminal · open the files",
+          "icone": "terminal",
+          "conteudo": "nano ~/.intelecto2/identidade/USER.md\nnano ~/.intelecto2/identidade/SOUL.md"
+        },
+        {
+          "rot": "Terminal · search for the fact",
+          "icone": "terminal",
+          "conteudo": "cd ~/intelecto-v2\npython3 -m intelecto memoria Porto"
+        },
+        {
+          "rot": "Terminal · list the latest memories",
+          "icone": "terminal",
+          "conteudo": "cd ~/intelecto-v2\npython3 -m intelecto memoria"
+        }
+      ],
+      "saida": {
+        "selo": "real",
+        "abas": [
+          {
+            "rot": "Real test with llama3.2 · 13/11/2026",
+            "html": "<p>After “remember that my name is Nei and I live in Porto Alegre,” a new conversation replied: “Your owner’s name is Nei and you live in Porto Alegre.” The search <code>python3 -m intelecto memoria</code> showed <code>#2 … My name is Nei and I live in Porto Alegre</code>. The record number and response may vary in your installation.</p>"
+          }
+        ]
+      }
+    },
+    {
+      "tipo": "pratica",
+      "titulo": "Prove the memory works",
+      "sub": "Follow the steps in order and check each one only after you’ve confirmed the result.",
+      "exercicios": [
+        {
+          "id": "1",
+          "titulo": "Share a fact about yourself",
+          "min": 5,
+          "texto": "In the conversation with Ollama, including llama3.2, say “remember that my city is Porto Alegre” or share another simple fact. Avoid sensitive information. Then run python3 -m intelecto memoria Porto (replace Porto with a word from your fact).",
+          "pronto": "The fact appears in python3 -m intelecto memoria [word]; the assistant’s confirmation alone isn’t enough."
+        },
+        {
+          "id": "2",
+          "titulo": "Look it up in another run",
+          "min": 5,
+          "texto": "End the conversation, open another one, and ask about the fact. Then return to the terminal and search for a word from the fact with memoria.",
+          "pronto": "The line you find contains the fact you shared."
+        }
+      ]
+    },
+    {
+      "tipo": "quiz",
+      "titulo": "Check your understanding",
+      "sub": "Choose before opening the explanation. If you get it wrong, use the link to review.",
+      "perguntas": [
+        {
+          "p": "Where are the behavior rules kept?",
+          "opcoes": [
+            "AGENTS.md",
+            "USER.md",
+            "MEMORY.md"
+          ],
+          "certa": 0,
+          "explica": "AGENTS.md contains the work rules. USER.md describes the owner; MEMORY.md contains initial facts.",
+          "ref": "diagrama"
+        },
+        {
+          "p": "Which command searches for a saved fact?",
+          "opcoes": [
+            "python3 -m intelecto demo",
+            "python3 -m intelecto verificar --help",
+            "python3 -m intelecto memoria Nei"
+          ],
+          "certa": 2,
+          "explica": "memoria with a word searches memory. The demo uses a temporary folder and deletes that state when it ends.",
+          "ref": "codigo"
+        },
+        {
+          "p": "With llama3.2, when does “remember that my city is Porto Alegre” become a memory?",
+          "opcoes": [
+            "Only if the model calls salvar_memoria",
+            "Directly through the assistant, without the tool",
+            "Only when you edit MEMORY.md afterward"
+          ],
+          "certa": 1,
+          "explica": "Since version 2.0.1, an affirmative request is saved directly. llama3.2 still rarely calls the other tools; questions that end with “?” don’t become memories.",
+          "ref": "passos"
+        }
+      ]
+    },
+    {
+      "tipo": "resumo",
+      "titulo": "Takeaways from this lesson",
+      "itens": [
+        {
+          "t": "Editable text",
+          "texto": "SOUL, AGENTS, and USER define the context. MEMORY is included only on the first run; new facts come through the conversation."
+        },
+        {
+          "t": "Direct proof",
+          "texto": "The memoria command checks the database, regardless of the model’s response."
+        }
+      ]
+    },
+    {
+      "tipo": "links",
+      "titulo": "Sources and next steps",
+      "links": [
+        {
+          "t": "Memory in the INTELECTO guide",
+          "href": "https://inematds.github.io/intelecto-v2/guia/"
+        }
+      ]
+    }
+  ]
+}

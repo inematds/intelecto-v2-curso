@@ -1,0 +1,246 @@
+{
+  "slug": "instalar-conversar",
+  "num": 2,
+  "menu": "Install",
+  "titulo": "Install and chat in the terminal",
+  "titulo_curto": "Install",
+  "minutos": 16,
+  "lead": "You already downloaded the project in lesson 1. Now choose a local AI that fits your computer, answer the seven setup questions, and check the installation before chatting.",
+  "objetivo": "Set up INTELECTO with Ollama locally and confirm that verify finishes with “tudo certo” (all good).",
+  "competencias": [
+    "install-chat-understand",
+    "install-chat-practice"
+  ],
+  "aprende": [
+    {
+      "t": "Prepare Python and the local model",
+      "icone": "check"
+    },
+    {
+      "t": "Choose a brain and approval policy",
+      "icone": "check"
+    },
+    {
+      "t": "Check the installation",
+      "icone": "check"
+    }
+  ],
+  "hero_alt": "A hand fits a module representing the local model into the computer; a humanoid assistant waits.",
+  "secoes": [
+    {
+      "tipo": "diagrama",
+      "titulo": "From command to response",
+      "sub": "Four parts are enough for the first conversation.",
+      "nos": [
+        {
+          "titulo": "Python 3.10+",
+          "sub": "runs the package",
+          "icone": "terminal",
+          "detalhe": "Python 3.10+ runs INTELECTO. The vault’s strong protection is optional and requires an extra library."
+        },
+        {
+          "titulo": "Ollama",
+          "sub": "AI on this computer",
+          "icone": "camadas",
+          "detalhe": "Ollama runs a model on your computer. Setup lists the models you’ve already downloaded and suggests one."
+        },
+        {
+          "titulo": "Setup",
+          "sub": "your choice",
+          "icone": "lista",
+          "detalhe": "Sets the name, brain, model, local runner or box, and approval."
+        },
+        {
+          "titulo": "Verify",
+          "sub": "check before use",
+          "icone": "check",
+          "detalhe": "Checks Python, memory, configuration, vault, and the items required by the selected mode."
+        }
+      ],
+      "legenda": "Click each part to see what it does."
+    },
+    {
+      "tipo": "passos",
+      "titulo": "First use, in order",
+      "sub": "Click each step to see what to do.",
+      "passos": [
+        {
+          "titulo": "Go to the project",
+          "sub": "Clone complete",
+          "texto": [
+            "Go to ~/intelecto-v2. If you haven’t downloaded the project yet, clone it as shown in lesson 1."
+          ]
+        },
+        {
+          "titulo": "Install the brain",
+          "sub": "Ollama local",
+          "texto": [
+            "On Linux, install Ollama with the official command below; on macOS, download the app from ollama.com. Then use ollama pull to download your chosen model.",
+            "Live test on 11/13/2026: with llama3.2, “remember that my name is Nei and I live in Porto Alegre” was saved directly by the assistant and recalled in a new conversation. This works even when the small model doesn’t call the memory tool. It still makes little use of other tools, such as files and commands. qwen3.6:35b-a3b called tools in the test, but its local file is much larger."
+          ]
+        },
+        {
+          "titulo": "Choose options",
+          "sub": "configure",
+          "texto": [
+            "The seven answers: name and personality in your own words; brain: ollama; model: one of those listed by configurar; where to run commands: local; approval: perigosos; Telegram IDs: leave blank for now. Press Enter to keep the value in brackets. Telegram is a conversation channel, not a model provider.",
+            "The executor is the program that runs the command; choose local for now and see the Docker box in lesson 6. OpenRouter is a paid cloud service and isn’t part of this exercise.",
+            "The approval policy has three choices: perigosos (dangerous; the default) lets known read actions run and asks about other actions; sempre (always) asks before any command, including ls and cat; nunca (never) lets known read actions run but refuses anything that would require approval. Commands blocked by the safety lock won’t run under any option."
+          ]
+        },
+        {
+          "titulo": "Check and chat",
+          "sub": "verify → chat",
+          "texto": [
+            "verify checks what your current configuration requires. “Everything looks good” doesn’t prove the model will use tools; have a real conversation to check. SQLite with FTS5 means local memory with text search. Fernet is the encryption mode for the vault when the cryptography library is installed. On Ubuntu, if you want Fernet for the vault, install python3-cryptography with the package manager; pip install cryptography may fail with externally-managed-environment on Ubuntu 24.04."
+          ]
+        }
+      ]
+    },
+    {
+      "tipo": "texto",
+      "titulo": "Which model fits your machine?",
+      "sub": "Combined sizes of the files listed in the installed model records on this machine on 11/13/2026; the download size may vary. These are not RAM measurements.",
+      "paragrafos": [
+        "<table style=\"width:100%;border-collapse:collapse;table-layout:fixed;overflow-wrap:anywhere\"><thead><tr><th style=\"text-align:left;padding:8px;border-bottom:1px solid\">Your machine</th><th style=\"text-align:left;padding:8px;border-bottom:1px solid\">Model</th><th style=\"text-align:left;padding:8px;border-bottom:1px solid\">Measured local file</th></tr></thead><tbody><tr><td style=\"padding:8px\">Everyday computer</td><td style=\"padding:8px\"><code>llama3.2</code></td><td style=\"padding:8px\">2.02 GB (2,019,392,628 bytes). Remembers facts when you say “remember that…”; makes little use of other tools.</td></tr><tr><td style=\"padding:8px\">High-end graphics card</td><td style=\"padding:8px\"><code>qwen3.6:35b-a3b</code></td><td style=\"padding:8px\">23.94 GB (23,938,333,115 bytes). Called tools in the live test.</td></tr></tbody></table>",
+        "Start with a model your machine can download and run. The file size doesn’t guarantee it will fit in memory. llama3.2 remembers facts you ask it to remember with “remember that…”, even on an everyday computer; to use other tools, check whether the model actually called them."
+      ]
+    },
+    {
+      "tipo": "codigo",
+      "titulo": "Project commands",
+      "sub": "Copy the commands and run them in the terminal from the specified folder.",
+      "blocos": [
+        {
+          "rot": "Terminal · go to the lesson 1 folder",
+          "icone": "terminal",
+          "conteudo": "cd ~/intelecto-v2"
+        },
+        {
+          "rot": "Ubuntu · Fernet for the vault (optional)",
+          "icone": "terminal",
+          "conteudo": "sudo apt install -y python3-cryptography"
+        },
+        {
+          "rot": "Linux · install Ollama",
+          "icone": "terminal",
+          "conteudo": "curl -fsSL https://ollama.com/install.sh | sh"
+        },
+        {
+          "rot": "Terminal · download the everyday model",
+          "icone": "terminal",
+          "conteudo": "ollama pull llama3.2"
+        },
+        {
+          "rot": "Optional · model for a high-end graphics card",
+          "icone": "terminal",
+          "conteudo": "ollama pull qwen3.6:35b-a3b"
+        },
+        {
+          "rot": "Terminal · configure and check",
+          "icone": "terminal",
+          "conteudo": "python3 -m intelecto configurar\npython3 -m intelecto verificar"
+        },
+        {
+          "rot": "Terminal · chat",
+          "icone": "terminal",
+          "conteudo": "python3 -m intelecto"
+        }
+      ],
+      "saida": {
+        "selo": "real",
+        "abas": [
+          {
+            "rot": "Full verify output · isolated test, 11/13/2026",
+            "html": "<p>The test used the <code>mock</code> provider (simulated brain) and a temporary folder. Only the path was normalized to show where it will be on your computer: <code>~/.intelecto2</code>. This does not verify Ollama.</p><pre>[OK] Python 3.12.3 (precisa 3.10+)\n[OK] SQLite com FTS5 (memória)\n[OK] config em ~/.intelecto2/config.json\n[INFO] cofre: fernet (Fernet)\ntudo certo</pre><p><em>The program prints this in Portuguese, exactly as shown.</em></p>"
+          }
+        ]
+      }
+    },
+    {
+      "tipo": "pratica",
+      "titulo": "Your first conversation",
+      "sub": "Follow the steps in order and check each one only after you’ve confirmed the result.",
+      "exercicios": [
+        {
+          "id": "1",
+          "titulo": "Finish the check",
+          "min": 5,
+          "texto": "Run verify after configuring. If an item is missing, resolve the indicated issue and run it again.",
+          "pronto": "The last line says “everything looks good”."
+        },
+        {
+          "id": "2",
+          "titulo": "Talk to the assistant",
+          "min": 5,
+          "texto": "Open the chat and ask a simple question. The model must be available in Ollama.",
+          "pronto": "The assistant replies in the terminal, and you can exit by typing “sair”."
+        }
+      ]
+    },
+    {
+      "tipo": "quiz",
+      "titulo": "Check your understanding",
+      "sub": "Choose before opening the explanation. If you get it wrong, use the link to review.",
+      "perguntas": [
+        {
+          "p": "What does the verify command check?",
+          "opcoes": [
+            "That every model will respond using tools",
+            "The items required by the current configuration",
+            "That Telegram was tested live"
+          ],
+          "certa": 1,
+          "explica": "It checks the current configuration. It doesn’t replace testing a real conversation or verify Telegram live.",
+          "ref": "passos"
+        },
+        {
+          "p": "Which local provider was tested live with memory, including llama3.2?",
+          "opcoes": [
+            "OpenRouter with a cloud account",
+            "Ollama installed on the computer",
+            "The demo’s mock provider"
+          ],
+          "certa": 1,
+          "explica": "Ollama is the local provider used in the live test. OpenRouter uses the cloud; mock simulates responses and isn’t a real local model.",
+          "ref": "s3"
+        },
+        {
+          "p": "With llama3.2, what happens when you say “remember that my city is Porto Alegre”?",
+          "opcoes": [
+            "The assistant saves the fact directly",
+            "Memory only works with qwen3.6",
+            "Telegram needs to be connected"
+          ],
+          "certa": 0,
+          "explica": "Since v2.0.1, the assistant directly saves requests like “remember that…”. llama3.2 still makes little use of the other tools.",
+          "ref": "s3"
+        }
+      ]
+    },
+    {
+      "tipo": "resumo",
+      "titulo": "Takeaways from this lesson",
+      "itens": [
+        {
+          "t": "A simple start",
+          "texto": "Python 3.10+, setup, verification, and a conversation."
+        },
+        {
+          "t": "The model matters",
+          "texto": "llama3.2 remembers “remember that…” requests, but rarely calls the other tools. For files and commands, check what actually happened."
+        }
+      ]
+    },
+    {
+      "tipo": "links",
+      "titulo": "Sources and next steps",
+      "links": [
+        {
+          "t": "Installation in the INTELECTO guide",
+          "href": "https://inematds.github.io/intelecto-v2/guia/"
+        }
+      ]
+    }
+  ]
+}

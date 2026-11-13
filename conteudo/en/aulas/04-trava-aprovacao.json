@@ -1,0 +1,228 @@
+{
+  "slug": "trava-aprovacao",
+  "num": 4,
+  "menu": "The gate",
+  "titulo": "The gate: run, ask, or refuse",
+  "titulo_curto": "The gate",
+  "minutos": 16,
+  "lead": "A read command doesn’t need the same decision as a command that writes a file. The gate classifies before running; the audit shows what ran and what was refused. The chosen policy changes when the assistant asks: perigosos (dangerous), sempre (always) or nunca (never).",
+  "objetivo": "Identify the three command classes and check one refused request and one approval request in the audit.",
+  "competencias": [
+    "trava-aprovacao-compreender",
+    "trava-aprovacao-praticar"
+  ],
+  "aprende": [
+    {
+      "t": "Read the three classes",
+      "icone": "check"
+    },
+    {
+      "t": "Understand the perigosos (dangerous) policy",
+      "icone": "check"
+    },
+    {
+      "t": "Check the demo’s real decisions",
+      "icone": "check"
+    }
+  ],
+  "hero_alt": "Editorial photography showing the safeguard at work: it runs, asks, or refuses.",
+  "secoes": [
+    {
+      "tipo": "diagrama",
+      "titulo": "Three outcomes for one command",
+      "sub": "Classification happens before execution.",
+      "nos": [
+        {
+          "titulo": "Allowed",
+          "sub": "read-only",
+          "icone": "check",
+          "detalhe": "Commands on the read-only list, such as ls, cat, and pwd, run with the default perigosos policy.",
+          "itens": [
+            {
+              "t": "ls → runs",
+              "icone": "check"
+            }
+          ]
+        },
+        {
+          "titulo": "Approval required",
+          "sub": "needs your decision",
+          "icone": "portao",
+          "detalhe": "Any command outside the read-only list, or one that writes a file, asks for approval. In the demo, the owner doesn’t approve.",
+          "itens": [
+            {
+              "t": "echo teste > nota.txt → asks",
+              "icone": "check"
+            }
+          ]
+        },
+        {
+          "titulo": "Blocked",
+          "sub": "refused even with approval",
+          "icone": "cadeado",
+          "detalhe": "Known destructive patterns, such as rm -rf / and variants, never run.",
+          "itens": [
+            {
+              "t": "rm -rf / → refused",
+              "icone": "check"
+            }
+          ]
+        }
+      ],
+      "legenda": "Classification is not a complete guarantee against every unknown command; the sandbox limits what it can reach when you need to run something new."
+    },
+    {
+      "tipo": "passos",
+      "titulo": "Read the full decision",
+      "sub": "Click each step to see what to do.",
+      "passos": [
+        {
+          "titulo": "Classify",
+          "sub": "before acting",
+          "texto": [
+            "Only what’s on the read-only list runs directly. Everything else asks for approval; this is safer than a short list of forbidden words."
+          ]
+        },
+        {
+          "titulo": "Ask",
+          "sub": "terminal or phone",
+          "texto": [
+            "With the default policy, perigosos (dangerous), read-only commands like ls or cat run unasked; anything that writes asks “rodar …? [s/N]”. Type n or press Enter to refuse; s approves. With the sempre (always) policy, it asks before ANY command, even ls and cat. With nunca (never), read-only commands run, but anything that would need approval is refused without asking. A command blocked by the safeguard never runs under any policy.",
+            "A pipe is when you send ready-made text to the program instead of typing in the terminal. In that case, the approval request is refused because no one can answer the interactive prompt."
+          ]
+        },
+        {
+          "titulo": "Log",
+          "sub": "audit log",
+          "texto": [
+            "The audit prints one JSON line (a record with named fields) per event. In the command line, comando is the request; classe is allowed, approval required, or blocked; rodou is true if it ran; decisao explains why. Tool-type lines record the tool used."
+          ]
+        }
+      ]
+    },
+    {
+      "tipo": "codigo",
+      "titulo": "Commands to observe, with no risk",
+      "sub": "Use the mock brain to make sure the tool is called. In the interactive terminal, answer n or press Enter. With llama3.2, asking for a command may not call the tool.",
+      "blocos": [
+        {
+          "rot": "Terminal · conversation with mock brain and approval",
+          "icone": "terminal",
+          "conteudo": "cd ~/intelecto-v2\npython3 -m intelecto conversar --provedor mock --aprovacao perigosos"
+        },
+        {
+          "rot": "In the conversation · ask it to write a file",
+          "icone": "terminal",
+          "conteudo": "run: echo teste > nota.txt"
+        },
+        {
+          "rot": "Terminal · check the audit log",
+          "icone": "terminal",
+          "conteudo": "cd ~/intelecto-v2\npython3 -m intelecto auditoria -n 20"
+        }
+      ],
+      "saida": {
+        "selo": "real",
+        "abas": [
+          {
+            "rot": "Real interactive prompt · perigosos policy, 11/13/2026",
+            "html": "<pre>  [aprovação] rodar &#x27;echo teste &gt; nota.txt&#x27;? (substituição de comando ou redirecionamento para arquivo) [s/N]</pre><p><code>n</code> or Enter refuses; <code>s</code> approves. The audit records <code>\"classe\": \"aprovar\"</code>, <code>\"rodou\": false</code> and <code>\"decisao\": \"o dono não aprovou\"</code>.</p><p><em>The program prints this in Portuguese, exactly as shown.</em></p>"
+          },
+          {
+            "rot": "Real refusal with nunca policy · 11/13/2026",
+            "html": "<pre>recusado: precisa de aprovação (substituição de comando ou redirecionamento para arquivo) e a política é &#x27;nunca&#x27;</pre><p><em>The program prints this in Portuguese, exactly as shown.</em></p>"
+          },
+          {
+            "rot": "Real audit from the previous test via pipe · 11/13/2026",
+            "html": "<pre>{&quot;ts&quot;: &quot;2026-11-13T03:37:49+00:00&quot;, &quot;tipo&quot;: &quot;comando&quot;, &quot;comando&quot;: &quot;echo x &gt; y.txt&quot;, &quot;classe&quot;: &quot;aprovar&quot;, &quot;rodou&quot;: false, &quot;decisao&quot;: &quot;o dono não aprovou&quot;}</pre><p>This record is from another refused request, sent via pipe. In the interactive run, look for the command <code>echo teste &gt; nota.txt</code>.</p>"
+          }
+        ]
+      }
+    },
+    {
+      "tipo": "pratica",
+      "titulo": "See the safeguard in action",
+      "sub": "Follow the steps in order and check each one only after you’ve confirmed the result.",
+      "exercicios": [
+        {
+          "id": "1",
+          "titulo": "Refuse a file write in the terminal",
+          "min": 6,
+          "texto": "Open the conversation with --provedor mock --aprovacao perigosos. Ask “run: echo teste > nota.txt”. When [s/N] appears, answer n (or press Enter). Run auditoria -n 20 and find that request.",
+          "pronto": "The request’s JSON line contains \"classe\": \"aprovar\", \"rodou\": false, and \"decisao\": \"o dono não aprovou\"; that request did not create nota.txt."
+        },
+        {
+          "id": "2",
+          "titulo": "Compare with the demo",
+          "min": 4,
+          "texto": "Run python3 -m intelecto demo and identify the classes in the final block. The demo uses a temporary folder and is not included in the audit of your installation.",
+          "pronto": "You mark free as ran, approve as didn’t run, and blocked as didn’t run."
+        }
+      ]
+    },
+    {
+      "tipo": "quiz",
+      "titulo": "Check your understanding",
+      "sub": "Choose before opening the explanation. If you get it wrong, use the link to review.",
+      "perguntas": [
+        {
+          "p": "Which demo command runs without asking?",
+          "opcoes": [
+            "echo teste > nota.txt",
+            "ls",
+            "rm -rf /"
+          ],
+          "certa": 1,
+          "explica": "ls is on the read list. Writing requires approval; deleting the root is blocked.",
+          "ref": "diagrama"
+        },
+        {
+          "p": "What does the “nunca” (never) policy do with an action that needs approval?",
+          "opcoes": [
+            "Runs without asking",
+            "Asks once and runs by default",
+            "Refuses anything that would need approval"
+          ],
+          "certa": 2,
+          "explica": "“Never” means nobody approves anything beyond read-only actions: write actions are refused, even with the owner present.",
+          "ref": "passos"
+        },
+        {
+          "p": "What does the audit report?",
+          "opcoes": [
+            "Class, command, and whether it ran",
+            "Only the model’s final answer",
+            "The password used by the vault"
+          ],
+          "certa": 0,
+          "explica": "The command line records the class, decision, and execution. The vault does not publish the password.",
+          "ref": "codigo"
+        }
+      ]
+    },
+    {
+      "tipo": "resumo",
+      "titulo": "Takeaways from this lesson",
+      "itens": [
+        {
+          "t": "Main rule",
+          "texto": "Dangerous is the default: known reads pass; writes ask. Always asks about every command. Never refuses anything that would need approval."
+        },
+        {
+          "t": "Proof",
+          "texto": "The audit shows both the refusal and the execution."
+        }
+      ]
+    },
+    {
+      "tipo": "links",
+      "titulo": "Sources and next steps",
+      "links": [
+        {
+          "t": "Security in the INTELECTO guide",
+          "href": "https://inematds.github.io/intelecto-v2/guia/"
+        }
+      ]
+    }
+  ]
+}

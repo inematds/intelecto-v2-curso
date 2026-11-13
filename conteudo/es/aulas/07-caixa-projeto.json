@@ -1,0 +1,276 @@
+{
+  "slug": "caixa-projeto",
+  "num": 7,
+  "menu": "Caja del proyecto",
+  "titulo": "La caja del agente en tu proyecto",
+  "titulo_curto": "Caja del proyecto",
+  "minutos": 20,
+  "lead": "Necesitas Docker instalado en la clase 6; solo las clases 6 y 7 requieren Docker. Aquí, la caja del agente trabaja en una copia del proyecto. Haz un cambio pequeño sin claves, lee el patch y decide si lo aplicas. También aprenderás cómo dejar que los agentes trabajen en una copia, con un ejemplo opcional que no se ejecuta en este curso.",
+  "objetivo": "Crear y leer un patch sin claves, aplicar el cambio revisado al proyecto y deshacerlo.",
+  "competencias": [
+    "caja-proyecto-comprender",
+    "caja-proyecto-praticar"
+  ],
+  "aprende": [
+    {
+      "t": "Entender cómo crear, ejecutar y destruir",
+      "icone": "check"
+    },
+    {
+      "t": "Revisar el patch y aplicarlo conscientemente",
+      "icone": "check"
+    },
+    {
+      "t": "Leer la nota del auditor sin confundirla con la nota del modelo",
+      "icone": "check"
+    }
+  ],
+  "hero_alt": "Fotografía editorial que representa la caja del agente en tu proyecto.",
+  "secoes": [
+    {
+      "tipo": "diagrama",
+      "titulo": "La maqueta de tu casa",
+      "sub": "El original solo cambia cuando aplicas el patch que leíste o confirmas una nueva ejecución con --aplicar.",
+      "nos": [
+        {
+          "titulo": "1 · Crea",
+          "sub": "una copia sin secretos",
+          "icone": "pasta",
+          "detalhe": "El script copia el proyecto a una carpeta temporal y deja fuera .env, las claves .pem y ~/.ssh. El agente puede ver cualquier otro archivo de la copia."
+        },
+        {
+          "titulo": "2 · Ejecuta",
+          "sub": "sin red de forma predeterminada",
+          "icone": "caixa",
+          "detalhe": "El comando o el agente trabaja en la copia, con límites de memoria, CPU y tiempo. Un agente en la nube necesita --rede y su clave; lo que esté en la copia puede salir por la red."
+        },
+        {
+          "titulo": "3 · Destruye",
+          "sub": "parche y limpieza",
+          "icone": "arquivo",
+          "detalhe": "El kit cuenta los cambios, guarda un .patch (archivo de cambios) y elimina el contenedor y la copia."
+        },
+        {
+          "titulo": "4 · Tú decides",
+          "sub": "aplicar o no",
+          "icone": "usuario",
+          "detalhe": "Para llevarte exactamente lo que leíste, usa patch -p1 en el proyecto. --aplicar vuelve a ejecutar todo, guarda otro parche y pregunta antes de copiar; con un agente, la nueva ejecución puede cambiar el resultado."
+        }
+      ],
+      "legenda": "Haz clic en cada parte para ver qué función cumple."
+    },
+    {
+      "tipo": "passos",
+      "titulo": "Dos herramientas del kit",
+      "sub": "Haz clic en cada etapa para ver qué hacer.",
+      "passos": [
+        {
+          "titulo": "caixa.sh",
+          "sub": "maqueta",
+          "texto": [
+            "El flujo crear → ejecutar → destruir usa una copia: .env, las claves .pem y ~/.ssh quedan fuera. La imagen Docker es el molde de la caja; sin --aplicar, el original queda intacto. Hay límites de memoria, CPU y tiempo.",
+            "Con --rede, la caja obtiene acceso a la red. Con --env ANTHROPIC_API_KEY, solo entra esa clave. El comando opcional con agente usa tu clave y puede enviar el contenido de la copia al servicio del agente; no se ejecutó en este curso. --dangerously-skip-permissions desactiva las preguntas internas del agente en la copia. Revisa el parche antes de aplicarlo.",
+            "En macOS, caixa.sh también necesita el comando timeout: instala coreutils con brew install coreutils, como indica el README del kit."
+          ]
+        },
+        {
+          "titulo": "Parche",
+          "sub": "recibo del trabajo",
+          "texto": [
+            "Un parche es un archivo de texto con los cambios. El .patch queda en la carpeta desde la que ejecutaste caixa.sh o en la carpeta indicada por --patch PASTA. Léelo con less (presiona q para salir) antes de aplicarlo. En patch -p1, -p1 quita la primera parte de la ruta, “antes/” o “trabalho/”, para que coincida con el archivo de tu carpeta. Usa el nombre exacto que muestra la caja.",
+            "Para un archivo nuevo, la línea antes/ en el encabezado del parche puede mostrar 1969; representa que el archivo no existía antes de la ejecución."
+          ]
+        },
+        {
+          "titulo": "auditar.py",
+          "sub": "nota del 0 al 10",
+          "texto": [
+            "El auditor lee Claude Code, Codex y DeepSeek Harness instalados en la computadora, además del proyecto. Harness es el programa que ejecuta los comandos del modelo; el sandbox limita a qué puede acceder. Si no tienes ninguno de esos programas, la nota será baja y es normal; no mide la inteligencia de la IA."
+          ]
+        },
+        {
+          "titulo": "Caso real",
+          "sub": "INTELECTO v2",
+          "texto": [
+            "La primera práctica usa ~/intelecto-v2 y la imagen pública python:3.12-slim; no pide una clave ni un agente en la nube. La segunda ejecuta pruebas en una imagen preparada con pytest, el programa de pruebas de Python. El README del proyecto documenta 67 pruebas aprobadas y 1 omitida en una medición anterior; revisa tu propio resultado."
+          ]
+        }
+      ]
+    },
+    {
+      "tipo": "codigo",
+      "titulo": "Crea, lee y aplica un parche sin clave",
+      "sub": "Docker de la lección 6 ya debería funcionar. Empieza en tu carpeta personal y usa la ruta completa de caixa.sh; el parche queda en ~. Sustituye AAAAMMDD-HHMMSS por el nombre que muestre la caja.",
+      "blocos": [
+        {
+          "rot": "Terminal · descarga el kit una vez",
+          "icone": "terminal",
+          "conteudo": "cd ~ && git clone https://github.com/inematds/caixa-do-agente"
+        },
+        {
+          "rot": "macOS · requisito de caixa.sh",
+          "icone": "terminal",
+          "conteudo": "brew install coreutils"
+        },
+        {
+          "rot": "Ubuntu · comprobar las herramientas de la caja y del parche",
+          "icone": "terminal",
+          "conteudo": "rsync --version\npatch --version\n# si falta alguna:\nsudo apt install -y rsync patch"
+        },
+        {
+          "rot": "Terminal · crear una nota en la copia, sin clave",
+          "icone": "terminal",
+          "conteudo": "cd ~ && ~/caixa-do-agente/caixa.sh ~/intelecto-v2 --imagem python:3.12-slim -- sh -c \"echo teste > nota.txt\""
+        },
+        {
+          "rot": "Terminal · leer el parche (q sale de less)",
+          "icone": "terminal",
+          "conteudo": "less ~/caixa-AAAAMMDD-HHMMSS.patch"
+        },
+        {
+          "rot": "Terminal · aplicar el parche leído",
+          "icone": "terminal",
+          "conteudo": "cd ~/intelecto-v2 && patch -p1 < ~/caixa-AAAAMMDD-HHMMSS.patch\ncat nota.txt"
+        },
+        {
+          "rot": "Terminal · deshacer la nota de prueba",
+          "icone": "terminal",
+          "conteudo": "cd ~/intelecto-v2 && rm nota.txt"
+        },
+        {
+          "rot": "Segunda práctica · pruebas en la imagen del proyecto",
+          "icone": "terminal",
+          "conteudo": "cd ~/intelecto-v2\ndocker build -t intelecto-v2-testes caixa/\ncd ~/caixa-do-agente\n./caixa.sh ~/intelecto-v2 --imagem intelecto-v2-testes -- python3 -m pytest -q -p no:cacheprovider"
+        },
+        {
+          "rot": "Opcional · auditar el proyecto",
+          "icone": "terminal",
+          "conteudo": "cd ~/caixa-do-agente\npython3 auditar.py ~/intelecto-v2"
+        },
+        {
+          "rot": "OPCIONAL · ejemplo de agente en la caja, no ejecutado en este curso",
+          "icone": "terminal",
+          "conteudo": "cd ~/caixa-do-agente\n./caixa.sh ~/meu-projeto --rede --env ANTHROPIC_API_KEY -- npx -y @anthropic-ai/claude-code -p \"rode os testes\" --dangerously-skip-permissions"
+        }
+      ],
+      "saida": {
+        "selo": "real",
+        "abas": [
+          {
+            "rot": "Salida real de la caja y nombre del parche · 13/11/2026",
+            "html": "<pre>▶ 1/3 CRIAR   cópia de ~/intelecto-v2 (sem segredos)\n  0 arquivo(s) de segredo ficaram de fora\n▶ 2/3 CAIXA   python:3.12-slim · rede desligada · 4g · 2 CPU · 1800s\n  saída do comando: 0\n▶ 3/3 DESTRUIR\n  1 arquivo(s) mudaram dentro da caixa\n  patch salvo (o diff de tudo que mudou): ~/caixa-20261113-005926.patch\n  container apagado · cópia apagada</pre><p>Capturada por la sesión principal el 13/11/2026 con el comando de la práctica ejecutado desde ~. El nombre del parche cambia en cada ejecución.</p><p><em>El programa muestra esto en portugués, tal cual.</em></p>"
+          },
+          {
+            "rot": "Contenido y aplicación reales del parche · 13/11/2026",
+            "html": "<pre>diff -ruN -x node_modules -x .venv -x __pycache__ -x &#x27;*.pyc&#x27; -x .npm -x .cache -x .git antes/nota.txt trabalho/nota.txt\n--- antes/nota.txt\t1969-12-31 21:00:00.000000000 -0300\n+++ trabalho/nota.txt\t2026-11-13 00:59:26.721454106 -0300\n@@ -0,0 +1 @@\n+teste\n\npatching file nota.txt\n\nteste</pre><p>El diff de arriba es el parche real completo; debajo, “patching file nota.txt” y “teste” son las salidas reales de aplicar y leer la nota. La fecha de 1969 en el encabezado de <code>antes/nota.txt</code> es normal para un archivo nuevo: antes de la ejecución no existía.</p><p><em>El programa muestra esto en portugués, tal cual.</em></p>"
+          },
+          {
+            "rot": "Pruebas documentadas en el README anterior",
+            "html": "<pre>67 passed, 1 skipped\n0 arquivo(s) mudaram</pre><p>Estas cifras están documentadas en las fuentes; no se capturaron en esta ronda. La cantidad puede cambiar en tu proyecto.</p>"
+          }
+        ]
+      }
+    },
+    {
+      "tipo": "texto",
+      "titulo": "Qué hace el ejemplo opcional con agente",
+      "paragrafos": [
+        "Este ejemplo del README de caixa-do-agente no se ejecutó en este curso. Usa tu clave ANTHROPIC_API_KEY y envía la copia del proyecto por la red al servicio del agente. Esto puede consumir tu suscripción o créditos del servicio.",
+        "<code>./caixa.sh ~/meu-projeto</code> copia ese proyecto; <code>--rede</code> permite el acceso a internet; <code>--env ANTHROPIC_API_KEY</code> pone solo esa clave en la caja. Después de <code>--</code>, <code>npx -y @anthropic-ai/claude-code -p \"rode os testes\"</code> inicia el agente con ese pedido; <code>--dangerously-skip-permissions</code> elimina las preguntas internas en la copia. La caja genera un parche para que lo revises antes de aplicarlo al original."
+      ]
+    },
+    {
+      "tipo": "pratica",
+      "titulo": "Haz la prueba de la maqueta",
+      "sub": "Sigue el orden y marca cada punto solo después de comprobar el resultado.",
+      "exercicios": [
+        {
+          "id": "1",
+          "titulo": "Haz el cambio y vuelve al original",
+          "min": 12,
+          "texto": "En la carpeta personal, ejecuta el comando sin clave de la imagen python:3.12-slim usando ~/caixa-do-agente/caixa.sh. Copia el nombre del parche impreso. Abre ese archivo con less, presiona q para salir; entra en ~/intelecto-v2, aplícalo con patch -p1, comprueba con cat nota.txt y deshazlo con rm nota.txt.",
+          "pronto": "El parche leído contiene +teste; patch imprime “patching file nota.txt”; cat muestra “teste”; después de rm, la nota de prueba no queda en el original."
+        },
+        {
+          "id": "2",
+          "titulo": "Ejecuta las pruebas en otra caja",
+          "min": 8,
+          "texto": "En ~/intelecto-v2, crea la imagen intelecto-v2-testes con docker build. Después, en ~/caixa-do-agente, ejecuta caixa.sh con esa imagen y python3 -m pytest -q -p no:cacheprovider. La batería bash testes/teste.sh del kit es opcional.",
+          "pronto": "pytest muestra el resumen de tus pruebas y la caja informa cuántos archivos cambiaron; compara con la medición documentada, sin exigir las mismas cifras."
+        }
+      ]
+    },
+    {
+      "tipo": "quiz",
+      "titulo": "Comprueba si lo entendiste",
+      "sub": "Elige antes de abrir el comentario. Si te equivocas, usa el enlace para repasar.",
+      "perguntas": [
+        {
+          "p": "¿Qué es la “maqueta” en esta clase?",
+          "opcoes": [
+            "El proyecto original abierto para que la IA lo edite",
+            "La copia temporal sin secretos",
+            "La memoria SQLite del asistente"
+          ],
+          "certa": 1,
+          "explica": "El script crea una copia sin los archivos secretos. El original solo recibe el parche leído con patch -p1 o una nueva ronda confirmada con --aplicar.",
+          "ref": "diagrama"
+        },
+        {
+          "p": "¿Cómo llevar al original exactamente los cambios que leíste?",
+          "opcoes": [
+            "Ejecutar --aplicar sin revisar la nueva ronda",
+            "Usar patch -p1 con el archivo revisado",
+            "Pedir otra respuesta al agente"
+          ],
+          "certa": 1,
+          "explica": "Después de leer el archivo, patch -p1 aplica exactamente ese parche. -p1 elimina “antes/” o “trabalho/” de la ruta; --aplicar inicia una nueva ronda.",
+          "ref": "passos"
+        },
+        {
+          "p": "¿Qué mide la nota del auditor?",
+          "opcoes": [
+            "El entorno de los agentes y el proyecto",
+            "La inteligencia de Ollama",
+            "La calidad de la respuesta de Telegram"
+          ],
+          "certa": 0,
+          "explica": "El auditor examina el entorno de los agentes de programación instalados y el proyecto. Si no tienes Claude Code, Codex o DeepSeek Harness, es normal que la nota sea baja.",
+          "ref": "passos"
+        }
+      ]
+    },
+    {
+      "tipo": "resumo",
+      "titulo": "Lo que te llevas de esta clase",
+      "itens": [
+        {
+          "t": "Crea, ejecuta, destruye",
+          "texto": "La caja trabaja en una copia sin .env ni claves y empieza sin red. Con --rede, el contenido de la copia puede enviarse; los recursos siguen siendo limitados."
+        },
+        {
+          "t": "Tú decides",
+          "texto": "El parche muestra los cambios. patch -p1 aplica el archivo leído; --aplicar inicia otra ronda y pregunta antes de copiar."
+        },
+        {
+          "t": "Nota con contexto",
+          "texto": "La nota depende de los programas de agente instalados en la computadora, no de la inteligencia del modelo."
+        }
+      ]
+    },
+    {
+      "tipo": "links",
+      "titulo": "Fuentes y próximos pasos",
+      "links": [
+        {
+          "t": "Guía de caixa-do-agente",
+          "href": "https://inematds.github.io/caixa-do-agente/guia/"
+        },
+        {
+          "t": "Caso en la guía de INTELECTO",
+          "href": "https://inematds.github.io/intelecto-v2/guia/"
+        }
+      ]
+    }
+  ]
+}
