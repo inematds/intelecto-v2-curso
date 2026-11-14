@@ -125,7 +125,8 @@
       "titulo": "Quién hace qué",
       "paragrafos": [
         "La tienda crea el plan en Markdown. El agente de programación escribe el código de los elementos 🟡 y ➕; tú debes revisar lo que hizo. Esto usa tu suscripción o los créditos del agente. Más seguro: ejecuta el agente en la caja-del-agente y aplica al original solo el parche revisado.",
-        "Para un archivo descargado de la tienda, copia <code>~/Downloads/meu-assistente.md</code> a <code>~/intelecto-v2/</code>. Si usas el ejemplo del repositorio, el bloque de arriba lo copia sin descargarlo."
+        "Para un archivo descargado de la tienda, copia <code>~/Downloads/meu-assistente.md</code> a <code>~/intelecto-v2/</code>. Si usas el ejemplo del repositorio, el bloque de arriba lo copia sin descargarlo.",
+        "Después de la tienda: la versión 2.1 de INTELECTO ya trae seis recursos avanzados listos y probados (web lejos de la memoria, cita verificada, tarea larga, rutinas, cerebro de reserva y deshacer). Mira los seis funcionando con <code>python3 -m intelecto avancado</code>. Todavía no están conectados a la conversación; pide al agente que conecte uno a la vez, con una prueba."
       ]
     },
     {
@@ -210,6 +211,10 @@
         {
           "t": "Abrir la tienda",
           "href": "https://inematds.github.io/intelecto-v2/guia/mercearia/"
+        },
+        {
+          "t": "Recursos avanzados (v2.1)",
+          "href": "https://github.com/inematds/intelecto-v2/blob/main/docs/RECURSOS-AVANCADOS.md"
         },
         {
           "t": "Ejemplo de Jarvis en Markdown",

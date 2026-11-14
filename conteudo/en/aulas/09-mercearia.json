@@ -125,7 +125,8 @@
       "titulo": "Who does what",
       "paragrafos": [
         "The grocery store creates the plan in Markdown. The coding agent writes the code for 🟡 and ➕ items; you need to check its work. This uses your agent subscription or credits. Safer option: run the agent in caixa-do-agente and apply only the reviewed patch to the original.",
-        "For a file downloaded from the grocery store, copy <code>~/Downloads/meu-assistente.md</code> to <code>~/intelecto-v2/</code>. If you use the repository example, the block above copies it without a download."
+        "For a file downloaded from the grocery store, copy <code>~/Downloads/meu-assistente.md</code> to <code>~/intelecto-v2/</code>. If you use the repository example, the block above copies it without a download.",
+        "After the grocery store: INTELECTO version 2.1 already ships six advanced features, ready and tested (web kept away from memory, verified citations, long-running tasks, routines, backup brain and undo). See all six running with <code>python3 -m intelecto avancado</code>. They are not connected to the conversation yet; ask the agent to connect one at a time, with a test."
       ]
     },
     {
@@ -210,6 +211,10 @@
         {
           "t": "Open the shop",
           "href": "https://inematds.github.io/intelecto-v2/guia/mercearia/"
+        },
+        {
+          "t": "Advanced features (v2.1)",
+          "href": "https://github.com/inematds/intelecto-v2/blob/main/docs/RECURSOS-AVANCADOS.md"
         },
         {
           "t": "Jarvis example in Markdown",

@@ -125,7 +125,8 @@
       "titulo": "Quem faz o quê",
       "paragrafos": [
         "A mercearia cria o plano em Markdown. O agente de programação faz o código dos itens 🟡 e ➕; você precisa conferir o que ele fez. Isso usa a sua assinatura ou créditos do agente. Mais seguro: rode o agente na caixa-do-agente e aplique ao original só o patch revisado.",
-        "Para um arquivo baixado da mercearia, copie <code>~/Downloads/meu-assistente.md</code> para <code>~/intelecto-v2/</code>. Se você usar o exemplo do repositório, o bloco acima faz a cópia sem download."
+        "Para um arquivo baixado da mercearia, copie <code>~/Downloads/meu-assistente.md</code> para <code>~/intelecto-v2/</code>. Se você usar o exemplo do repositório, o bloco acima faz a cópia sem download.",
+        "Depois da mercearia: a versão 2.1 do INTELECTO já traz seis recursos avançados prontos e testados (web longe da memória, citação conferida, tarefa longa, rotinas, cérebro reserva e desfazer). Veja os seis rodando com <code>python3 -m intelecto avancado</code>. Eles ainda não estão ligados à conversa; peça ao agente para ligar um por vez, com teste."
       ]
     },
     {
@@ -210,6 +211,10 @@
         {
           "t": "Abrir a mercearia",
           "href": "https://inematds.github.io/intelecto-v2/guia/mercearia/"
+        },
+        {
+          "t": "Recursos avançados (v2.1)",
+          "href": "https://github.com/inematds/intelecto-v2/blob/main/docs/RECURSOS-AVANCADOS.md"
         },
         {
           "t": "Exemplo Jarvis em Markdown",
